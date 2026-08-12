@@ -1,0 +1,37 @@
+import { PageHero } from "@/components/sections/hero";
+import {
+  AdvantagesSection,
+  FaqSection,
+  HowItWorksSection,
+  SeoTextSection,
+} from "@/components/sections/sections";
+import { ContactFormSection } from "@/components/sections/contact";
+import type { ProductPageContent } from "@/content/site";
+
+export function ProductPage({ content }: { content: ProductPageContent }) {
+  return (
+    <>
+      <PageHero
+        eyebrow={content.hero.eyebrow}
+        title={content.hero.title}
+        subtitle={content.hero.subtitle}
+      />
+
+      <section className="py-20">
+        <div className="container-page mx-auto max-w-3xl">
+          <h2 className="text-2xl font-extrabold sm:text-3xl">{content.description.title}</h2>
+          <p className="mt-4 text-muted-foreground">{content.description.body}</p>
+        </div>
+      </section>
+
+      <AdvantagesSection title={content.advantages.title} items={content.advantages.items} />
+      <HowItWorksSection />
+      <FaqSection items={content.faq} />
+      <SeoTextSection title={content.seoText.title} body={content.seoText.body} />
+      <ContactFormSection
+        title="Потрібна консультація?"
+        subtitle="Залиште заявку — розрахуємо вартість і оформимо поліс."
+      />
+    </>
+  );
+}

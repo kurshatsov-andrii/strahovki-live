@@ -12,10 +12,10 @@ export function SectionHead({
   subtitle,
   invert,
 }: {
-  eyebrow?: string;
+  eyebrow?: string | undefined;
   title: string;
-  subtitle?: string;
-  invert?: boolean;
+  subtitle?: string | undefined;
+  invert?: boolean | undefined;
 }) {
   return (
     <div className="mx-auto max-w-2xl text-center">
