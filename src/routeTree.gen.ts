@@ -10,33 +10,102 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as AutostrahuvannyaRouteImport } from './routes/autostrahuvannya'
+import { Route as ContactsRouteImport } from './routes/contacts'
+import { Route as SportyvneStrahuvannyaRouteImport } from './routes/sportyvne-strahuvannya'
+import { Route as TurystychneStrahuvannyaRouteImport } from './routes/turystychne-strahuvannya'
+import { Route as ZelenaKartaRouteImport } from './routes/zelena-karta'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const AutostrahuvannyaRoute = AutostrahuvannyaRouteImport.update({
+  id: '/autostrahuvannya',
+  path: '/autostrahuvannya',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ContactsRoute = ContactsRouteImport.update({
+  id: '/contacts',
+  path: '/contacts',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const SportyvneStrahuvannyaRoute = SportyvneStrahuvannyaRouteImport.update({
+  id: '/sportyvne-strahuvannya',
+  path: '/sportyvne-strahuvannya',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const TurystychneStrahuvannyaRoute = TurystychneStrahuvannyaRouteImport.update({
+  id: '/turystychne-strahuvannya',
+  path: '/turystychne-strahuvannya',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ZelenaKartaRoute = ZelenaKartaRouteImport.update({
+  id: '/zelena-karta',
+  path: '/zelena-karta',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/autostrahuvannya': typeof AutostrahuvannyaRoute
+  '/contacts': typeof ContactsRoute
+  '/sportyvne-strahuvannya': typeof SportyvneStrahuvannyaRoute
+  '/turystychne-strahuvannya': typeof TurystychneStrahuvannyaRoute
+  '/zelena-karta': typeof ZelenaKartaRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/autostrahuvannya': typeof AutostrahuvannyaRoute
+  '/contacts': typeof ContactsRoute
+  '/sportyvne-strahuvannya': typeof SportyvneStrahuvannyaRoute
+  '/turystychne-strahuvannya': typeof TurystychneStrahuvannyaRoute
+  '/zelena-karta': typeof ZelenaKartaRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/autostrahuvannya': typeof AutostrahuvannyaRoute
+  '/contacts': typeof ContactsRoute
+  '/sportyvne-strahuvannya': typeof SportyvneStrahuvannyaRoute
+  '/turystychne-strahuvannya': typeof TurystychneStrahuvannyaRoute
+  '/zelena-karta': typeof ZelenaKartaRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/'
+  fullPaths:
+    | '/'
+    | '/autostrahuvannya'
+    | '/contacts'
+    | '/sportyvne-strahuvannya'
+    | '/turystychne-strahuvannya'
+    | '/zelena-karta'
   fileRoutesByTo: FileRoutesByTo
-  to: '/'
-  id: '__root__' | '/'
+  to:
+    | '/'
+    | '/autostrahuvannya'
+    | '/contacts'
+    | '/sportyvne-strahuvannya'
+    | '/turystychne-strahuvannya'
+    | '/zelena-karta'
+  id:
+    | '__root__'
+    | '/'
+    | '/autostrahuvannya'
+    | '/contacts'
+    | '/sportyvne-strahuvannya'
+    | '/turystychne-strahuvannya'
+    | '/zelena-karta'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  AutostrahuvannyaRoute: typeof AutostrahuvannyaRoute
+  ContactsRoute: typeof ContactsRoute
+  SportyvneStrahuvannyaRoute: typeof SportyvneStrahuvannyaRoute
+  TurystychneStrahuvannyaRoute: typeof TurystychneStrahuvannyaRoute
+  ZelenaKartaRoute: typeof ZelenaKartaRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -48,11 +117,51 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/autostrahuvannya': {
+      id: '/autostrahuvannya'
+      path: '/autostrahuvannya'
+      fullPath: '/autostrahuvannya'
+      preLoaderRoute: typeof AutostrahuvannyaRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/contacts': {
+      id: '/contacts'
+      path: '/contacts'
+      fullPath: '/contacts'
+      preLoaderRoute: typeof ContactsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/sportyvne-strahuvannya': {
+      id: '/sportyvne-strahuvannya'
+      path: '/sportyvne-strahuvannya'
+      fullPath: '/sportyvne-strahuvannya'
+      preLoaderRoute: typeof SportyvneStrahuvannyaRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/turystychne-strahuvannya': {
+      id: '/turystychne-strahuvannya'
+      path: '/turystychne-strahuvannya'
+      fullPath: '/turystychne-strahuvannya'
+      preLoaderRoute: typeof TurystychneStrahuvannyaRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/zelena-karta': {
+      id: '/zelena-karta'
+      path: '/zelena-karta'
+      fullPath: '/zelena-karta'
+      preLoaderRoute: typeof ZelenaKartaRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  AutostrahuvannyaRoute: AutostrahuvannyaRoute,
+  ContactsRoute: ContactsRoute,
+  SportyvneStrahuvannyaRoute: SportyvneStrahuvannyaRoute,
+  TurystychneStrahuvannyaRoute: TurystychneStrahuvannyaRoute,
+  ZelenaKartaRoute: ZelenaKartaRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
