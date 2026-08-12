@@ -60,7 +60,7 @@ export function ServiceCardsSection() {
                 </span>
                 <h3 className="mt-5 text-lg font-bold">{card.title}</h3>
                 <p className="mt-2 text-sm text-muted-foreground">{card.description}</p>
-                <ul className="mt-5 space-y-2 text-sm">
+                <ul className="mt-5 flex-1 space-y-2 text-sm">
                   {card.benefits.map((b) => (
                     <li key={b} className="flex gap-2">
                       <Check className="mt-0.5 size-4 shrink-0 text-accent" />
