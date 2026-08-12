@@ -1,6 +1,7 @@
 import { Link } from "@tanstack/react-router";
 import { Mail, MapPin, Phone, Send } from "lucide-react";
 import { navLinks, site } from "@/content/site";
+import logoAsset from "@/assets/logo-strahovki.jpg.asset.json";
 
 export function SiteFooter() {
   return (
@@ -8,9 +9,13 @@ export function SiteFooter() {
       <div className="container-page grid gap-10 py-14 sm:grid-cols-2 lg:grid-cols-4">
         <div>
           <Link to="/" className="flex items-center gap-2.5 text-lg font-extrabold">
-            <span className="bg-brand-gradient flex size-10 items-center justify-center rounded-xl text-primary-foreground">
-              С
-            </span>
+            <img
+              src={logoAsset.url}
+              alt="Логотип Страховки"
+              width={40}
+              height={40}
+              className="size-10 rounded-xl object-cover"
+            />
             {site.name}
           </Link>
           <p className="mt-4 max-w-xs text-sm text-muted-foreground">
