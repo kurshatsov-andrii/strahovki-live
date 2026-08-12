@@ -19,7 +19,7 @@ export function SiteHeader() {
             height={40}
             className="size-10 rounded-xl object-cover"
           />
-          {site.name}
+          {staticSite.name}
         </Link>
 
         <nav className="hidden items-center gap-1 lg:flex">
@@ -37,14 +37,14 @@ export function SiteHeader() {
 
         <div className="hidden items-center gap-2 lg:flex">
           <a
-            href={`tel:${site.phonePrimary.replace(/[^+\d]/g, "")}`}
+            href={`tel:${settings.phone_primary.replace(/[^+\d]/g, "")}`}
             className="flex items-center gap-1.5 rounded-lg px-2 py-2 text-sm font-semibold hover:bg-secondary"
           >
             <Phone className="size-4 text-primary" />
-            {site.phonePrimary}
+            {settings.phone_primary}
           </a>
           <a
-            href={site.telegramUrl}
+            href={settings.telegram_url}
             target="_blank"
             rel="noreferrer"
             aria-label="Telegram"
@@ -81,10 +81,10 @@ export function SiteHeader() {
               </Link>
             ))}
             <a
-              href={`tel:${site.phonePrimary.replace(/[^+\d]/g, "")}`}
+              href={`tel:${settings.phone_primary.replace(/[^+\d]/g, "")}`}
               className="rounded-lg px-3 py-3 text-sm font-semibold"
             >
-              {site.phonePrimary}
+              {settings.phone_primary}
             </a>
           </nav>
         </div>
