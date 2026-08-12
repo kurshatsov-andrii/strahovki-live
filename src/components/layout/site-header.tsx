@@ -3,6 +3,7 @@ import { Menu, Phone, Send, X } from "lucide-react";
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { navLinks, site } from "@/content/site";
+import logoAsset from "@/assets/logo-strahovki.jpg.asset.json";
 
 export function SiteHeader() {
   const [open, setOpen] = useState(false);
@@ -11,9 +12,13 @@ export function SiteHeader() {
     <header className="sticky top-0 z-50 border-b border-border/60 bg-background/85 backdrop-blur-lg">
       <div className="container-page flex h-20 items-center justify-between gap-4">
         <Link to="/" className="flex items-center gap-2.5 text-lg font-extrabold tracking-tight">
-          <span className="bg-brand-gradient flex size-10 items-center justify-center rounded-xl text-primary-foreground">
-            С
-          </span>
+          <img
+            src={logoAsset.url}
+            alt="Логотип Страховки"
+            width={40}
+            height={40}
+            className="size-10 rounded-xl object-cover"
+          />
           {site.name}
         </Link>
 
