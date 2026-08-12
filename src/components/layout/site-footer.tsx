@@ -83,10 +83,8 @@ export function SiteFooter() {
           <span>
             © {new Date().getFullYear()} {staticSite.name}. Усі права захищені.
           </span>
-          <Link to="/admin" className="hover:text-primary">
-            Адмінпанель
-          </Link>
         </div>
+
       </div>
     </footer>
   );
