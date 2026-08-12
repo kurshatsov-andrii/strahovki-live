@@ -79,8 +79,13 @@ export function SiteFooter() {
       </div>
 
       <div className="border-t border-border/70">
-        <div className="container-page py-6 text-xs text-muted-foreground">
-          © {new Date().getFullYear()} {staticSite.name}. Усі права захищені.
+        <div className="container-page flex flex-wrap items-center justify-between gap-2 py-6 text-xs text-muted-foreground">
+          <span>
+            © {new Date().getFullYear()} {staticSite.name}. Усі права захищені.
+          </span>
+          <Link to="/admin" className="hover:text-primary">
+            Адмінпанель
+          </Link>
         </div>
       </div>
     </footer>
