@@ -17,5 +17,5 @@ export const Route = createFileRoute("/turystychne-strahuvannya")({
       { name: "twitter:card", content: "summary_large_image" },
     ],
   }),
-  component: () => <ProductPage content={products.travel} />,
+  component: () => <ProductPage content={products.travel} product="travel" />,
 });

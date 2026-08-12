@@ -6,9 +6,17 @@ import {
   SeoTextSection,
 } from "@/components/sections/sections";
 import { ContactFormSection } from "@/components/sections/contact";
+import { InsuranceCalculator } from "@/components/calculator/insurance-calculator";
 import type { ProductPageContent } from "@/content/site";
+import type { ProductKey } from "@/lib/insurance";
 
-export function ProductPage({ content }: { content: ProductPageContent }) {
+export function ProductPage({
+  content,
+  product,
+}: {
+  content: ProductPageContent;
+  product: ProductKey;
+}) {
   return (
     <>
       <PageHero
@@ -23,6 +31,8 @@ export function ProductPage({ content }: { content: ProductPageContent }) {
           <p className="mt-4 text-muted-foreground">{content.description.body}</p>
         </div>
       </section>
+
+      <InsuranceCalculator product={product} />
 
       <AdvantagesSection title={content.advantages.title} items={content.advantages.items} />
       <HowItWorksSection />

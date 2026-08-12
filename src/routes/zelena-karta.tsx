@@ -17,5 +17,5 @@ export const Route = createFileRoute("/zelena-karta")({
       { name: "twitter:card", content: "summary_large_image" },
     ],
   }),
-  component: () => <ProductPage content={products.greenCard} />,
+  component: () => <ProductPage content={products.greenCard} product="green_card" />,
 });

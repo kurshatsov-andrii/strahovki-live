@@ -10,15 +10,27 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as AuthenticatedRouteRouteImport } from './routes/_authenticated/route'
+import { Route as AuthRouteImport } from './routes/auth'
 import { Route as AutostrahuvannyaRouteImport } from './routes/autostrahuvannya'
 import { Route as ContactsRouteImport } from './routes/contacts'
 import { Route as SportyvneStrahuvannyaRouteImport } from './routes/sportyvne-strahuvannya'
 import { Route as TurystychneStrahuvannyaRouteImport } from './routes/turystychne-strahuvannya'
 import { Route as ZelenaKartaRouteImport } from './routes/zelena-karta'
+import { Route as AuthenticatedAdminRouteImport } from './routes/_authenticated/admin'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AuthenticatedRouteRoute = AuthenticatedRouteRouteImport.update({
+  id: '/_authenticated',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AuthRoute = AuthRouteImport.update({
+  id: '/auth',
+  path: '/auth',
   getParentRoute: () => rootRouteImport,
 } as any)
 const AutostrahuvannyaRoute = AutostrahuvannyaRouteImport.update({
@@ -46,61 +58,82 @@ const ZelenaKartaRoute = ZelenaKartaRouteImport.update({
   path: '/zelena-karta',
   getParentRoute: () => rootRouteImport,
 } as any)
+const AuthenticatedAdminRoute = AuthenticatedAdminRouteImport.update({
+  id: '/admin',
+  path: '/admin',
+  getParentRoute: () => AuthenticatedRouteRoute,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/auth': typeof AuthRoute
   '/autostrahuvannya': typeof AutostrahuvannyaRoute
   '/contacts': typeof ContactsRoute
   '/sportyvne-strahuvannya': typeof SportyvneStrahuvannyaRoute
   '/turystychne-strahuvannya': typeof TurystychneStrahuvannyaRoute
   '/zelena-karta': typeof ZelenaKartaRoute
+  '/admin': typeof AuthenticatedAdminRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/auth': typeof AuthRoute
   '/autostrahuvannya': typeof AutostrahuvannyaRoute
   '/contacts': typeof ContactsRoute
   '/sportyvne-strahuvannya': typeof SportyvneStrahuvannyaRoute
   '/turystychne-strahuvannya': typeof TurystychneStrahuvannyaRoute
   '/zelena-karta': typeof ZelenaKartaRoute
+  '/admin': typeof AuthenticatedAdminRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/_authenticated': typeof AuthenticatedRouteRouteWithChildren
+  '/auth': typeof AuthRoute
   '/autostrahuvannya': typeof AutostrahuvannyaRoute
   '/contacts': typeof ContactsRoute
   '/sportyvne-strahuvannya': typeof SportyvneStrahuvannyaRoute
   '/turystychne-strahuvannya': typeof TurystychneStrahuvannyaRoute
   '/zelena-karta': typeof ZelenaKartaRoute
+  '/_authenticated/admin': typeof AuthenticatedAdminRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
     | '/'
+    | '/auth'
     | '/autostrahuvannya'
     | '/contacts'
     | '/sportyvne-strahuvannya'
     | '/turystychne-strahuvannya'
     | '/zelena-karta'
+    | '/admin'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
+    | '/auth'
     | '/autostrahuvannya'
     | '/contacts'
     | '/sportyvne-strahuvannya'
     | '/turystychne-strahuvannya'
     | '/zelena-karta'
+    | '/admin'
   id:
     | '__root__'
     | '/'
+    | '/_authenticated'
+    | '/auth'
     | '/autostrahuvannya'
     | '/contacts'
     | '/sportyvne-strahuvannya'
     | '/turystychne-strahuvannya'
     | '/zelena-karta'
+    | '/_authenticated/admin'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  AuthenticatedRouteRoute: typeof AuthenticatedRouteRouteWithChildren
+  AuthRoute: typeof AuthRoute
   AutostrahuvannyaRoute: typeof AutostrahuvannyaRoute
   ContactsRoute: typeof ContactsRoute
   SportyvneStrahuvannyaRoute: typeof SportyvneStrahuvannyaRoute
@@ -115,6 +148,20 @@ declare module '@tanstack/react-router' {
       path: '/'
       fullPath: '/'
       preLoaderRoute: typeof IndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/_authenticated': {
+      id: '/_authenticated'
+      path: ''
+      fullPath: '/'
+      preLoaderRoute: typeof AuthenticatedRouteRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/auth': {
+      id: '/auth'
+      path: '/auth'
+      fullPath: '/auth'
+      preLoaderRoute: typeof AuthRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/autostrahuvannya': {
@@ -152,11 +199,31 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ZelenaKartaRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/_authenticated/admin': {
+      id: '/_authenticated/admin'
+      path: '/admin'
+      fullPath: '/admin'
+      preLoaderRoute: typeof AuthenticatedAdminRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
   }
 }
 
+interface AuthenticatedRouteRouteChildren {
+  AuthenticatedAdminRoute: typeof AuthenticatedAdminRoute
+}
+
+const AuthenticatedRouteRouteChildren: AuthenticatedRouteRouteChildren = {
+  AuthenticatedAdminRoute: AuthenticatedAdminRoute,
+}
+
+const AuthenticatedRouteRouteWithChildren =
+  AuthenticatedRouteRoute._addFileChildren(AuthenticatedRouteRouteChildren)
+
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  AuthenticatedRouteRoute: AuthenticatedRouteRouteWithChildren,
+  AuthRoute: AuthRoute,
   AutostrahuvannyaRoute: AutostrahuvannyaRoute,
   ContactsRoute: ContactsRoute,
   SportyvneStrahuvannyaRoute: SportyvneStrahuvannyaRoute,
