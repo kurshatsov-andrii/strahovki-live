@@ -83,6 +83,14 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       { name: "author", content: "Страховки" },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
+      { title: "Страхування авто |  туризм | спорт онлайн - Сервіс Страховки" },
+      { property: "og:title", content: "Страхування авто |  туризм | спорт онлайн - Сервіс Страховки" },
+      { name: "twitter:title", content: "Страхування авто |  туризм | спорт онлайн - Сервіс Страховки" },
+      { name: "description", content: "Автострахування, - атоцивілка та зелена карта, страхування за кордон та спортивне страхування онлайн в Україні." },
+      { property: "og:description", content: "Автострахування, - атоцивілка та зелена карта, страхування за кордон та спортивне страхування онлайн в Україні." },
+      { name: "twitter:description", content: "Автострахування, - атоцивілка та зелена карта, страхування за кордон та спортивне страхування онлайн в Україні." },
+      { property: "og:image", content: "https://pub-bb2e103a32db4e198524a2e9ed8f35b4.r2.dev/32880bab4f44acd4c53e8e0f0eab6792/id-preview-fd8b47f1--7369b7ec-2c91-4e60-b2e1-8d008945eb01.lovable.app-1786536089778.png" },
+      { name: "twitter:image", content: "https://pub-bb2e103a32db4e198524a2e9ed8f35b4.r2.dev/32880bab4f44acd4c53e8e0f0eab6792/id-preview-fd8b47f1--7369b7ec-2c91-4e60-b2e1-8d008945eb01.lovable.app-1786536089778.png" },
     ],
     links: [
       {
@@ -95,7 +103,6 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
         rel: "stylesheet",
         href: "https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap",
       },
-      { rel: "icon", href: "/favicon.ico", type: "image/x-icon" },
     ],
   }),
   shellComponent: RootShell,
