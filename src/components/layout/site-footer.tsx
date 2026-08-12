@@ -4,6 +4,7 @@ import { navLinks, site } from "@/content/site";
 import logoAsset from "@/assets/logo-strahovki.jpg.asset.json";
 
 export function SiteFooter() {
+  const settings = useSiteSettings();
   return (
     <footer className="mt-auto border-t border-border bg-secondary/50">
       <div className="container-page grid gap-10 py-14 sm:grid-cols-2 lg:grid-cols-4">

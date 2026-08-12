@@ -6,6 +6,7 @@ import { navLinks, site } from "@/content/site";
 import logoAsset from "@/assets/logo-strahovki.jpg.asset.json";
 
 export function SiteHeader() {
+  const settings = useSiteSettings();
   const [open, setOpen] = useState(false);
 
   return (
