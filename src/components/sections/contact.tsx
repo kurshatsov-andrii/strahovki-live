@@ -1,19 +1,24 @@
 import { useState } from "react";
+import { useMutation } from "@tanstack/react-query";
+import { useServerFn } from "@tanstack/react-start";
+import { Loader2 } from "lucide-react";
+import { useSiteSettings } from "@/hooks/use-site-settings";
+import { submitLead } from "@/lib/quotes.functions";
 import { Mail, MapPin, Phone, Send, Clock } from "lucide-react";
 import { toast } from "sonner";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
-import { site } from "@/content/site";
 import { SectionHead } from "@/components/sections/sections";
 
 export function ContactInfoSection() {
+  const site = useSiteSettings();
   const items = [
-    { icon: Phone, label: "Телефони", value: `${site.phonePrimary} · ${site.phoneSecondary}` },
+    { icon: Phone, label: "Телефони", value: `${site.phone_primary} · ${site.phone_secondary}` },
     { icon: Mail, label: "Email", value: site.email },
     { icon: MapPin, label: "Адреса", value: site.address },
-    { icon: Clock, label: "Режим роботи", value: site.workingHours },
+    { icon: Clock, label: "Режим роботи", value: site.working_hours },
   ];
 
   return (
@@ -41,6 +46,19 @@ export function ContactFormSection({
   subtitle: string;
 }) {
   const [sent, setSent] = useState(false);
+  const site = useSiteSettings();
+  const submitFn = useServerFn(submitLead);
+  const mutation = useMutation({
+    mutationFn: (values: { name: string; phone: string; message: string }) =>
+      submitFn({ data: { name: values.name, phone: values.phone, message: values.message } }),
+    onSuccess: () => {
+      setSent(true);
+      toast.success("Заявку надіслано", {
+        description: "Ми зв'яжемось з вами протягом кількох хвилин.",
+      });
+    },
+    onError: () => toast.error("Не вдалося надіслати заявку. Спробуйте ще раз."),
+  });
 
   return (
     <section className="bg-secondary/50 py-20">
@@ -51,11 +69,14 @@ export function ContactFormSection({
             className="rounded-2xl border border-border bg-card p-6 shadow-soft"
             onSubmit={(e) => {
               e.preventDefault();
-              setSent(true);
-              toast.success("Заявку надіслано", {
-                description: "Ми зв'яжемось з вами протягом кількох хвилин.",
+              const form = e.currentTarget;
+              const data = new FormData(form);
+              mutation.mutate({
+                name: String(data.get("name") ?? ""),
+                phone: String(data.get("phone") ?? ""),
+                message: String(data.get("message") ?? ""),
               });
-              (e.target as HTMLFormElement).reset();
+              form.reset();
             }}
           >
             <div className="grid gap-4 sm:grid-cols-2">
@@ -72,7 +93,8 @@ export function ContactFormSection({
               <Label htmlFor="message">Повідомлення</Label>
               <Textarea id="message" name="message" rows={4} placeholder="Який продукт вас цікавить?" />
             </div>
-            <Button type="submit" className="mt-6 w-full">
+            <Button type="submit" className="mt-6 w-full" disabled={mutation.isPending}>
+              {mutation.isPending && <Loader2 className="mr-2 size-4 animate-spin" />}
               Залишити заявку
             </Button>
             {sent && (
@@ -84,7 +106,7 @@ export function ContactFormSection({
 
           <div className="flex flex-col gap-3">
             <a
-              href={site.telegramUrl}
+              href={site.telegram_url}
               target="_blank"
               rel="noreferrer"
               className="flex items-center gap-3 rounded-2xl border border-border bg-card p-5 shadow-soft hover:border-primary"
@@ -93,11 +115,11 @@ export function ContactFormSection({
               <span className="font-semibold">Написати в Telegram</span>
             </a>
             <a
-              href={`tel:${site.phonePrimary.replace(/[^+\d]/g, "")}`}
+              href={`tel:${site.phone_primary.replace(/[^+\d]/g, "")}`}
               className="flex items-center gap-3 rounded-2xl border border-border bg-card p-5 shadow-soft hover:border-primary"
             >
               <Phone className="size-5 text-primary" />
-              <span className="font-semibold">{site.phonePrimary}</span>
+              <span className="font-semibold">{site.phone_primary}</span>
             </a>
             <a
               href={`mailto:${site.email}`}
