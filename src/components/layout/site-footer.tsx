@@ -1,6 +1,7 @@
 import { Link } from "@tanstack/react-router";
 import { Mail, MapPin, Phone, Send } from "lucide-react";
-import { navLinks, site } from "@/content/site";
+import { navLinks, site as staticSite } from "@/content/site";
+import { useSiteSettings } from "@/hooks/use-site-settings";
 import logoAsset from "@/assets/logo-strahovki.jpg.asset.json";
 
 export function SiteFooter() {
