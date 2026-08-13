@@ -12,29 +12,11 @@ import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { SectionHead } from "@/components/sections/sections";
 
-export function ContactInfoSection() {
-  const site = useSiteSettings();
-  const items = [
-    { icon: Phone, label: "Телефони", value: `${site.phone_primary} · ${site.phone_secondary}` },
-    { icon: Mail, label: "Email", value: site.email },
-    { icon: MapPin, label: "Адреса", value: site.address },
-    { icon: Clock, label: "Режим роботи", value: site.working_hours },
-  ];
-
+function ViberIcon({ className }: { className?: string }) {
   return (
-    <section className="py-20">
-      <div className="container-page grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
-        {items.map((item) => (
-          <div key={item.label} className="rounded-2xl border border-border bg-card p-6 shadow-soft">
-            <item.icon className="size-5 text-primary" />
-            <div className="mt-4 text-xs font-semibold uppercase tracking-wide text-muted-foreground">
-              {item.label}
-            </div>
-            <div className="mt-1 font-semibold">{item.value}</div>
-          </div>
-        ))}
-      </div>
-    </section>
+    <svg className={className} viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+      <path d="M12.02 1.5C6.2 1.5 1.5 5.74 1.5 11.03c0 1.85.56 3.63 1.6 5.16L1.5 22.5l6.6-1.52a9.62 9.62 0 0 0 3.92.83c5.82 0 10.52-4.24 10.52-9.53S17.84 1.5 12.02 1.5Zm5.7 6.93c.06 1.4-.36 2.7-1.18 3.78a6.12 6.12 0 0 1-3.1 2.16c-1.06.36-2.18.5-3.3.4-.24-.02-.47.1-.57.32l-.57 1.36a.44.44 0 0 1-.42.27.44.44 0 0 1-.26-.09l-1.68-1.2a.5.5 0 0 1-.2-.5l.28-1.18c.06-.24-.04-.5-.26-.62a5.32 5.32 0 0 1-2.2-2.12 5.53 5.53 0 0 1-.7-3.16c.16-1.6.9-3 2.12-4 1.3-1.08 2.94-1.58 4.64-1.42 2.04.18 3.84 1.08 5.08 2.54.9 1.06 1.4 2.38 1.46 3.78v.15Zm-2.02.06c-.04-.98-.36-1.86-.96-2.56a4.78 4.78 0 0 0-3.54-1.76c-1.24-.1-2.42.24-3.34.96a4.16 4.16 0 0 0-1.52 2.78 4.45 4.45 0 0 0 .52 2.48 4.05 4.05 0 0 0 1.6 1.56c.22.12.32.38.24.62l-.18.76 1.06.76.42-1c.1-.22.32-.36.56-.34 1.24.1 2.42-.2 3.36-.86a4.22 4.22 0 0 0 1.74-2.6Zm-2.14 2.58c-.08.1-.2.14-.32.1-.12-.04-.2-.16-.2-.28 0-.08.02-.14.08-.2.16-.18.3-.38.42-.6.04-.08.12-.14.22-.16.1-.02.2.02.26.1.08.1.08.24 0 .34-.14.26-.32.5-.5.7h.04Zm1.14-1.2c-.1.12-.26.18-.42.14-.14-.04-.24-.18-.24-.34 0-.08.04-.16.1-.22.24-.28.46-.58.62-.9.06-.1.16-.16.28-.18.1 0 .22.04.28.14.1.12.1.3 0 .42-.2.36-.42.7-.68 1h.06Zm-3.18 1.46c-.1.12-.26.18-.42.14-.14-.04-.24-.18-.24-.34 0-.08.04-.16.1-.22.24-.28.46-.58.62-.9.06-.1.16-.16.28-.18.1 0 .22.04.28.14.1.12.1.3 0 .42-.2.36-.42.7-.68 1h.06Zm1.02-1.22c-.1.12-.26.18-.42.14-.14-.04-.24-.18-.24-.34 0-.08.04-.16.1-.22.24-.28.46-.58.62-.9.06-.1.16-.16.28-.18.1 0 .22.04.28.14.1.12.1.3 0 .42-.2.36-.42.7-.68 1h.06Z" />
+    </svg>
   );
 }
 
