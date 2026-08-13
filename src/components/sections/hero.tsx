@@ -43,7 +43,7 @@ export function HomeHero({
               <Link to={secondary.to}>{secondary.label}</Link>
             </Button>
           </div>
-          <div className="mt-8 flex flex-col gap-2">
+          <div className="mt-8 flex flex-wrap items-center gap-x-6 gap-y-2">
             <a
               href={`tel:${site.phonePrimary.replace(/[^+\d]/g, "")}`}
               className="inline-flex items-center gap-2 text-sm font-semibold text-navy-foreground/80 hover:text-navy-foreground"
