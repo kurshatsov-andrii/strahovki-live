@@ -97,7 +97,7 @@ export const submitLead = createServerFn({ method: "POST" })
     await notifyNewLead({
       name: data.name,
       phone: data.phone,
-      email: data.email,
+      email: data.email ?? null,
       product: data.product ?? null,
       company: data.company ?? null,
       price: data.price ?? null,
