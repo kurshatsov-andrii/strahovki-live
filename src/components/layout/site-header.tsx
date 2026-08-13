@@ -55,7 +55,7 @@ export function SiteHeader() {
             <Send className="size-4" />
           </a>
           <Button asChild>
-            <Link to="/autostrahuvannya">Оформити страховку</Link>
+            <a href="/#products">Оформити страховку</a>
           </Button>
         </div>
 
