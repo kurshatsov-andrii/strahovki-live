@@ -1,7 +1,7 @@
 import { BadgeCheck, Mail, MessageCircle, Phone, Send, ShieldCheck } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { site } from "@/content/site";
-import photoAsset from "@/assets/andrii-kurshatsov.jpg.asset.json";
+import photoAsset from "@/assets/andres-strahovki.jpg.asset.json";
 
 const steps = [
   {
