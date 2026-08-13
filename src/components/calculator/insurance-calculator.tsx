@@ -76,6 +76,9 @@ export function InsuranceCalculator({ product }: { product: ProductKey }) {
           <p className="mt-3 text-muted-foreground">
             Оберіть параметри — покажемо актуальні тарифи страхових компаній.
           </p>
+          <p className="mt-2 text-sm font-semibold text-primary">
+            Актуальні ціни на {today || "сьогодні"}
+          </p>
         </div>
 
         <div className="mx-auto mt-12 grid max-w-5xl gap-6 lg:grid-cols-[1fr_1fr]">
