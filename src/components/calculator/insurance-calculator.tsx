@@ -54,17 +54,6 @@ export function InsuranceCalculator({ product }: { product: ProductKey }) {
 
   const days = useMemo(() => Number(params["days"] ?? 1) || 1, [params]);
 
-  const [today, setToday] = useState("");
-  useEffect(() => {
-    setToday(
-      new Intl.DateTimeFormat("uk-UA", {
-        day: "2-digit",
-        month: "long",
-        year: "numeric",
-      }).format(new Date()),
-    );
-  }, []);
-
   return (
     <section id="calculator" className="bg-secondary/50 py-20">
       <div className="container-page">
@@ -75,9 +64,6 @@ export function InsuranceCalculator({ product }: { product: ProductKey }) {
           <h2 className="mt-4 text-3xl font-extrabold sm:text-4xl">{config.title}</h2>
           <p className="mt-3 text-muted-foreground">
             Оберіть параметри — покажемо актуальні тарифи страхових компаній.
-          </p>
-          <p className="mt-2 text-sm font-semibold text-primary">
-            Актуальні ціни на {today || "сьогодні"}
           </p>
         </div>
 
