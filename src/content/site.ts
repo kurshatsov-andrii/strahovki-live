@@ -3,14 +3,14 @@ export const site = {
   phonePrimary: "+38 (097) 252-05-51",
   phoneSecondary: "+38 (066) 468-81-51",
   email: "info@strahovki.example",
-  telegramUrl: "https://t.me/strahovki_support",
+  telegramUrl: "https://t.me/Andres_K",
   viberUrl: "viber://add?number=380664688151",
   address: "м. Харків, Україна",
   workingHours: "Щодня 08:00–21:00",
   socials: {
     facebook: "https://www.facebook.com/",
     instagram: "https://www.instagram.com/",
-    telegram: "https://t.me/strahovki_support",
+    telegram: "https://t.me/Andres_K",
   },
 } as const;
 
