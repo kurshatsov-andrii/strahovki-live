@@ -10,7 +10,7 @@ export const site = {
   socials: {
     facebook: "https://www.facebook.com/",
     instagram: "https://www.instagram.com/",
-    telegram: "https://t.me/strahovki_support",
+    telegram: "https://t.me/Andres_K",
   },
 } as const;
 
