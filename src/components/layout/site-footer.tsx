@@ -79,13 +79,22 @@ export function SiteFooter() {
       </div>
 
       <div className="border-t border-border/70">
-        <div className="container-page flex flex-wrap items-center justify-between gap-2 py-6 text-xs text-muted-foreground">
+        <div className="container-page flex flex-col items-center gap-3 py-6 text-xs text-muted-foreground sm:flex-row sm:justify-between">
           <span>
             © {new Date().getFullYear()} {staticSite.name}. Усі права захищені.
           </span>
+          <span className="font-medium text-foreground">ФОП Куршацов А.І.</span>
+          <div className="flex flex-wrap items-center justify-center gap-4">
+            <Link to="/privacy" className="hover:text-foreground">
+              Політика конфіденційності
+            </Link>
+            <Link to="/offer" className="hover:text-foreground">
+              Договір оферти
+            </Link>
+          </div>
         </div>
-
       </div>
+
     </footer>
   );
 }

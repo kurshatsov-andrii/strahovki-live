@@ -14,6 +14,7 @@ import { Route as AuthenticatedRouteRouteImport } from './routes/_authenticated/
 import { Route as AuthRouteImport } from './routes/auth'
 import { Route as AutostrahuvannyaRouteImport } from './routes/autostrahuvannya'
 import { Route as ContactsRouteImport } from './routes/contacts'
+import { Route as OfferRouteImport } from './routes/offer'
 import { Route as PrivacyRouteImport } from './routes/privacy'
 import { Route as SportyvneStrahuvannyaRouteImport } from './routes/sportyvne-strahuvannya'
 import { Route as TurystychneStrahuvannyaRouteImport } from './routes/turystychne-strahuvannya'
@@ -42,6 +43,11 @@ const AutostrahuvannyaRoute = AutostrahuvannyaRouteImport.update({
 const ContactsRoute = ContactsRouteImport.update({
   id: '/contacts',
   path: '/contacts',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const OfferRoute = OfferRouteImport.update({
+  id: '/offer',
+  path: '/offer',
   getParentRoute: () => rootRouteImport,
 } as any)
 const PrivacyRoute = PrivacyRouteImport.update({
@@ -75,6 +81,7 @@ export interface FileRoutesByFullPath {
   '/auth': typeof AuthRoute
   '/autostrahuvannya': typeof AutostrahuvannyaRoute
   '/contacts': typeof ContactsRoute
+  '/offer': typeof OfferRoute
   '/privacy': typeof PrivacyRoute
   '/sportyvne-strahuvannya': typeof SportyvneStrahuvannyaRoute
   '/turystychne-strahuvannya': typeof TurystychneStrahuvannyaRoute
@@ -86,6 +93,7 @@ export interface FileRoutesByTo {
   '/auth': typeof AuthRoute
   '/autostrahuvannya': typeof AutostrahuvannyaRoute
   '/contacts': typeof ContactsRoute
+  '/offer': typeof OfferRoute
   '/privacy': typeof PrivacyRoute
   '/sportyvne-strahuvannya': typeof SportyvneStrahuvannyaRoute
   '/turystychne-strahuvannya': typeof TurystychneStrahuvannyaRoute
@@ -99,6 +107,7 @@ export interface FileRoutesById {
   '/auth': typeof AuthRoute
   '/autostrahuvannya': typeof AutostrahuvannyaRoute
   '/contacts': typeof ContactsRoute
+  '/offer': typeof OfferRoute
   '/privacy': typeof PrivacyRoute
   '/sportyvne-strahuvannya': typeof SportyvneStrahuvannyaRoute
   '/turystychne-strahuvannya': typeof TurystychneStrahuvannyaRoute
@@ -112,6 +121,7 @@ export interface FileRouteTypes {
     | '/auth'
     | '/autostrahuvannya'
     | '/contacts'
+    | '/offer'
     | '/privacy'
     | '/sportyvne-strahuvannya'
     | '/turystychne-strahuvannya'
@@ -123,6 +133,7 @@ export interface FileRouteTypes {
     | '/auth'
     | '/autostrahuvannya'
     | '/contacts'
+    | '/offer'
     | '/privacy'
     | '/sportyvne-strahuvannya'
     | '/turystychne-strahuvannya'
@@ -135,6 +146,7 @@ export interface FileRouteTypes {
     | '/auth'
     | '/autostrahuvannya'
     | '/contacts'
+    | '/offer'
     | '/privacy'
     | '/sportyvne-strahuvannya'
     | '/turystychne-strahuvannya'
@@ -148,6 +160,7 @@ export interface RootRouteChildren {
   AuthRoute: typeof AuthRoute
   AutostrahuvannyaRoute: typeof AutostrahuvannyaRoute
   ContactsRoute: typeof ContactsRoute
+  OfferRoute: typeof OfferRoute
   PrivacyRoute: typeof PrivacyRoute
   SportyvneStrahuvannyaRoute: typeof SportyvneStrahuvannyaRoute
   TurystychneStrahuvannyaRoute: typeof TurystychneStrahuvannyaRoute
@@ -189,6 +202,13 @@ declare module '@tanstack/react-router' {
       path: '/contacts'
       fullPath: '/contacts'
       preLoaderRoute: typeof ContactsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/offer': {
+      id: '/offer'
+      path: '/offer'
+      fullPath: '/offer'
+      preLoaderRoute: typeof OfferRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/privacy': {
@@ -246,6 +266,7 @@ const rootRouteChildren: RootRouteChildren = {
   AuthRoute: AuthRoute,
   AutostrahuvannyaRoute: AutostrahuvannyaRoute,
   ContactsRoute: ContactsRoute,
+  OfferRoute: OfferRoute,
   PrivacyRoute: PrivacyRoute,
   SportyvneStrahuvannyaRoute: SportyvneStrahuvannyaRoute,
   TurystychneStrahuvannyaRoute: TurystychneStrahuvannyaRoute,
