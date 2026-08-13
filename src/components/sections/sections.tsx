@@ -40,7 +40,7 @@ export function SectionHead({
 
 export function ServiceCardsSection() {
   return (
-    <section className="py-20">
+    <section id="products" className="py-20">
       <div className="container-page">
         <SectionHead
           eyebrow="Наші продукти"
@@ -51,8 +51,9 @@ export function ServiceCardsSection() {
           {home.serviceCards.map((card) => {
             const Icon = getIcon(card.icon);
             return (
-              <article
+              <Link
                 key={card.to}
+                to={card.to}
                 className="group flex flex-col rounded-2xl border border-border bg-card p-6 shadow-soft transition-all hover:-translate-y-1 hover:shadow-lift"
               >
                 <span className="bg-brand-gradient flex size-12 items-center justify-center rounded-xl text-primary-foreground">
@@ -68,10 +69,10 @@ export function ServiceCardsSection() {
                     </li>
                   ))}
                 </ul>
-                <Button asChild variant="secondary" className="mt-6 w-full">
-                  <Link to={card.to}>Детальніше</Link>
-                </Button>
-              </article>
+                <span className="mt-6 inline-flex h-10 w-full items-center justify-center rounded-md bg-secondary px-4 py-2 text-sm font-semibold text-secondary-foreground transition-colors group-hover:bg-secondary/80">
+                  Детальніше
+                </span>
+              </Link>
             );
           })}
         </div>
@@ -203,11 +204,11 @@ export function PartnersSection() {
         <p className="text-center text-sm font-medium text-muted-foreground">
           {home.partners.title}
         </p>
-        <div className="mt-8 grid grid-cols-2 gap-4 md:grid-cols-4">
+        <div className="mt-8 flex flex-wrap justify-center gap-4">
           {home.partners.items.map((name) => (
             <div
               key={name}
-              className="flex h-16 items-center justify-center rounded-xl bg-card text-sm font-bold text-muted-foreground shadow-soft"
+              className="flex h-16 w-full items-center justify-center rounded-xl bg-card text-sm font-bold text-muted-foreground shadow-soft sm:w-64"
             >
               {name}
             </div>

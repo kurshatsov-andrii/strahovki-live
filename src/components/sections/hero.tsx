@@ -17,6 +17,8 @@ export function HomeHero({
   primary: { label: string; to: string };
   secondary: { label: string; to: string };
 }) {
+  const primaryIsHash = primary.to.startsWith("#");
+
   return (
     <section className="bg-navy-gradient relative overflow-hidden">
       <div className="container-page grid items-center gap-12 py-20 lg:grid-cols-2 lg:py-28">
@@ -31,19 +33,32 @@ export function HomeHero({
           <p className="mt-5 max-w-xl text-base text-navy-foreground/75 sm:text-lg">{subtitle}</p>
           <div className="mt-9 flex flex-wrap gap-3">
             <Button asChild size="lg">
-              <Link to={primary.to}>{primary.label}</Link>
+              {primaryIsHash ? (
+                <a href={primary.to}>{primary.label}</a>
+              ) : (
+                <Link to={primary.to}>{primary.label}</Link>
+              )}
             </Button>
             <Button asChild size="lg" variant="outline" className="border-navy-foreground/25 bg-transparent text-navy-foreground hover:bg-navy-foreground/10 hover:text-navy-foreground">
               <Link to={secondary.to}>{secondary.label}</Link>
             </Button>
           </div>
-          <a
-            href={`tel:${site.phonePrimary.replace(/[^+\d]/g, "")}`}
-            className="mt-8 inline-flex items-center gap-2 text-sm font-semibold text-navy-foreground/80 hover:text-navy-foreground"
-          >
-            <Phone className="size-4 text-accent" />
-            {site.phonePrimary}
-          </a>
+          <div className="mt-8 flex flex-col gap-2">
+            <a
+              href={`tel:${site.phonePrimary.replace(/[^+\d]/g, "")}`}
+              className="inline-flex items-center gap-2 text-sm font-semibold text-navy-foreground/80 hover:text-navy-foreground"
+            >
+              <Phone className="size-4 text-accent" />
+              {site.phonePrimary}
+            </a>
+            <a
+              href={`tel:${site.phoneSecondary.replace(/[^+\d]/g, "")}`}
+              className="inline-flex items-center gap-2 text-sm font-semibold text-navy-foreground/80 hover:text-navy-foreground"
+            >
+              <Phone className="size-4 text-accent" />
+              {site.phoneSecondary}
+            </a>
+          </div>
         </div>
 
         <div className="relative">
