@@ -2,7 +2,8 @@ import { Link } from "@tanstack/react-router";
 import { Phone, ShieldCheck } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { site } from "@/content/site";
-import heroImage from "@/assets/hero-drive.jpg";
+import heroAsset from "@/assets/na-auto.jpg.asset.json";
+const heroImage = heroAsset.url;
 
 export function HomeHero({
   eyebrow,
