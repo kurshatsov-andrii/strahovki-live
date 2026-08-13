@@ -92,6 +92,19 @@ export const submitLead = createServerFn({ method: "POST" })
       message: data.message ?? null,
     });
     if (error) throw new Error(error.message);
+
+    const { notifyNewLead } = await import("@/lib/telegram.server");
+    await notifyNewLead({
+      name: data.name,
+      phone: data.phone,
+      email: data.email,
+      product: data.product ?? null,
+      company: data.company ?? null,
+      price: data.price ?? null,
+      message: data.message ?? null,
+      params: data.params,
+    });
+
     return { ok: true };
   });
 
