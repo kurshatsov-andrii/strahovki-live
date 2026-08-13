@@ -1,0 +1,1 @@
+UPDATE public.tariffs SET note = NULL WHERE product = 'green_card' AND company = 'USG';
