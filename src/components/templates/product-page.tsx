@@ -7,6 +7,7 @@ import {
 } from "@/components/sections/sections";
 import { ContactFormSection } from "@/components/sections/contact";
 import { InsuranceCalculator } from "@/components/calculator/insurance-calculator";
+import { ConsultantSection } from "@/components/sections/consultant";
 import type { ProductPageContent } from "@/content/site";
 import type { ProductKey } from "@/lib/insurance";
 
@@ -33,6 +34,8 @@ export function ProductPage({
       </section>
 
       <InsuranceCalculator product={product} />
+
+      <ConsultantSection variant="compact" />
 
       <AdvantagesSection title={content.advantages.title} items={content.advantages.items} />
       <HowItWorksSection />

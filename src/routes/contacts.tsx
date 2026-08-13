@@ -1,6 +1,7 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { PageHero } from "@/components/sections/hero";
 import { ContactFormSection } from "@/components/sections/contact";
+import { ConsultantSection } from "@/components/sections/consultant";
 
 const title = "Контакти — Страховки";
 const description =
@@ -28,6 +29,7 @@ function ContactsPage() {
         title="Контакти"
         subtitle="Телефонуйте, пишіть у месенджер або залиште заявку — відповімо протягом кількох хвилин у робочий час."
       />
+      <ConsultantSection variant="compact" />
       <ContactFormSection
         title="Зв'яжіться з нами"
         subtitle="Оберіть зручний канал зв'язку або заповніть форму нижче."
