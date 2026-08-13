@@ -217,9 +217,14 @@ export function computePrice(
   days: number,
 ): number {
   let price = basePrice;
+  const effective: Record<string, string> = { ...params };
+  if (params["zone"] && params["term"]) {
+    effective["zone_term"] = `${params["zone"]}_${params["term"]}`;
+  }
   for (const [group, values] of Object.entries(coefficients ?? {})) {
-    const selected = params[group];
+    const selected = effective[group];
     if (!selected) continue;
+
     const factor = values?.[selected];
     if (typeof factor === "number" && Number.isFinite(factor)) price *= factor;
   }
