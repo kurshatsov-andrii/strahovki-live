@@ -97,6 +97,15 @@ export function ContactFormSection({
               <span className="font-semibold">Написати в Telegram</span>
             </a>
             <a
+              href={site.viber_url}
+              target="_blank"
+              rel="noreferrer"
+              className="flex items-center gap-3 rounded-2xl border border-border bg-card p-5 shadow-soft hover:border-primary"
+            >
+              <ViberIcon className="size-5 text-primary" />
+              <span className="font-semibold">Viber +380664688151</span>
+            </a>
+            <a
               href={`tel:${site.phone_primary.replace(/[^+\d]/g, "")}`}
               className="flex items-center gap-3 rounded-2xl border border-border bg-card p-5 shadow-soft hover:border-primary"
             >
@@ -110,6 +119,14 @@ export function ContactFormSection({
               <Mail className="size-5 text-primary" />
               <span className="font-semibold">{site.email}</span>
             </a>
+            <div className="flex items-center gap-3 rounded-2xl border border-border bg-card p-5 shadow-soft">
+              <MapPin className="size-5 text-primary" />
+              <span className="font-semibold">{site.address}</span>
+            </div>
+            <div className="flex items-center gap-3 rounded-2xl border border-border bg-card p-5 shadow-soft">
+              <Clock className="size-5 text-primary" />
+              <span className="font-semibold">{site.working_hours}</span>
+            </div>
           </div>
         </div>
       </div>
