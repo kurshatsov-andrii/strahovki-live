@@ -83,29 +83,23 @@ export const productConfigs: Record<ProductKey, ProductConfig> = {
         ],
       },
       {
-        key: "vehicle",
-        label: "Тип транспортного засобу",
-        options: [
-          { value: "car", label: "Легковий автомобіль" },
-          { value: "moto", label: "Мотоцикл" },
-          { value: "truck", label: "Вантажний" },
-          { value: "bus", label: "Автобус" },
-          { value: "trailer", label: "Причіп" },
-        ],
-      },
-      {
         key: "term",
         label: "Строк дії",
         options: [
           { value: "15", label: "15 днів" },
+          { value: "21", label: "21 день" },
           { value: "30", label: "1 місяць" },
+          { value: "60", label: "2 місяці" },
           { value: "90", label: "3 місяці" },
+          { value: "120", label: "4 місяці" },
+          { value: "150", label: "5 місяців" },
           { value: "180", label: "6 місяців" },
-          { value: "365", label: "12 місяців" },
+          { value: "365", label: "1 рік" },
         ],
       },
     ],
   },
+
   travel: {
     title: "Калькулятор туристичної страховки",
     usesDays: true,
@@ -223,9 +217,14 @@ export function computePrice(
   days: number,
 ): number {
   let price = basePrice;
+  const effective: Record<string, string> = { ...params };
+  if (params["zone"] && params["term"]) {
+    effective["zone_term"] = `${params["zone"]}_${params["term"]}`;
+  }
   for (const [group, values] of Object.entries(coefficients ?? {})) {
-    const selected = params[group];
+    const selected = effective[group];
     if (!selected) continue;
+
     const factor = values?.[selected];
     if (typeof factor === "number" && Number.isFinite(factor)) price *= factor;
   }
