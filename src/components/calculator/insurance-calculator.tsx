@@ -54,6 +54,17 @@ export function InsuranceCalculator({ product }: { product: ProductKey }) {
 
   const days = useMemo(() => Number(params["days"] ?? 1) || 1, [params]);
 
+  const [today, setToday] = useState("");
+  useEffect(() => {
+    setToday(
+      new Intl.DateTimeFormat("uk-UA", {
+        day: "2-digit",
+        month: "long",
+        year: "numeric",
+      }).format(new Date()),
+    );
+  }, []);
+
   return (
     <section id="calculator" className="bg-secondary/50 py-20">
       <div className="container-page">
