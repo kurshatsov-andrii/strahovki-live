@@ -14,6 +14,8 @@ import { Route as AuthenticatedRouteRouteImport } from './routes/_authenticated/
 import { Route as AuthRouteImport } from './routes/auth'
 import { Route as AutostrahuvannyaRouteImport } from './routes/autostrahuvannya'
 import { Route as ContactsRouteImport } from './routes/contacts'
+import { Route as OfferRouteImport } from './routes/offer'
+import { Route as PrivacyRouteImport } from './routes/privacy'
 import { Route as SportyvneStrahuvannyaRouteImport } from './routes/sportyvne-strahuvannya'
 import { Route as TurystychneStrahuvannyaRouteImport } from './routes/turystychne-strahuvannya'
 import { Route as ZelenaKartaRouteImport } from './routes/zelena-karta'
@@ -43,6 +45,16 @@ const ContactsRoute = ContactsRouteImport.update({
   path: '/contacts',
   getParentRoute: () => rootRouteImport,
 } as any)
+const OfferRoute = OfferRouteImport.update({
+  id: '/offer',
+  path: '/offer',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const PrivacyRoute = PrivacyRouteImport.update({
+  id: '/privacy',
+  path: '/privacy',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const SportyvneStrahuvannyaRoute = SportyvneStrahuvannyaRouteImport.update({
   id: '/sportyvne-strahuvannya',
   path: '/sportyvne-strahuvannya',
@@ -69,6 +81,8 @@ export interface FileRoutesByFullPath {
   '/auth': typeof AuthRoute
   '/autostrahuvannya': typeof AutostrahuvannyaRoute
   '/contacts': typeof ContactsRoute
+  '/offer': typeof OfferRoute
+  '/privacy': typeof PrivacyRoute
   '/sportyvne-strahuvannya': typeof SportyvneStrahuvannyaRoute
   '/turystychne-strahuvannya': typeof TurystychneStrahuvannyaRoute
   '/zelena-karta': typeof ZelenaKartaRoute
@@ -79,6 +93,8 @@ export interface FileRoutesByTo {
   '/auth': typeof AuthRoute
   '/autostrahuvannya': typeof AutostrahuvannyaRoute
   '/contacts': typeof ContactsRoute
+  '/offer': typeof OfferRoute
+  '/privacy': typeof PrivacyRoute
   '/sportyvne-strahuvannya': typeof SportyvneStrahuvannyaRoute
   '/turystychne-strahuvannya': typeof TurystychneStrahuvannyaRoute
   '/zelena-karta': typeof ZelenaKartaRoute
@@ -91,6 +107,8 @@ export interface FileRoutesById {
   '/auth': typeof AuthRoute
   '/autostrahuvannya': typeof AutostrahuvannyaRoute
   '/contacts': typeof ContactsRoute
+  '/offer': typeof OfferRoute
+  '/privacy': typeof PrivacyRoute
   '/sportyvne-strahuvannya': typeof SportyvneStrahuvannyaRoute
   '/turystychne-strahuvannya': typeof TurystychneStrahuvannyaRoute
   '/zelena-karta': typeof ZelenaKartaRoute
@@ -103,6 +121,8 @@ export interface FileRouteTypes {
     | '/auth'
     | '/autostrahuvannya'
     | '/contacts'
+    | '/offer'
+    | '/privacy'
     | '/sportyvne-strahuvannya'
     | '/turystychne-strahuvannya'
     | '/zelena-karta'
@@ -113,6 +133,8 @@ export interface FileRouteTypes {
     | '/auth'
     | '/autostrahuvannya'
     | '/contacts'
+    | '/offer'
+    | '/privacy'
     | '/sportyvne-strahuvannya'
     | '/turystychne-strahuvannya'
     | '/zelena-karta'
@@ -124,6 +146,8 @@ export interface FileRouteTypes {
     | '/auth'
     | '/autostrahuvannya'
     | '/contacts'
+    | '/offer'
+    | '/privacy'
     | '/sportyvne-strahuvannya'
     | '/turystychne-strahuvannya'
     | '/zelena-karta'
@@ -136,6 +160,8 @@ export interface RootRouteChildren {
   AuthRoute: typeof AuthRoute
   AutostrahuvannyaRoute: typeof AutostrahuvannyaRoute
   ContactsRoute: typeof ContactsRoute
+  OfferRoute: typeof OfferRoute
+  PrivacyRoute: typeof PrivacyRoute
   SportyvneStrahuvannyaRoute: typeof SportyvneStrahuvannyaRoute
   TurystychneStrahuvannyaRoute: typeof TurystychneStrahuvannyaRoute
   ZelenaKartaRoute: typeof ZelenaKartaRoute
@@ -176,6 +202,20 @@ declare module '@tanstack/react-router' {
       path: '/contacts'
       fullPath: '/contacts'
       preLoaderRoute: typeof ContactsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/offer': {
+      id: '/offer'
+      path: '/offer'
+      fullPath: '/offer'
+      preLoaderRoute: typeof OfferRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/privacy': {
+      id: '/privacy'
+      path: '/privacy'
+      fullPath: '/privacy'
+      preLoaderRoute: typeof PrivacyRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/sportyvne-strahuvannya': {
@@ -226,6 +266,8 @@ const rootRouteChildren: RootRouteChildren = {
   AuthRoute: AuthRoute,
   AutostrahuvannyaRoute: AutostrahuvannyaRoute,
   ContactsRoute: ContactsRoute,
+  OfferRoute: OfferRoute,
+  PrivacyRoute: PrivacyRoute,
   SportyvneStrahuvannyaRoute: SportyvneStrahuvannyaRoute,
   TurystychneStrahuvannyaRoute: TurystychneStrahuvannyaRoute,
   ZelenaKartaRoute: ZelenaKartaRoute,
