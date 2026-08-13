@@ -12,6 +12,7 @@ import {
 import { ContactFormSection } from "@/components/sections/contact";
 import { generalFaq, home } from "@/content/site";
 import { CalculatorWithProductSwitch } from "@/components/calculator/calculator-switch";
+import { ConsultantSection } from "@/components/sections/consultant";
 
 const title = "Страховки — онлайн страхування авто, зелена карта, туризм і спорт";
 const description =
@@ -41,6 +42,7 @@ function Index() {
         primary={home.hero.primaryCta}
         secondary={home.hero.secondaryCta}
       />
+      <ConsultantSection />
       <ServiceCardsSection />
       <CalculatorWithProductSwitch />
       <AdvantagesSection
