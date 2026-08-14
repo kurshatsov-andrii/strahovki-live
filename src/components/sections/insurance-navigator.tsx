@@ -189,7 +189,7 @@ export function InsuranceNavigator() {
             Страховий навігатор
           </span>
           <h2 className="mt-3 text-3xl font-extrabold sm:text-4xl">
-            Підберемо страховку за 2–3 питання
+            Підберемо страховку за 2–4 питання
           </h2>
           <p className="mt-3 text-muted-foreground">
             Відповідайте на прості запитання — ми одразу скажемо, який поліс вам потрібен.
