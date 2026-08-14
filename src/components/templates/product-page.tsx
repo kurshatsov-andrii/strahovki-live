@@ -8,6 +8,7 @@ import {
 import { ContactFormSection } from "@/components/sections/contact";
 import { InsuranceCalculator } from "@/components/calculator/insurance-calculator";
 import { ConsultantSection } from "@/components/sections/consultant";
+import { PolicyCheckSection } from "@/components/sections/policy-check";
 import type { ProductPageContent } from "@/content/site";
 import type { ProductKey } from "@/lib/insurance";
 
@@ -34,6 +35,10 @@ export function ProductPage({
       </section>
 
       <InsuranceCalculator product={product} />
+
+      {(product === "auto" || product === "green_card") && (
+        <PolicyCheckSection variant={product} />
+      )}
 
       <ConsultantSection variant="compact" />
 
