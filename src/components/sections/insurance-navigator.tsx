@@ -34,10 +34,6 @@ const productRoutes: Record<ProductKey, string> = {
   sport: "/sportyvne-strahuvannya",
 };
 
-const productCards = Object.fromEntries(
-  home.serviceCards.map((card) => [card.to.replace("/", "") || card.to, card]),
-);
-
 const steps: Step[] = [
   {
     key: "goal",
