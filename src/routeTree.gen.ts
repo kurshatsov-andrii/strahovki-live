@@ -16,6 +16,7 @@ import { Route as AutostrahuvannyaRouteImport } from './routes/autostrahuvannya'
 import { Route as ContactsRouteImport } from './routes/contacts'
 import { Route as OfferRouteImport } from './routes/offer'
 import { Route as PrivacyRouteImport } from './routes/privacy'
+import { Route as SitemapDotxmlRouteImport } from './routes/sitemap[.]xml'
 import { Route as SportyvneStrahuvannyaRouteImport } from './routes/sportyvne-strahuvannya'
 import { Route as TurystychneStrahuvannyaRouteImport } from './routes/turystychne-strahuvannya'
 import { Route as ZelenaKartaRouteImport } from './routes/zelena-karta'
@@ -55,6 +56,11 @@ const PrivacyRoute = PrivacyRouteImport.update({
   path: '/privacy',
   getParentRoute: () => rootRouteImport,
 } as any)
+const SitemapDotxmlRoute = SitemapDotxmlRouteImport.update({
+  id: '/sitemap.xml',
+  path: '/sitemap.xml',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const SportyvneStrahuvannyaRoute = SportyvneStrahuvannyaRouteImport.update({
   id: '/sportyvne-strahuvannya',
   path: '/sportyvne-strahuvannya',
@@ -83,6 +89,7 @@ export interface FileRoutesByFullPath {
   '/contacts': typeof ContactsRoute
   '/offer': typeof OfferRoute
   '/privacy': typeof PrivacyRoute
+  '/sitemap.xml': typeof SitemapDotxmlRoute
   '/sportyvne-strahuvannya': typeof SportyvneStrahuvannyaRoute
   '/turystychne-strahuvannya': typeof TurystychneStrahuvannyaRoute
   '/zelena-karta': typeof ZelenaKartaRoute
@@ -95,6 +102,7 @@ export interface FileRoutesByTo {
   '/contacts': typeof ContactsRoute
   '/offer': typeof OfferRoute
   '/privacy': typeof PrivacyRoute
+  '/sitemap.xml': typeof SitemapDotxmlRoute
   '/sportyvne-strahuvannya': typeof SportyvneStrahuvannyaRoute
   '/turystychne-strahuvannya': typeof TurystychneStrahuvannyaRoute
   '/zelena-karta': typeof ZelenaKartaRoute
@@ -109,6 +117,7 @@ export interface FileRoutesById {
   '/contacts': typeof ContactsRoute
   '/offer': typeof OfferRoute
   '/privacy': typeof PrivacyRoute
+  '/sitemap.xml': typeof SitemapDotxmlRoute
   '/sportyvne-strahuvannya': typeof SportyvneStrahuvannyaRoute
   '/turystychne-strahuvannya': typeof TurystychneStrahuvannyaRoute
   '/zelena-karta': typeof ZelenaKartaRoute
@@ -123,6 +132,7 @@ export interface FileRouteTypes {
     | '/contacts'
     | '/offer'
     | '/privacy'
+    | '/sitemap.xml'
     | '/sportyvne-strahuvannya'
     | '/turystychne-strahuvannya'
     | '/zelena-karta'
@@ -135,6 +145,7 @@ export interface FileRouteTypes {
     | '/contacts'
     | '/offer'
     | '/privacy'
+    | '/sitemap.xml'
     | '/sportyvne-strahuvannya'
     | '/turystychne-strahuvannya'
     | '/zelena-karta'
@@ -148,6 +159,7 @@ export interface FileRouteTypes {
     | '/contacts'
     | '/offer'
     | '/privacy'
+    | '/sitemap.xml'
     | '/sportyvne-strahuvannya'
     | '/turystychne-strahuvannya'
     | '/zelena-karta'
@@ -162,6 +174,7 @@ export interface RootRouteChildren {
   ContactsRoute: typeof ContactsRoute
   OfferRoute: typeof OfferRoute
   PrivacyRoute: typeof PrivacyRoute
+  SitemapDotxmlRoute: typeof SitemapDotxmlRoute
   SportyvneStrahuvannyaRoute: typeof SportyvneStrahuvannyaRoute
   TurystychneStrahuvannyaRoute: typeof TurystychneStrahuvannyaRoute
   ZelenaKartaRoute: typeof ZelenaKartaRoute
@@ -218,6 +231,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof PrivacyRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/sitemap.xml': {
+      id: '/sitemap.xml'
+      path: '/sitemap.xml'
+      fullPath: '/sitemap.xml'
+      preLoaderRoute: typeof SitemapDotxmlRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/sportyvne-strahuvannya': {
       id: '/sportyvne-strahuvannya'
       path: '/sportyvne-strahuvannya'
@@ -268,6 +288,7 @@ const rootRouteChildren: RootRouteChildren = {
   ContactsRoute: ContactsRoute,
   OfferRoute: OfferRoute,
   PrivacyRoute: PrivacyRoute,
+  SitemapDotxmlRoute: SitemapDotxmlRoute,
   SportyvneStrahuvannyaRoute: SportyvneStrahuvannyaRoute,
   TurystychneStrahuvannyaRoute: TurystychneStrahuvannyaRoute,
   ZelenaKartaRoute: ZelenaKartaRoute,
