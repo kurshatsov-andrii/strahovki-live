@@ -229,6 +229,31 @@ export function InsuranceCalculator({ product }: { product: ProductKey }) {
   );
 }
 
+function CrossSellBlock({ current }: { current: ProductKey }) {
+  const offer = crossSells[current];
+  if (!offer) return null;
+
+  return (
+    <div className="rounded-2xl border border-primary/20 bg-primary/5 p-6 shadow-soft">
+      <div className="flex items-start gap-3">
+        <div className="rounded-full bg-primary/10 p-2 text-primary">
+          <Sparkles className="size-5" />
+        </div>
+        <div className="flex-1">
+          <h4 className="font-bold">{offer.headline}</h4>
+          <p className="mt-1 text-sm text-muted-foreground">{offer.body}</p>
+          <Button asChild variant="outline" size="sm" className="mt-4">
+            <Link to={productRoutes[offer.target]}>
+              {productLabels[offer.target]}
+              <ArrowRight className="ml-1 size-4" />
+            </Link>
+          </Button>
+        </div>
+      </div>
+    </div>
+  );
+}
+
 function LeadDialog({
   product,
   params,
