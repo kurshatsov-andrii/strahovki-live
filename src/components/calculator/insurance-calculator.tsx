@@ -1,8 +1,9 @@
 import { useEffect, useMemo, useState } from "react";
 import { useMutation } from "@tanstack/react-query";
 import { useServerFn } from "@tanstack/react-start";
+import { Link } from "@tanstack/react-router";
 import { toast } from "sonner";
-import { Calculator, Loader2, ShieldCheck } from "lucide-react";
+import { ArrowRight, Calculator, Loader2, ShieldCheck, Sparkles } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -29,6 +30,37 @@ import {
   productLabels,
   type ProductKey,
 } from "@/lib/insurance";
+
+const productRoutes: Record<ProductKey, string> = {
+  auto: "/autostrahuvannya",
+  green_card: "/zelena-karta",
+  travel: "/turystychne-strahuvannya",
+  sport: "/sportyvne-strahuvannya",
+};
+
+type CrossSell = {
+  target: ProductKey;
+  headline: string;
+  body: string;
+};
+
+const crossSells: Partial<Record<ProductKey, CrossSell>> = {
+  green_card: {
+    target: "travel",
+    headline: "Їдете за кордон автомобілем?",
+    body: "Додайте туристичне страхування для водія та пасажирів.",
+  },
+  travel: {
+    target: "green_card",
+    headline: "Подорожуєте власним авто?",
+    body: "Перевірте, чи потрібна вам Зелена карта.",
+  },
+  sport: {
+    target: "travel",
+    headline: "Біжите за кордоном?",
+    body: "Можливо, вам також потрібне туристичне страхування.",
+  },
+};
 
 export function InsuranceCalculator({ product }: { product: ProductKey }) {
   const config = productConfigs[product];
