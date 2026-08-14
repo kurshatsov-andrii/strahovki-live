@@ -77,10 +77,14 @@ const steps: Step[] = [
 ];
 
 function getRecommendations(answer: Answer): ProductKey[] {
-  const { goal, travelByCar, needMedical } = answer;
+  const { goal, travelByCar, needMedical, sportAbroad } = answer;
 
   if (goal === "ukraine") return ["auto"];
-  if (goal === "sport") return ["sport"];
+
+  if (goal === "sport") {
+    if (sportAbroad === undefined) return ["sport"];
+    return sportAbroad ? ["sport", "travel"] : ["sport"];
+  }
 
   if (goal === "abroad_car") {
     if (needMedical === undefined) return ["green_card"];
