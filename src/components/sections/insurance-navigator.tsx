@@ -107,6 +107,9 @@ function getResultTitle(answer: Answer, products: ProductKey[]): string {
   if (products.length === 1) {
     return "Вам підходить";
   }
+  if (answer.goal === "sport") {
+    return "Для вашого заходу потрібно";
+  }
   if (answer.goal === "travel" || answer.goal === "abroad_car") {
     return "Для вашої поїздки потрібно";
   }
@@ -122,6 +125,9 @@ function getResultDescription(answer: Answer, products: ProductKey[]): string {
       sport: "Захист від травм на змаганнях і тренуваннях.",
     };
     return map[products[0]!];
+  }
+  if (answer.goal === "sport") {
+    return "Комбінація полісів покриє травми на змаганнях і медичні витрати за кордоном.";
   }
   return "Комбінація полісів покриє і авто, і медичні витрати за кордоном.";
 }
