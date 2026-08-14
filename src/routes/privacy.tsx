@@ -14,9 +14,9 @@ export const Route = createFileRoute("/privacy")({
       { name: "description", content: description },
       { property: "og:title", content: title },
       { property: "og:description", content: description },
-      { property: "og:type", content: "website" },
-      { name: "twitter:card", content: "summary_large_image" },
+      { property: "og:url", content: "https://strahovki.live/privacy" },
     ],
+    links: [{ rel: "canonical", href: "https://strahovki.live/privacy" }],
   }),
   component: PrivacyPage,
 });
