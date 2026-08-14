@@ -11,6 +11,7 @@ type Answer = {
   goal?: Goal;
   travelByCar?: boolean;
   needMedical?: boolean;
+  sportAbroad?: boolean;
 };
 
 type Option = {
