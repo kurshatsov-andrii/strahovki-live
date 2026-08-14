@@ -14,6 +14,7 @@ import { generalFaq, home } from "@/content/site";
 import { CalculatorWithProductSwitch } from "@/components/calculator/calculator-switch";
 import { ConsultantSection } from "@/components/sections/consultant";
 import { PolicyCheckSection } from "@/components/sections/policy-check";
+import { InsuranceNavigator } from "@/components/sections/insurance-navigator";
 
 const title = "Страховки — онлайн страхування авто, зелена карта, туризм і спорт";
 const description =
