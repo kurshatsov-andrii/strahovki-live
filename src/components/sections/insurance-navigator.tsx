@@ -138,7 +138,11 @@ export function InsuranceNavigator() {
 
   const currentStepIndex = (() => {
     if (answers.goal === undefined) return 0;
-    if (answers.goal === "ukraine" || answers.goal === "sport") return -1; // finish
+    if (answers.goal === "ukraine") return -1; // finish
+    if (answers.goal === "sport") {
+      if (answers.sportAbroad === undefined) return 3;
+      return -1;
+    }
     if (answers.goal === "abroad_car") {
       if (answers.needMedical === undefined) return 2;
       return -1;
@@ -151,6 +155,7 @@ export function InsuranceNavigator() {
     return -1;
   })();
 
+  const totalSteps = 4;
   const step = currentStepIndex >= 0 ? steps[currentStepIndex] : null;
 
   function select(value: Goal | boolean) {
@@ -159,12 +164,12 @@ export function InsuranceNavigator() {
     const next = { ...answers, [key]: value };
     setAnswers(next);
 
-    const isFinal =
-      key === "goal" && (value === "ukraine" || value === "sport");
+    const isFinal = key === "goal" && value === "ukraine";
+    const isSportDone = key === "sportAbroad";
     const isTravelCarDone = key === "travelByCar" && value === false;
     const isMedicalDone = key === "needMedical";
 
-    if (isFinal || isTravelCarDone || isMedicalDone) {
+    if (isFinal || isSportDone || isTravelCarDone || isMedicalDone) {
       setFinished(true);
     }
   }
