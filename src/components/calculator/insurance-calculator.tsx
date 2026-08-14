@@ -1,8 +1,9 @@
 import { useEffect, useMemo, useState } from "react";
 import { useMutation } from "@tanstack/react-query";
 import { useServerFn } from "@tanstack/react-start";
+import { Link } from "@tanstack/react-router";
 import { toast } from "sonner";
-import { Calculator, Loader2, ShieldCheck } from "lucide-react";
+import { ArrowRight, Calculator, Loader2, ShieldCheck, Sparkles } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -29,6 +30,37 @@ import {
   productLabels,
   type ProductKey,
 } from "@/lib/insurance";
+
+const productRoutes: Record<ProductKey, string> = {
+  auto: "/autostrahuvannya",
+  green_card: "/zelena-karta",
+  travel: "/turystychne-strahuvannya",
+  sport: "/sportyvne-strahuvannya",
+};
+
+type CrossSell = {
+  target: ProductKey;
+  headline: string;
+  body: string;
+};
+
+const crossSells: Partial<Record<ProductKey, CrossSell>> = {
+  green_card: {
+    target: "travel",
+    headline: "Їдете за кордон автомобілем?",
+    body: "Додайте туристичне страхування для водія та пасажирів.",
+  },
+  travel: {
+    target: "green_card",
+    headline: "Подорожуєте власним авто?",
+    body: "Перевірте, чи потрібна вам Зелена карта.",
+  },
+  sport: {
+    target: "travel",
+    headline: "Біжите за кордоном?",
+    body: "Можливо, вам також потрібне туристичне страхування.",
+  },
+};
 
 export function InsuranceCalculator({ product }: { product: ProductKey }) {
   const config = productConfigs[product];
@@ -183,6 +215,8 @@ export function InsuranceCalculator({ product }: { product: ProductKey }) {
                 </div>
               </div>
             ))}
+
+            {quotes.length > 0 && <CrossSellBlock current={product} />}
           </div>
         </div>
       </div>
@@ -194,6 +228,31 @@ export function InsuranceCalculator({ product }: { product: ProductKey }) {
         onClose={() => setSelected(null)}
       />
     </section>
+  );
+}
+
+function CrossSellBlock({ current }: { current: ProductKey }) {
+  const offer = crossSells[current];
+  if (!offer) return null;
+
+  return (
+    <div className="rounded-2xl border border-primary/20 bg-primary/5 p-6 shadow-soft">
+      <div className="flex items-start gap-3">
+        <div className="rounded-full bg-primary/10 p-2 text-primary">
+          <Sparkles className="size-5" />
+        </div>
+        <div className="flex-1">
+          <h4 className="font-bold">{offer.headline}</h4>
+          <p className="mt-1 text-sm text-muted-foreground">{offer.body}</p>
+          <Button asChild variant="outline" size="sm" className="mt-4">
+            <Link to={productRoutes[offer.target]}>
+              {productLabels[offer.target]}
+              <ArrowRight className="ml-1 size-4" />
+            </Link>
+          </Button>
+        </div>
+      </div>
+    </div>
   );
 }
 
