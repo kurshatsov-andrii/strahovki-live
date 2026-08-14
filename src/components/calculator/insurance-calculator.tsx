@@ -215,6 +215,8 @@ export function InsuranceCalculator({ product }: { product: ProductKey }) {
                 </div>
               </div>
             ))}
+
+            {quotes.length > 0 && <CrossSellBlock current={product} />}
           </div>
         </div>
       </div>
