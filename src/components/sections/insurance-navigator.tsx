@@ -205,7 +205,7 @@ export function InsuranceNavigator() {
                   <p className="mt-1 text-sm text-muted-foreground">{step.subtitle}</p>
                 </div>
                 <div className="hidden text-sm font-medium text-muted-foreground sm:block">
-                  Крок {currentStepIndex + 1} з 3
+                  Крок {currentStepIndex + 1} з {totalSteps}
                 </div>
               </div>
 
