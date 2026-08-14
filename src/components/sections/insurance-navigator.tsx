@@ -11,6 +11,7 @@ type Answer = {
   goal?: Goal;
   travelByCar?: boolean;
   needMedical?: boolean;
+  sportAbroad?: boolean;
 };
 
 type Option = {
@@ -64,13 +65,26 @@ const steps: Step[] = [
       { value: false, label: "Ні, тільки авто", icon: Car, description: "Лише зелена карта" },
     ],
   },
+  {
+    key: "sportAbroad",
+    question: "Де проходять змагання?",
+    subtitle: "Якщо захід за кордоном, радимо додати туристичне страхування.",
+    options: [
+      { value: false, label: "В Україні", icon: ShieldCheck, description: "Достатньо спортивного страхування" },
+      { value: true, label: "За кордоном", icon: Globe2, description: "Додайте туристичне страхування" },
+    ],
+  },
 ];
 
 function getRecommendations(answer: Answer): ProductKey[] {
-  const { goal, travelByCar, needMedical } = answer;
+  const { goal, travelByCar, needMedical, sportAbroad } = answer;
 
   if (goal === "ukraine") return ["auto"];
-  if (goal === "sport") return ["sport"];
+
+  if (goal === "sport") {
+    if (sportAbroad === undefined) return ["sport"];
+    return sportAbroad ? ["sport", "travel"] : ["sport"];
+  }
 
   if (goal === "abroad_car") {
     if (needMedical === undefined) return ["green_card"];
@@ -93,6 +107,9 @@ function getResultTitle(answer: Answer, products: ProductKey[]): string {
   if (products.length === 1) {
     return "Вам підходить";
   }
+  if (answer.goal === "sport") {
+    return "Для вашого заходу потрібно";
+  }
   if (answer.goal === "travel" || answer.goal === "abroad_car") {
     return "Для вашої поїздки потрібно";
   }
@@ -109,6 +126,9 @@ function getResultDescription(answer: Answer, products: ProductKey[]): string {
     };
     return map[products[0]!];
   }
+  if (answer.goal === "sport") {
+    return "Комбінація полісів покриє травми на змаганнях і медичні витрати за кордоном.";
+  }
   return "Комбінація полісів покриє і авто, і медичні витрати за кордоном.";
 }
 
@@ -118,7 +138,11 @@ export function InsuranceNavigator() {
 
   const currentStepIndex = (() => {
     if (answers.goal === undefined) return 0;
-    if (answers.goal === "ukraine" || answers.goal === "sport") return -1; // finish
+    if (answers.goal === "ukraine") return -1; // finish
+    if (answers.goal === "sport") {
+      if (answers.sportAbroad === undefined) return 3;
+      return -1;
+    }
     if (answers.goal === "abroad_car") {
       if (answers.needMedical === undefined) return 2;
       return -1;
@@ -131,6 +155,7 @@ export function InsuranceNavigator() {
     return -1;
   })();
 
+  const totalSteps = 4;
   const step = currentStepIndex >= 0 ? steps[currentStepIndex] : null;
 
   function select(value: Goal | boolean) {
@@ -139,12 +164,12 @@ export function InsuranceNavigator() {
     const next = { ...answers, [key]: value };
     setAnswers(next);
 
-    const isFinal =
-      key === "goal" && (value === "ukraine" || value === "sport");
+    const isFinal = key === "goal" && value === "ukraine";
+    const isSportDone = key === "sportAbroad";
     const isTravelCarDone = key === "travelByCar" && value === false;
     const isMedicalDone = key === "needMedical";
 
-    if (isFinal || isTravelCarDone || isMedicalDone) {
+    if (isFinal || isSportDone || isTravelCarDone || isMedicalDone) {
       setFinished(true);
     }
   }
@@ -164,7 +189,7 @@ export function InsuranceNavigator() {
             Страховий навігатор
           </span>
           <h2 className="mt-3 text-3xl font-extrabold sm:text-4xl">
-            Підберемо страховку за 2–3 питання
+            Підберемо страховку за 2–4 питання
           </h2>
           <p className="mt-3 text-muted-foreground">
             Відповідайте на прості запитання — ми одразу скажемо, який поліс вам потрібен.
@@ -180,7 +205,7 @@ export function InsuranceNavigator() {
                   <p className="mt-1 text-sm text-muted-foreground">{step.subtitle}</p>
                 </div>
                 <div className="hidden text-sm font-medium text-muted-foreground sm:block">
-                  Крок {currentStepIndex + 1} з 3
+                  Крок {currentStepIndex + 1} з {totalSteps}
                 </div>
               </div>
 
