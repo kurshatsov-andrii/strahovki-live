@@ -65,6 +65,15 @@ const steps: Step[] = [
       { value: false, label: "Ні, тільки авто", icon: Car, description: "Лише зелена карта" },
     ],
   },
+  {
+    key: "sportAbroad",
+    question: "Де проходять змагання?",
+    subtitle: "Якщо захід за кордоном, радимо додати туристичне страхування.",
+    options: [
+      { value: false, label: "В Україні", icon: ShieldCheck, description: "Достатньо спортивного страхування" },
+      { value: true, label: "За кордоном", icon: Globe2, description: "Додайте туристичне страхування" },
+    ],
+  },
 ];
 
 function getRecommendations(answer: Answer): ProductKey[] {
