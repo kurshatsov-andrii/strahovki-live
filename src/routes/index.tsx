@@ -62,6 +62,7 @@ function Index() {
         secondary={home.hero.secondaryCta}
       />
       <ConsultantSection />
+      <InsuranceNavigator />
       <ServiceCardsSection />
       <CalculatorWithProductSwitch />
       <PolicyCheckSection />
