@@ -81,17 +81,30 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
       { name: "author", content: "Страховки" },
+      { property: "og:site_name", content: "Страховки" },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
-      { title: "Страхування авто |  туризм | спорт онлайн - Сервіс Страховки" },
-      { property: "og:title", content: "Страхування авто |  туризм | спорт онлайн - Сервіс Страховки" },
-      { name: "twitter:title", content: "Страхування авто |  туризм | спорт онлайн - Сервіс Страховки" },
-      { name: "description", content: "Автострахування, - атоцивілка та зелена карта, страхування за кордон та спортивне страхування онлайн в Україні." },
-      { property: "og:description", content: "Автострахування, - атоцивілка та зелена карта, страхування за кордон та спортивне страхування онлайн в Україні." },
-      { name: "twitter:description", content: "Автострахування, - атоцивілка та зелена карта, страхування за кордон та спортивне страхування онлайн в Україні." },
-      { property: "og:image", content: "https://pub-bb2e103a32db4e198524a2e9ed8f35b4.r2.dev/32880bab4f44acd4c53e8e0f0eab6792/id-preview-fd8b47f1--7369b7ec-2c91-4e60-b2e1-8d008945eb01.lovable.app-1786536089778.png" },
-      { name: "twitter:image", content: "https://pub-bb2e103a32db4e198524a2e9ed8f35b4.r2.dev/32880bab4f44acd4c53e8e0f0eab6792/id-preview-fd8b47f1--7369b7ec-2c91-4e60-b2e1-8d008945eb01.lovable.app-1786536089778.png" },
     ],
+    scripts: [
+      {
+        type: "application/ld+json",
+        children: JSON.stringify({
+          "@context": "https://schema.org",
+          "@type": "LocalBusiness",
+          name: "Страховки — Куршацов Андрій",
+          url: "https://strahovki.live",
+          telephone: ["+380972520551", "+380664688151"],
+          address: {
+            "@type": "PostalAddress",
+            addressLocality: "Харків",
+            addressCountry: "UA",
+          },
+          openingHours: "Mo-Su 08:00-21:00",
+          areaServed: "UA",
+        }),
+      },
+    ],
+
     links: [
       {
         rel: "stylesheet",
