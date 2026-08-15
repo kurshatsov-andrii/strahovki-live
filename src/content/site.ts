@@ -181,6 +181,14 @@ export const generalFaq: FaqItem[] = [
 export type ProductPageContent = {
   hero: { eyebrow: string; title: string; subtitle: string };
   description: { title: string; body: string };
+  coverage?: {
+    title: string;
+    validTitle: string;
+    validCountries: string[];
+    invalidTitle: string;
+    invalidCountries: string[];
+    note: string;
+  };
   advantages: { title: string; items: Advantage[] };
   seoText: { title: string; body: string };
   faq: FaqItem[];
