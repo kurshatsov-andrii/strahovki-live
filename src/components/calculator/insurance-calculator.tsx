@@ -190,7 +190,7 @@ export function InsuranceCalculator({ product }: { product: ProductKey }) {
     if (isAuto) {
       const age = Number(values["driver_age"] ?? "");
       if (!Number.isFinite(age) || age < AUTO_MIN_DRIVER_AGE || age > AUTO_MAX_DRIVER_AGE) return;
-      const cleaned = { ...values, driver: autoDriverBand(age) };
+      const cleaned: Record<string, string> = { ...values, driver: autoDriverBand(age) };
       if (values["plates"] !== "ua") {
         delete cleaned["region"];
         delete cleaned["city"];
