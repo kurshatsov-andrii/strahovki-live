@@ -35,6 +35,8 @@ export function ProductPage({
         </div>
       </section>
 
+      {content.coverage && <CoverageSection {...content.coverage} />}
+
       <InsuranceCalculator product={product} />
 
       {(product === "auto" || product === "green_card") && (
