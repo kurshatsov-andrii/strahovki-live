@@ -152,6 +152,31 @@ export function InsuranceCalculator({ product }: { product: ProductKey }) {
     }
   }, [isTravel, params["country"], params["zone"]]);
 
+  const isAuto = Boolean(config.usesAutoForm);
+  const autoTermOptions = useMemo(
+    () => (params["plates"] === "foreign" ? autoTermOptionsForeign : autoTermOptionsUa),
+    [params["plates"]],
+  );
+  const autoCityOptions = useMemo(
+    () => (isAuto ? citiesForRegion(params["region"] ?? "") : []),
+    [isAuto, params["region"]],
+  );
+  const autoAge = useMemo(() => Number(params["driver_age"] ?? ""), [params["driver_age"]]);
+  const autoAgeError = useMemo(() => {
+    if (!isAuto) return null;
+    if (!params["driver_age"]) return "Вкажіть вік наймолодшого водія.";
+    if (!Number.isFinite(autoAge) || autoAge < AUTO_MIN_DRIVER_AGE || autoAge > AUTO_MAX_DRIVER_AGE)
+      return `Вік має бути від ${AUTO_MIN_DRIVER_AGE} до ${AUTO_MAX_DRIVER_AGE} років.`;
+    return null;
+  }, [isAuto, params["driver_age"], autoAge]);
+
+  useEffect(() => {
+    if (!isAuto) return;
+    if (!autoTermOptions.some((o) => o.value === params["term"])) {
+      setParams((prev) => ({ ...prev, term: autoTermOptions.at(-1)!.value }));
+    }
+  }, [isAuto, autoTermOptions, params["term"]]);
+
   const runCalculation = (values: Record<string, string>) => {
     if (isTravel) {
       const age = ageFromBirthDate(values["birth_date"] ?? "");
@@ -160,6 +185,17 @@ export function InsuranceCalculator({ product }: { product: ProductKey }) {
       if (!d || d < TRAVEL_MIN_DAYS || d > TRAVEL_MAX_DAYS) return;
       const enriched = { coverage: "30000", franchise: "0", ...values };
       calculate.mutate({ ...enriched, days: String(d), age: travelAgeBand(age) });
+      return;
+    }
+    if (isAuto) {
+      const age = Number(values["driver_age"] ?? "");
+      if (!Number.isFinite(age) || age < AUTO_MIN_DRIVER_AGE || age > AUTO_MAX_DRIVER_AGE) return;
+      const cleaned = { ...values, driver: autoDriverBand(age) };
+      if (values["plates"] !== "ua") {
+        delete cleaned["region"];
+        delete cleaned["city"];
+      }
+      calculate.mutate(cleaned);
       return;
     }
     calculate.mutate(values);
