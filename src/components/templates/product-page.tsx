@@ -9,6 +9,7 @@ import { ContactFormSection } from "@/components/sections/contact";
 import { InsuranceCalculator } from "@/components/calculator/insurance-calculator";
 import { ConsultantSection } from "@/components/sections/consultant";
 import { PolicyCheckSection } from "@/components/sections/policy-check";
+import { CoverageSection } from "@/components/sections/coverage-section";
 import type { ProductPageContent } from "@/content/site";
 import type { ProductKey } from "@/lib/insurance";
 
@@ -33,6 +34,8 @@ export function ProductPage({
           <p className="mt-4 text-muted-foreground">{content.description.body}</p>
         </div>
       </section>
+
+      {content.coverage && <CoverageSection {...content.coverage} />}
 
       <InsuranceCalculator product={product} />
 
