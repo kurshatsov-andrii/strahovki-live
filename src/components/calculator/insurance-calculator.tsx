@@ -77,6 +77,7 @@ const crossSells: Partial<Record<ProductKey, CrossSell>> = {
 
 export function InsuranceCalculator({ product }: { product: ProductKey }) {
   const config = productConfigs[product];
+  const isTravel = Boolean(config.usesTravelDates);
   const [params, setParams] = useState<Record<string, string>>(() => defaultParams(product));
   const [quotes, setQuotes] = useState<Quote[]>([]);
   const [selected, setSelected] = useState<Quote | null>(null);
@@ -89,11 +90,50 @@ export function InsuranceCalculator({ product }: { product: ProductKey }) {
     onError: () => toast.error("Не вдалося розрахувати вартість. Спробуйте ще раз."),
   });
 
+  const travelAge = useMemo(
+    () => (isTravel ? ageFromBirthDate(params["birth_date"] ?? "") : null),
+    [isTravel, params],
+  );
+  const tooOld = travelAge !== null && travelAge > TRAVEL_MAX_AGE;
+
+  const computedDays = useMemo(
+    () => (isTravel ? travelDays(params["date_from"] ?? "", params["date_to"] ?? "") : null),
+    [isTravel, params],
+  );
+
+  const travelError = useMemo(() => {
+    if (!isTravel) return null;
+    if (!params["birth_date"]) return "Вкажіть дату народження застрахованого.";
+    if (travelAge === null) return "Некоректна дата народження. Формат: дд.мм.рррр";
+    if (computedDays === null) return "Вкажіть коректні дати виїзду та приїзду.";
+    if (computedDays < TRAVEL_MIN_DAYS) return `Мінімальний строк — ${TRAVEL_MIN_DAYS} днів.`;
+    if (computedDays > TRAVEL_MAX_DAYS) return `Максимальний строк — ${TRAVEL_MAX_DAYS} днів.`;
+    return null;
+  }, [isTravel, params, travelAge, computedDays]);
+
+  useEffect(() => {
+    if (!isTravel) return;
+    const value = computedDays ? String(computedDays) : "";
+    setParams((prev) => (prev["days"] === value ? prev : { ...prev, days: value }));
+  }, [isTravel, computedDays]);
+
+  const runCalculation = (values: Record<string, string>) => {
+    if (isTravel) {
+      const age = ageFromBirthDate(values["birth_date"] ?? "");
+      if (age === null || age > TRAVEL_MAX_AGE) return;
+      const d = travelDays(values["date_from"] ?? "", values["date_to"] ?? "");
+      if (!d || d < TRAVEL_MIN_DAYS || d > TRAVEL_MAX_DAYS) return;
+      calculate.mutate({ ...values, days: String(d), age: travelAgeBand(age) });
+      return;
+    }
+    calculate.mutate(values);
+  };
+
   useEffect(() => {
     const next = defaultParams(product);
     setParams(next);
     setQuotes([]);
-    calculate.mutate(next);
+    if (!productConfigs[product].usesTravelDates) calculate.mutate(next);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [product]);
 
@@ -131,7 +171,7 @@ export function InsuranceCalculator({ product }: { product: ProductKey }) {
             className="rounded-2xl border border-border bg-card p-6 shadow-soft"
             onSubmit={(event) => {
               event.preventDefault();
-              calculate.mutate(params);
+              runCalculation(params);
             }}
           >
             {config.notes && config.notes.length > 0 && (
@@ -169,7 +209,62 @@ export function InsuranceCalculator({ product }: { product: ProductKey }) {
                 </div>
               ))}
 
-              {config.usesDays && (
+              {isTravel && (
+                <>
+                  <div className="space-y-2">
+                    <Label htmlFor="birth_date">Дата народження застрахованого</Label>
+                    <DateField
+                      id="birth_date"
+                      name="birth_date"
+                      mode="past"
+                      value={params["birth_date"] ?? ""}
+                      onChange={(value) =>
+                        setParams((prev) => ({ ...prev, birth_date: value }))
+                      }
+                      invalid={tooOld}
+                    />
+                    {travelAge !== null && !tooOld && (
+                      <p className="text-xs text-muted-foreground">Вік: {travelAge} р.</p>
+                    )}
+                  </div>
+
+                  <div className="grid gap-4 sm:grid-cols-2">
+                    <div className="space-y-2">
+                      <Label htmlFor="date_from">Дата виїзду</Label>
+                      <DateField
+                        id="date_from"
+                        name="date_from"
+                        mode="future3m"
+                        value={params["date_from"] ?? ""}
+                        onChange={(value) =>
+                          setParams((prev) => ({ ...prev, date_from: value }))
+                        }
+                      />
+                    </div>
+                    <div className="space-y-2">
+                      <Label htmlFor="date_to">Дата приїзду</Label>
+                      <DateField
+                        id="date_to"
+                        name="date_to"
+                        mode="any"
+                        value={params["date_to"] ?? ""}
+                        onChange={(value) => setParams((prev) => ({ ...prev, date_to: value }))}
+                      />
+                    </div>
+                  </div>
+
+                  <div className="rounded-xl bg-secondary/60 px-4 py-3 text-sm">
+                    Кількість днів поїздки:{" "}
+                    <span className="font-semibold">{computedDays ?? "—"}</span>
+                    <span className="text-muted-foreground">
+                      {" "}
+                      (від {TRAVEL_MIN_DAYS} до {TRAVEL_MAX_DAYS} днів)
+                    </span>
+                  </div>
+                </>
+              )}
+
+              {config.usesDays && !isTravel && (
                 <div className="space-y-2">
                   <Label htmlFor="days">Кількість днів поїздки</Label>
                   <Input
@@ -186,11 +281,39 @@ export function InsuranceCalculator({ product }: { product: ProductKey }) {
               )}
             </div>
 
-            <Button type="submit" className="mt-6 w-full" disabled={calculate.isPending}>
+            {isTravel && tooOld && (
+              <div className="mt-4 rounded-xl border border-primary/30 bg-primary/5 p-4 text-sm">
+                <p className="font-semibold">Оформлення онлайн доступне до 70 років</p>
+                <p className="mt-1 text-muted-foreground">
+                  Для застрахованих старше 70 років напишіть особисто — підберемо умови вручну.
+                </p>
+                <div className="mt-3 flex flex-wrap gap-2">
+                  <Button asChild size="sm" variant="outline">
+                    <a href="https://t.me/Andres_K" target="_blank" rel="noreferrer">
+                      Написати в Telegram
+                    </a>
+                  </Button>
+                  <Button asChild size="sm" variant="outline">
+                    <a href="viber://chat?number=%2B380664688151">Написати у Viber</a>
+                  </Button>
+                </div>
+              </div>
+            )}
+
+            {isTravel && travelError && !tooOld && (
+              <p className="mt-4 text-sm text-destructive">{travelError}</p>
+            )}
+
+            <Button
+              type="submit"
+              className="mt-6 w-full"
+              disabled={calculate.isPending || (isTravel && (tooOld || Boolean(travelError)))}
+            >
               {calculate.isPending && <Loader2 className="mr-2 size-4 animate-spin" />}
               Розрахувати вартість
             </Button>
           </form>
+
 
           <div className="space-y-4">
             {calculate.isPending && quotes.length === 0 && (
