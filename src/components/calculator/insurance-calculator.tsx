@@ -273,11 +273,11 @@ const sportApplicantFields = [
   { name: "last_name", label: "Прізвище", placeholder: "Куршацов" },
   { name: "first_name", label: "Ім'я", placeholder: "Андрій" },
   { name: "middle_name", label: "По батькові", placeholder: "Іванович" },
-  { name: "birth_date", label: "Дата народження", type: "date" },
+  { name: "birth_date", label: "Дата народження", type: "text", placeholder: "дд.мм.рррр" },
   { name: "tax_id", label: "Ідентифікаційний код", placeholder: "10 цифр" },
   { name: "passport_number", label: "Номер паспорта", placeholder: "Серія та номер / ID-картка" },
   { name: "passport_issuer", label: "Ким виданий паспорт" },
-  { name: "passport_date", label: "Коли виданий паспорт", type: "date" },
+  { name: "passport_date", label: "Коли виданий паспорт", type: "text", placeholder: "дд.мм.рррр" },
   { name: "address", label: "Адреса проживання" },
   {
     name: "viber_phone",
