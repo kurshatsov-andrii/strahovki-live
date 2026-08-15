@@ -5,7 +5,6 @@ import { Button } from "@/components/ui/button";
 import { getIcon } from "@/lib/icon-map";
 import type { Advantage, FaqItem } from "@/content/site";
 import { home } from "@/content/site";
-import { useEffect, useRef } from "react";
 
 export function SectionHead({
   eyebrow,
