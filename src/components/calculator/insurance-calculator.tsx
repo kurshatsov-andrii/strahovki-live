@@ -196,6 +196,7 @@ export function InsuranceCalculator({ product }: { product: ProductKey }) {
       if (values["plates"] !== "ua") {
         delete cleaned["region"];
         delete cleaned["city"];
+        delete cleaned["privilege"];
       }
       calculate.mutate(cleaned);
       return;
