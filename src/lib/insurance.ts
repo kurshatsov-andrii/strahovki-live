@@ -21,6 +21,8 @@ export type ProductConfig = {
   usesDays: boolean;
   /** true → дні рахуються автоматично з дат виїзду/приїзду + дата народження */
   usesTravelDates?: boolean;
+  /** true → форма автоцивілки: вік водія, тип ТЗ, номери, область/місто */
+  usesAutoForm?: boolean;
   /** фіксовані умови поліса, які показуємо в калькуляторі */
   notes?: string[];
 };
