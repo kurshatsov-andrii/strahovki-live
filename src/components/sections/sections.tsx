@@ -1,10 +1,11 @@
-import { Link } from "@tanstack/react-router";
+import { Link, ClientOnly } from "@tanstack/react-router";
 import { Check, Star } from "lucide-react";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 import { Button } from "@/components/ui/button";
 import { getIcon } from "@/lib/icon-map";
 import type { Advantage, FaqItem } from "@/content/site";
 import { home } from "@/content/site";
+import { useEffect, useRef } from "react";
 
 export function SectionHead({
   eyebrow,
@@ -176,22 +177,14 @@ export function TestimonialsSection() {
     <section className="py-20">
       <div className="container-page">
         <SectionHead title={home.testimonials.title} />
-        <div className="mt-12 grid gap-5 md:grid-cols-3">
-          {home.testimonials.items.map((t) => (
-            <figure key={t.name} className="rounded-2xl border border-border bg-card p-6 shadow-soft">
-              <div className="flex gap-1 text-accent">
-                {Array.from({ length: 5 }).map((_, i) => (
-                  <Star key={i} className="size-4 fill-current" />
-                ))}
-              </div>
-              <blockquote className="mt-4 text-sm text-muted-foreground">{t.text}</blockquote>
-              <figcaption className="mt-5 text-sm font-semibold">
-                {t.name}
-                <span className="ml-2 font-normal text-muted-foreground">{t.role}</span>
-              </figcaption>
-            </figure>
-          ))}
-        </div>
+        <div
+          className="trustindex-widget mt-12 min-h-[180px]"
+          data-widget-id="2cfbe9733f7d250d9a16cb73dca"
+          suppressHydrationWarning
+          dangerouslySetInnerHTML={{
+            __html: `<script defer async src="https://cdn.trustindex.io/loader.js?2cfbe9733f7d250d9a16cb73dca"></script>`,
+          }}
+        />
       </div>
     </section>
   );
