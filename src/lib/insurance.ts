@@ -1,4 +1,4 @@
-import { citiesForRegion, ukraineRegionOptions, ukraineRegions } from "@/lib/ukraine-regions";
+import { defaultCityForRegion, ukraineRegionOptions, ukraineRegions } from "@/lib/ukraine-regions";
 
 export const PRODUCTS = ["auto", "green_card", "travel", "sport"] as const;
 export type ProductKey = (typeof PRODUCTS)[number];
@@ -720,7 +720,7 @@ export function defaultParams(product: ProductKey): Record<string, string> {
     params["term"] = "12";
     params["driver_age"] = "30";
     params["region"] = ukraineRegionOptions[0]!.value;
-    params["city"] = citiesForRegion(ukraineRegionOptions[0]!.value)[0]?.value ?? "";
+    params["city"] = defaultCityForRegion(ukraineRegionOptions[0]!.value);
   }
   return params;
 }

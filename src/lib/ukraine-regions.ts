@@ -243,3 +243,8 @@ export function citiesForRegion(region: string): { value: string; label: string 
     .sort((a, b) => a.localeCompare(b, "uk"))
     .map((c) => ({ value: c, label: c }));
 }
+
+/** Обласний центр (перше місто у списку) — використовується як значення за замовчуванням. */
+export function defaultCityForRegion(region: string): string {
+  return ukraineRegions.find((r) => r.value === region)?.cities[0] ?? "";
+}

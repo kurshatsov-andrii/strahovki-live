@@ -42,7 +42,7 @@ import {
   TRAVEL_MIN_DAYS,
   type ProductKey,
 } from "@/lib/insurance";
-import { citiesForRegion, ukraineRegionOptions } from "@/lib/ukraine-regions";
+import { citiesForRegion, defaultCityForRegion, ukraineRegionOptions } from "@/lib/ukraine-regions";
 import { FieldError } from "@/components/ui/field-error";
 import { DateField } from "@/components/ui/date-field";
 import {
@@ -319,7 +319,7 @@ export function InsuranceCalculator({ product }: { product: ProductKey }) {
                         setParams((prev) => ({
                           ...prev,
                           region: value,
-                          city: citiesForRegion(value)[0]?.value ?? "",
+                          city: defaultCityForRegion(value),
                         }))
                       }
                     >
