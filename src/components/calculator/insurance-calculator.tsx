@@ -43,6 +43,8 @@ import {
   type ProductKey,
 } from "@/lib/insurance";
 import { citiesForRegion, defaultCityForRegion, ukraineRegionOptions } from "@/lib/ukraine-regions";
+import { autoPrivilegeOptions } from "@/lib/auto-tariffs";
+
 import { FieldError } from "@/components/ui/field-error";
 import { DateField } from "@/components/ui/date-field";
 import {
