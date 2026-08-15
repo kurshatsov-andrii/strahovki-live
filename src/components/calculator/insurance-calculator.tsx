@@ -391,7 +391,7 @@ function LeadDialog({
             const values = parsed.data as Record<string, string | undefined>;
 
             const extra: Record<string, string> = {};
-            for (const field of detailedFields) {
+            for (const field of visibleFields) {
               const value = String(raw[field.name] ?? "").trim();
               if (value) extra[field.name] = value;
             }
@@ -420,7 +420,7 @@ function LeadDialog({
                   друкуються у полісі Зелена карта.
                 </p>
               )}
-              {detailedFields.map((field) => {
+              {visibleFields.map((field) => {
                 const isDate = field.kind === "date";
                 return (
                   <div key={field.name} className="space-y-2">
@@ -430,6 +430,11 @@ function LeadDialog({
                         id={`lead-${field.name}`}
                         name={field.name}
                         defaultValue={field.options?.[0]?.value ?? ""}
+                        onChange={
+                          field.name === "doc_type"
+                            ? (event) => setDocType(event.target.value)
+                            : undefined
+                        }
                         aria-invalid={Boolean(errors[field.name])}
                         className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
                       >
