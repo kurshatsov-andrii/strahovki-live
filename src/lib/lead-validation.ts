@@ -193,4 +193,9 @@ export const greenCardLeadSchema = z
   .refine((data) => Boolean(data.engine_volume?.trim() || data.power_kw?.trim()), {
     message: "Вкажіть об'єм двигуна або потужність у кВт (для електромобіля)",
     path: ["engine_volume"],
-  });
+  })
+  .refine(
+    (data) =>
+      data.doc_type.toLowerCase().includes("id") || Boolean(data.doc_series?.trim()),
+    { message: "Вкажіть серію документа", path: ["doc_series"] },
+  );
