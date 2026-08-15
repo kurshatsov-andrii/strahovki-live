@@ -25,6 +25,11 @@ import {
 import { getQuotes, submitLead, type Quote } from "@/lib/quotes.functions";
 import {
   ageFromBirthDate,
+  autoDriverBand,
+  autoTermOptionsForeign,
+  autoTermOptionsUa,
+  AUTO_MAX_DRIVER_AGE,
+  AUTO_MIN_DRIVER_AGE,
   defaultParams,
   formatUah,
   isEuropeanTravelCountry,
@@ -37,6 +42,7 @@ import {
   TRAVEL_MIN_DAYS,
   type ProductKey,
 } from "@/lib/insurance";
+import { citiesForRegion, defaultCityForRegion, ukraineRegionOptions } from "@/lib/ukraine-regions";
 import { FieldError } from "@/components/ui/field-error";
 import { DateField } from "@/components/ui/date-field";
 import {
@@ -146,6 +152,31 @@ export function InsuranceCalculator({ product }: { product: ProductKey }) {
     }
   }, [isTravel, params["country"], params["zone"]]);
 
+  const isAuto = Boolean(config.usesAutoForm);
+  const autoTermOptions = useMemo(
+    () => (params["plates"] === "foreign" ? autoTermOptionsForeign : autoTermOptionsUa),
+    [params["plates"]],
+  );
+  const autoCityOptions = useMemo(
+    () => (isAuto ? citiesForRegion(params["region"] ?? "") : []),
+    [isAuto, params["region"]],
+  );
+  const autoAge = useMemo(() => Number(params["driver_age"] ?? ""), [params["driver_age"]]);
+  const autoAgeError = useMemo(() => {
+    if (!isAuto) return null;
+    if (!params["driver_age"]) return "Вкажіть вік наймолодшого водія.";
+    if (!Number.isFinite(autoAge) || autoAge < AUTO_MIN_DRIVER_AGE || autoAge > AUTO_MAX_DRIVER_AGE)
+      return `Вік має бути від ${AUTO_MIN_DRIVER_AGE} до ${AUTO_MAX_DRIVER_AGE} років.`;
+    return null;
+  }, [isAuto, params["driver_age"], autoAge]);
+
+  useEffect(() => {
+    if (!isAuto) return;
+    if (!autoTermOptions.some((o) => o.value === params["term"])) {
+      setParams((prev) => ({ ...prev, term: autoTermOptions.at(-1)!.value }));
+    }
+  }, [isAuto, autoTermOptions, params["term"]]);
+
   const runCalculation = (values: Record<string, string>) => {
     if (isTravel) {
       const age = ageFromBirthDate(values["birth_date"] ?? "");
@@ -154,6 +185,17 @@ export function InsuranceCalculator({ product }: { product: ProductKey }) {
       if (!d || d < TRAVEL_MIN_DAYS || d > TRAVEL_MAX_DAYS) return;
       const enriched = { coverage: "30000", franchise: "0", ...values };
       calculate.mutate({ ...enriched, days: String(d), age: travelAgeBand(age) });
+      return;
+    }
+    if (isAuto) {
+      const age = Number(values["driver_age"] ?? "");
+      if (!Number.isFinite(age) || age < AUTO_MIN_DRIVER_AGE || age > AUTO_MAX_DRIVER_AGE) return;
+      const cleaned: Record<string, string> = { ...values, driver: autoDriverBand(age) };
+      if (values["plates"] !== "ua") {
+        delete cleaned["region"];
+        delete cleaned["city"];
+      }
+      calculate.mutate(cleaned);
       return;
     }
     calculate.mutate(values);
@@ -216,13 +258,32 @@ export function InsuranceCalculator({ product }: { product: ProductKey }) {
             )}
             <div className="grid gap-4">
 
+              {isAuto && (
+                <div className="space-y-2">
+                  <Label htmlFor="driver_age">Вік наймолодшого водія, який буде за кермом</Label>
+                  <Input
+                    id="driver_age"
+                    type="number"
+                    min={AUTO_MIN_DRIVER_AGE}
+                    max={AUTO_MAX_DRIVER_AGE}
+                    value={params["driver_age"] ?? ""}
+                    onChange={(event) =>
+                      setParams((prev) => ({ ...prev, driver_age: event.target.value }))
+                    }
+                  />
+                  {autoAgeError && <p className="text-xs text-destructive">{autoAgeError}</p>}
+                </div>
+              )}
+
               {config.fields.map((field) => {
                 const isZone = isTravel && field.key === "zone";
                 const country = params["country"] ?? "";
                 const zoneLocked = isZone && !isEuropeanTravelCountry(country);
                 const options = zoneLocked
                   ? [{ value: "world", label: "Весь світ" }]
-                  : field.options;
+                  : isAuto && field.key === "term"
+                    ? autoTermOptions
+                    : field.options;
                 return (
                   <div key={field.key} className="space-y-2">
                     <Label>{field.label}</Label>
@@ -247,6 +308,54 @@ export function InsuranceCalculator({ product }: { product: ProductKey }) {
                   </div>
                 );
               })}
+
+              {isAuto && params["plates"] === "ua" && (
+                <>
+                  <div className="space-y-2">
+                    <Label>Область реєстрації власника ТЗ</Label>
+                    <Select
+                      value={params["region"] ?? ""}
+                      onValueChange={(value) =>
+                        setParams((prev) => ({
+                          ...prev,
+                          region: value,
+                          city: defaultCityForRegion(value),
+                        }))
+                      }
+                    >
+                      <SelectTrigger>
+                        <SelectValue placeholder="Оберіть область" />
+                      </SelectTrigger>
+                      <SelectContent>
+                        {ukraineRegionOptions.map((option) => (
+                          <SelectItem key={option.value} value={option.value}>
+                            {option.label}
+                          </SelectItem>
+                        ))}
+                      </SelectContent>
+                    </Select>
+                  </div>
+                  <div className="space-y-2">
+                    <Label>Населений пункт реєстрації власника ТЗ</Label>
+                    <Select
+                      value={params["city"] ?? ""}
+                      onValueChange={(value) => setParams((prev) => ({ ...prev, city: value }))}
+                    >
+                      <SelectTrigger>
+                        <SelectValue placeholder="Оберіть населений пункт" />
+                      </SelectTrigger>
+                      <SelectContent>
+                        {autoCityOptions.map((option) => (
+                          <SelectItem key={option.value} value={option.value}>
+                            {option.label}
+                          </SelectItem>
+                        ))}
+                      </SelectContent>
+                    </Select>
+                  </div>
+                </>
+              )}
+
 
               {isTravel && (
                 <>

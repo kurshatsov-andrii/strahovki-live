@@ -1,3 +1,5 @@
+import { defaultCityForRegion, ukraineRegionOptions, ukraineRegions } from "@/lib/ukraine-regions";
+
 export const PRODUCTS = ["auto", "green_card", "travel", "sport"] as const;
 export type ProductKey = (typeof PRODUCTS)[number];
 
@@ -21,6 +23,8 @@ export type ProductConfig = {
   usesDays: boolean;
   /** true → дні рахуються автоматично з дат виїзду/приїзду + дата народження */
   usesTravelDates?: boolean;
+  /** true → форма автоцивілки: вік водія, тип ТЗ, номери, область/місто */
+  usesAutoForm?: boolean;
   /** фіксовані умови поліса, які показуємо в калькуляторі */
   notes?: string[];
 };
@@ -473,55 +477,78 @@ export const sportOptions = sportGroups
 
 
 
+export const autoVehicleOptions = [
+  { value: "A1", label: "A1 — Мотоцикли та мотороллери до 300 куб см (включно)" },
+  { value: "A2", label: "A2 — Мотоцикли та мотороллери від 300 куб см" },
+  { value: "B1", label: "B1 — Легковий автомобіль: до 1600 куб см" },
+  { value: "B2", label: "B2 — Легковий автомобіль: 1601 – 2000 куб см" },
+  { value: "B3", label: "B3 — Легковий автомобіль: 2001 – 3000 куб см" },
+  { value: "B4", label: "B4 — Легковий автомобіль: більше 3000 куб см" },
+  {
+    value: "B5",
+    label: "B5 — Легковий електромобіль (виключно електродвигун, крім гібридів)",
+  },
+  { value: "C1", label: "C1 — Вантажні: вантажопідйомність до 2 тонн (включно)" },
+  { value: "C2", label: "C2 — Вантажні: вантажопідйомність понад 2 тонни" },
+  { value: "D1", label: "D1 — Автобуси до 20 місць для сидіння (включно)" },
+  { value: "D2", label: "D2 — Автобуси понад 20 місць для сидіння" },
+  { value: "E", label: "E — Причепи до вантажних автомобілів" },
+  { value: "F", label: "F — Причепи до легкових автомобілів" },
+];
+
+export const autoPlateOptions = [
+  { value: "ua", label: "Українські номери" },
+  { value: "foreign", label: "Іноземні номери" },
+];
+
+export const autoTermOptionsUa = [
+  { value: "6", label: "6 місяців" },
+  { value: "12", label: "1 рік" },
+];
+
+export const autoTermOptionsForeign = [
+  { value: "15d", label: "15 днів" },
+  { value: "21d", label: "21 день" },
+  { value: "1", label: "1 місяць" },
+  { value: "2", label: "2 місяці" },
+  { value: "3", label: "3 місяці" },
+  { value: "4", label: "4 місяці" },
+  { value: "5", label: "5 місяців" },
+  { value: "6", label: "6 місяців" },
+  { value: "12", label: "1 рік" },
+];
+
+export const AUTO_MIN_DRIVER_AGE = 18;
+export const AUTO_MAX_DRIVER_AGE = 90;
+
+export function autoDriverBand(age: number): string {
+  return age < 25 ? "young" : "standard";
+}
+
 export const productConfigs: Record<ProductKey, ProductConfig> = {
   auto: {
     title: "Калькулятор автоцивілки",
     usesDays: false,
+    usesAutoForm: true,
     fields: [
       {
-        key: "region",
-        label: "Регіон реєстрації",
-        options: [
-          { value: "kyiv", label: "Київ" },
-          { value: "kharkiv", label: "Харків" },
-          { value: "lviv", label: "Львів" },
-          { value: "odesa", label: "Одеса" },
-          { value: "dnipro", label: "Дніпро" },
-          { value: "other", label: "Інші міста та області" },
-        ],
-      },
-      {
         key: "vehicle",
-        label: "Тип транспортного засобу",
-        options: [
-          { value: "car_small", label: "Легковий до 1600 см³" },
-          { value: "car_medium", label: "Легковий 1601–2000 см³" },
-          { value: "car_large", label: "Легковий понад 2000 см³" },
-          { value: "truck", label: "Вантажний" },
-          { value: "bus", label: "Автобус" },
-          { value: "moto", label: "Мотоцикл" },
-        ],
+        label: "Тип (наземний транспортний засіб)",
+        options: autoVehicleOptions,
       },
       {
-        key: "driver",
-        label: "Водії",
-        options: [
-          { value: "experienced", label: "Стаж понад 3 роки" },
-          { value: "young", label: "Стаж до 3 років / вік до 25" },
-          { value: "unlimited", label: "Без обмеження водіїв" },
-        ],
+        key: "plates",
+        label: "Реєстрація авто",
+        options: autoPlateOptions,
       },
       {
         key: "term",
         label: "Строк дії",
-        options: [
-          { value: "1", label: "1 місяць" },
-          { value: "6", label: "6 місяців" },
-          { value: "12", label: "12 місяців" },
-        ],
+        options: [...autoTermOptionsForeign],
       },
     ],
   },
+
   green_card: {
     title: "Калькулятор зеленої карти",
     usesDays: false,
@@ -687,6 +714,14 @@ export function defaultParams(product: ProductKey): Record<string, string> {
     params["coverage"] = "30000";
     params["franchise"] = "0";
   }
+  if (config.usesAutoForm) {
+    params["vehicle"] = "B1";
+    params["plates"] = "ua";
+    params["term"] = "12";
+    params["driver_age"] = "30";
+    params["region"] = ukraineRegionOptions[0]!.value;
+    params["city"] = defaultCityForRegion(ukraineRegionOptions[0]!.value);
+  }
   return params;
 }
 
@@ -704,6 +739,14 @@ export function describeParams(product: ProductKey, params: Record<string, unkno
     if (params["birth_date"]) parts.push(`Дата народження: ${String(params["birth_date"])}`);
   }
   if (config.usesDays) parts.push(`Кількість днів: ${String(params["days"] ?? "—")}`);
+  if (config.usesAutoForm) {
+    parts.push(`Вік наймолодшого водія: ${String(params["driver_age"] ?? "—")}`);
+    if (String(params["plates"] ?? "") === "ua") {
+      const region = ukraineRegions.find((r) => r.value === String(params["region"] ?? ""));
+      parts.push(`Область реєстрації власника ТЗ: ${region?.label ?? "—"}`);
+      parts.push(`Населений пункт реєстрації: ${String(params["city"] ?? "—")}`);
+    }
+  }
   if (product === "travel") {
     parts.push(`Сума покриття: ${String(params["coverage"] ?? "30000")} €`);
     parts.push(`Франшиза: ${String(params["franchise"] ?? "0")} €`);
@@ -730,6 +773,8 @@ export const extraParamLabels: Record<string, string> = {
   doc_issuer: "Ким виданий документ",
   doc_date: "Дата видачі документа",
   region: "Область",
+  driver_age: "Вік наймолодшого водія",
+  driver: "Категорія водія",
   city: "Населений пункт",
   street: "Вулиця",
   house: "№ будинку",
@@ -803,6 +848,7 @@ export function describeAllParams(
     ...(config?.fields.map((f) => f.key) ?? []),
     ...(config?.usesDays ? ["days"] : []),
     ...(config?.usesTravelDates ? ["date_from", "date_to", "birth_date"] : []),
+    ...(config?.usesAutoForm ? ["driver_age", "region", "city"] : []),
 
   ]);
   const base = product ? describeParams(product, params) : [];
