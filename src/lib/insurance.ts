@@ -339,7 +339,7 @@ export const productConfigs: Record<ProductKey, ProductConfig> = {
     fields: [
       {
         key: "sport",
-        label: "Вид спорту (група ризику)",
+        label: "Вид спорту",
         options: sportOptions,
       },
       {
