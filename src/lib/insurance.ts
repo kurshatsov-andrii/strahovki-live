@@ -415,7 +415,7 @@ export const productConfigs: Record<ProductKey, ProductConfig> = {
         ],
       },
     ],
-  }
+  },
 
   sport: {
     title: "Калькулятор спортивної страховки",
