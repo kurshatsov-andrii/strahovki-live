@@ -30,6 +30,7 @@ import {
   productLabels,
   type ProductKey,
 } from "@/lib/insurance";
+import { fieldErrors, simpleLeadSchema, sportLeadSchema } from "@/lib/lead-validation";
 
 const productRoutes: Record<ProductKey, string> = {
   auto: "/autostrahuvannya",
@@ -470,7 +471,7 @@ function LeadDialog({
   );
 }
 
-export function FieldError({ message }: { message?: string }) {
+export function FieldError({ message }: { message?: string | undefined }) {
   if (!message) return null;
   return <p className="text-xs font-medium text-destructive">{message}</p>;
 }
