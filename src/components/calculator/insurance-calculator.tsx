@@ -300,7 +300,22 @@ function LeadDialog({
 }) {
   const isSport = product === "sport";
   const [errors, setErrors] = useState<Record<string, string>>({});
+  const [dateValues, setDateValues] = useState<Record<string, string>>({
+    birth_date: "",
+    passport_date: "",
+  });
   const submitFn = useServerFn(submitLead);
+
+  useEffect(() => {
+    if (quote) setDateValues({ birth_date: "", passport_date: "" });
+  }, [quote]);
+
+  function formatDateInput(value: string) {
+    const digits = value.replace(/\D/g, "").slice(0, 8);
+    if (digits.length <= 2) return digits;
+    if (digits.length <= 4) return `${digits.slice(0, 2)}.${digits.slice(2)}`;
+    return `${digits.slice(0, 2)}.${digits.slice(2, 4)}.${digits.slice(4)}`;
+  }
   const mutation = useMutation({
     mutationFn: (values: {
       name: string;
