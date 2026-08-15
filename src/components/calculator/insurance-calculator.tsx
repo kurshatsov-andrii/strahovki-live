@@ -31,7 +31,17 @@ import {
   type ProductKey,
 } from "@/lib/insurance";
 import { FieldError } from "@/components/ui/field-error";
-import { fieldErrors, simpleLeadSchema, sportLeadSchema } from "@/lib/lead-validation";
+import {
+  fieldErrors,
+  greenCardLeadSchema,
+  simpleLeadSchema,
+  sportLeadSchema,
+} from "@/lib/lead-validation";
+import {
+  greenCardApplicantFields,
+  sportApplicantFields,
+  type ApplicantField,
+} from "@/lib/applicant-fields";
 
 const productRoutes: Record<ProductKey, string> = {
   auto: "/autostrahuvannya",
@@ -269,24 +279,6 @@ function CrossSellBlock({ current }: { current: ProductKey }) {
   );
 }
 
-const sportApplicantFields = [
-  { name: "last_name", label: "Прізвище", placeholder: "Куршацов" },
-  { name: "first_name", label: "Ім'я", placeholder: "Андрій" },
-  { name: "middle_name", label: "По батькові", placeholder: "Іванович" },
-  { name: "birth_date", label: "Дата народження", type: "text", placeholder: "дд.мм.рррр" },
-  { name: "tax_id", label: "Ідентифікаційний код", placeholder: "10 цифр" },
-  { name: "passport_number", label: "Номер паспорта", placeholder: "Серія та номер / ID-картка" },
-  { name: "passport_issuer", label: "Ким виданий паспорт" },
-  { name: "passport_date", label: "Коли виданий паспорт", type: "text", placeholder: "дд.мм.рррр" },
-  { name: "address", label: "Адреса проживання" },
-  {
-    name: "viber_phone",
-    label: "Мобільний номер Viber (для посилання на оплату)",
-    type: "tel",
-    placeholder: "+38 (0__) ___-__-__",
-  },
-] as const;
-
 function LeadDialog({
   product,
   params,
@@ -299,15 +291,19 @@ function LeadDialog({
   onClose: () => void;
 }) {
   const isSport = product === "sport";
+  const isGreenCard = product === "green_card";
+  const detailedFields: ApplicantField[] = isSport
+    ? sportApplicantFields
+    : isGreenCard
+      ? greenCardApplicantFields
+      : [];
+  const isDetailed = detailedFields.length > 0;
   const [errors, setErrors] = useState<Record<string, string>>({});
-  const [dateValues, setDateValues] = useState<Record<string, string>>({
-    birth_date: "",
-    passport_date: "",
-  });
+  const [dateValues, setDateValues] = useState<Record<string, string>>({});
   const submitFn = useServerFn(submitLead);
 
   useEffect(() => {
-    if (quote) setDateValues({ birth_date: "", passport_date: "" });
+    if (quote) setDateValues({});
   }, [quote]);
 
   function formatDateInput(value: string) {
@@ -316,6 +312,7 @@ function LeadDialog({
     if (digits.length <= 4) return `${digits.slice(0, 2)}.${digits.slice(2)}`;
     return `${digits.slice(0, 2)}.${digits.slice(2, 4)}.${digits.slice(4)}`;
   }
+
   const mutation = useMutation({
     mutationFn: (values: {
       name: string;
@@ -377,7 +374,9 @@ function LeadDialog({
 
             const parsed = isSport
               ? sportLeadSchema.safeParse(raw)
-              : simpleLeadSchema.safeParse(raw);
+              : isGreenCard
+                ? greenCardLeadSchema.safeParse(raw)
+                : simpleLeadSchema.safeParse(raw);
 
             if (!parsed.success) {
               setErrors(fieldErrors(parsed.error));
@@ -385,56 +384,84 @@ function LeadDialog({
               return;
             }
             setErrors({});
-            const values = parsed.data;
+            const values = parsed.data as Record<string, string | undefined>;
 
             const extra: Record<string, string> = {};
-            if (isSport) {
-              for (const field of sportApplicantFields) {
-                extra[field.name] = String(raw[field.name] ?? "").trim();
-              }
+            for (const field of detailedFields) {
+              const value = String(raw[field.name] ?? "").trim();
+              if (value) extra[field.name] = value;
             }
 
             mutation.mutate({
-              name:
-                "last_name" in values
-                  ? `${values.last_name} ${values.first_name} ${values.middle_name}`.trim()
-                  : values.name,
-              phone: "viber_phone" in values ? values.viber_phone : values.phone,
-              email: values.email,
-              message: values.message ?? "",
+              name: isDetailed
+                ? `${values["last_name"] ?? ""} ${values["first_name"] ?? ""} ${values["middle_name"] ?? ""}`.trim()
+                : String(values["name"] ?? ""),
+              phone: String(values["viber_phone"] ?? values["phone"] ?? ""),
+              email: String(values["email"] ?? ""),
+              message: values["message"] ?? "",
               extra,
             });
           }}
         >
-          {isSport ? (
+          {isDetailed ? (
             <>
               <p className="rounded-xl bg-secondary/60 p-3 text-sm text-muted-foreground">
-                Для оформлення полісу заповніть усі поля. Посилання на оплату надійде у Viber —
-                бізнес-чат EUROINS.
+                {isSport
+                  ? "Для оформлення полісу заповніть усі поля. Посилання на оплату надійде у Viber — бізнес-чат EUROINS."
+                  : "Для оформлення зеленої карти заповніть дані страхувальника, документа та транспортного засобу."}
               </p>
-              {sportApplicantFields.map((field) => {
-                const isDate = field.name === "birth_date" || field.name === "passport_date";
+              {detailedFields.map((field) => {
+                const isDate = field.kind === "date";
                 return (
                   <div key={field.name} className="space-y-2">
                     <Label htmlFor={`lead-${field.name}`}>{field.label}</Label>
-                    <Input
-                      id={`lead-${field.name}`}
-                      name={field.name}
-                      maxLength={isDate ? 10 : 200}
-                      aria-invalid={Boolean(errors[field.name])}
-                      type={isDate ? "text" : ("type" in field ? field.type : "text")}
-                      placeholder={"placeholder" in field ? field.placeholder : undefined}
-                      value={isDate ? dateValues[field.name] : undefined}
-                      onChange={
-                        isDate
-                          ? (event) =>
-                              setDateValues((prev) => ({
-                                ...prev,
-                                [field.name]: formatDateInput(event.target.value),
-                              }))
-                          : undefined
-                      }
-                    />
+                    {field.kind === "select" ? (
+                      <select
+                        id={`lead-${field.name}`}
+                        name={field.name}
+                        defaultValue={field.options?.[0]?.value ?? ""}
+                        aria-invalid={Boolean(errors[field.name])}
+                        className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
+                      >
+                        {field.options?.map((option) => (
+                          <option key={option.value} value={option.value}>
+                            {option.label}
+                          </option>
+                        ))}
+                      </select>
+                    ) : (
+                      <>
+                        <Input
+                          id={`lead-${field.name}`}
+                          name={field.name}
+                          maxLength={isDate ? 10 : 200}
+                          aria-invalid={Boolean(errors[field.name])}
+                          type={field.kind === "tel" ? "tel" : "text"}
+                          list={field.kind === "combo" ? `list-${field.name}` : undefined}
+                          placeholder={field.placeholder}
+                          value={isDate ? (dateValues[field.name] ?? "") : undefined}
+                          onChange={
+                            isDate
+                              ? (event) =>
+                                  setDateValues((prev) => ({
+                                    ...prev,
+                                    [field.name]: formatDateInput(event.target.value),
+                                  }))
+                              : undefined
+                          }
+                        />
+                        {field.kind === "combo" && (
+                          <datalist id={`list-${field.name}`}>
+                            {field.suggestions?.map((item) => (
+                              <option key={item} value={item} />
+                            ))}
+                          </datalist>
+                        )}
+                      </>
+                    )}
+                    {field.hint && (
+                      <p className="text-xs text-muted-foreground">{field.hint}</p>
+                    )}
                     <FieldError message={errors[field.name]} />
                   </div>
                 );
@@ -492,7 +519,7 @@ function LeadDialog({
           </div>
           <Button type="submit" className="w-full" disabled={mutation.isPending}>
             {mutation.isPending && <Loader2 className="mr-2 size-4 animate-spin" />}
-            {isSport ? "Оформити поліс" : "Надіслати заявку"}
+            {isDetailed ? "Оформити поліс" : "Надіслати заявку"}
           </Button>
         </form>
       </DialogContent>
