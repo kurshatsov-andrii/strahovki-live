@@ -50,6 +50,8 @@ export function DateField({
   mode = "any",
   placeholder = "дд.мм.рррр",
   invalid,
+  minDate,
+  maxDate,
 }: {
   id?: string;
   name: string;
@@ -58,9 +60,13 @@ export function DateField({
   mode?: DateRangeMode;
   placeholder?: string;
   invalid?: boolean;
+  minDate?: Date;
+  maxDate?: Date;
 }) {
   const [open, setOpen] = React.useState(false);
-  const { fromDate, toDate } = rangeBounds(mode);
+  const bounds = rangeBounds(mode);
+  const fromDate = minDate ?? bounds.fromDate;
+  const toDate = maxDate ?? bounds.toDate;
   const selected = parseDMY(value);
 
   return (
