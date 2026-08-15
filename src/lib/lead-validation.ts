@@ -148,7 +148,18 @@ export const greenCardLeadSchema = z
       .string()
       .trim()
       .min(1, "Вкажіть дату початку дії")
-      .refine((v) => isValidDate(v, { maxToday: false }), "Некоректна дата. Формат: дд.мм.рррр"),
+      .refine((v) => isValidDate(v, { maxToday: false }), "Некоректна дата. Формат: дд.мм.рррр")
+      .refine((v) => {
+        const d = parseDMY(v);
+        if (!d) return false;
+        const today = new Date();
+        today.setHours(0, 0, 0, 0);
+        const min = new Date(today);
+        min.setDate(min.getDate() + 1);
+        const max = new Date(today);
+        max.setMonth(max.getMonth() + 3);
+        return d.getTime() >= min.getTime() && d.getTime() <= max.getTime();
+      }, "Дата має бути від завтра і не пізніше ніж через 3 місяці"),
     last_name: latinNameField,
     first_name: latinNameField,
     middle_name: latinOptionalText(100),
