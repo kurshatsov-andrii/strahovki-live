@@ -78,6 +78,47 @@ export const travelCountryOptions = travelCountries
   .sort((a, b) => a.localeCompare(b, "uk"))
   .map((c) => ({ value: c, label: c }));
 
+const europeanTravelCountries = new Set([
+  "Австрія",
+  "Албанія",
+  "Бельгія",
+  "Болгарія",
+  "Велика Британія",
+  "Греція",
+  "Грузія",
+  "Данія",
+  "Естонія",
+  "Ірландія",
+  "Іспанія",
+  "Італія",
+  "Кіпр",
+  "Латвія",
+  "Литва",
+  "Мальта",
+  "Молдова",
+  "Нідерланди",
+  "Німеччина",
+  "Норвегія",
+  "Польща",
+  "Португалія",
+  "Румунія",
+  "Сербія",
+  "Словаччина",
+  "Словенія",
+  "Угорщина",
+  "Фінляндія",
+  "Франція",
+  "Хорватія",
+  "Чехія",
+  "Чорногорія",
+  "Швейцарія",
+  "Швеція",
+]);
+
+export function isEuropeanTravelCountry(country: string): boolean {
+  return europeanTravelCountries.has(country);
+}
+
 
 const sportGroups: { group: string; label: string; sports: string[] }[] = [
   {
@@ -349,28 +390,20 @@ export const productConfigs: Record<ProductKey, ProductConfig> = {
     notes: [
       "Мінімальний строк — 7 днів, максимальний — 90 днів",
       "Оформлення для осіб віком до 70 років",
+      "Сума покриття: 30 000 €, франшиза: 0 €",
     ],
     fields: [
-      {
-        key: "zone",
-        label: "Територія дії договору",
-        options: [
-          { value: "schengen", label: "Європа" },
-          { value: "world", label: "Весь світ" },
-        ],
-      },
       {
         key: "country",
         label: "Країна поїздки",
         options: travelCountryOptions,
       },
       {
-        key: "coverage",
-        label: "Сума покриття",
+        key: "zone",
+        label: "Територія дії договору",
         options: [
-          { value: "30000", label: "30 000 €" },
-          { value: "50000", label: "50 000 €" },
-          { value: "100000", label: "100 000 €" },
+          { value: "schengen", label: "Європа" },
+          { value: "world", label: "Весь світ" },
         ],
       },
       {
@@ -381,17 +414,8 @@ export const productConfigs: Record<ProductKey, ProductConfig> = {
           { value: "active", label: "Активний відпочинок" },
         ],
       },
-      {
-        key: "franchise",
-        label: "Франшиза",
-        options: [
-          { value: "0", label: "0 €" },
-          { value: "50", label: "50 €" },
-          { value: "100", label: "100 €" },
-        ],
-      },
     ],
-  },
+  }
 
   sport: {
     title: "Калькулятор спортивної страховки",
@@ -486,6 +510,10 @@ export function defaultParams(product: ProductKey): Record<string, string> {
     params["days"] = String(TRAVEL_MIN_DAYS);
     params["birth_date"] = "";
   }
+  if (product === "travel") {
+    params["coverage"] = "30000";
+    params["franchise"] = "0";
+  }
   return params;
 }
 
@@ -503,6 +531,10 @@ export function describeParams(product: ProductKey, params: Record<string, unkno
     if (params["birth_date"]) parts.push(`Дата народження: ${String(params["birth_date"])}`);
   }
   if (config.usesDays) parts.push(`Кількість днів: ${String(params["days"] ?? "—")}`);
+  if (product === "travel") {
+    parts.push(`Сума покриття: ${String(params["coverage"] ?? "30000")} €`);
+    parts.push(`Франшиза: ${String(params["franchise"] ?? "0")} €`);
+  }
   return parts;
 }
 
