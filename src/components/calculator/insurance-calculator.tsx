@@ -267,6 +267,24 @@ function CrossSellBlock({ current }: { current: ProductKey }) {
   );
 }
 
+const sportApplicantFields = [
+  { name: "last_name", label: "Прізвище", placeholder: "Куршацов" },
+  { name: "first_name", label: "Ім'я", placeholder: "Андрій" },
+  { name: "middle_name", label: "По батькові", placeholder: "Іванович" },
+  { name: "birth_date", label: "Дата народження", type: "date" },
+  { name: "tax_id", label: "Ідентифікаційний код", placeholder: "10 цифр" },
+  { name: "passport_number", label: "Номер паспорта", placeholder: "Серія та номер / ID-картка" },
+  { name: "passport_issuer", label: "Ким виданий паспорт" },
+  { name: "passport_date", label: "Коли виданий паспорт", type: "date" },
+  { name: "address", label: "Адреса проживання" },
+  {
+    name: "viber_phone",
+    label: "Мобільний номер Viber (для посилання на оплату)",
+    type: "tel",
+    placeholder: "+38 (0__) ___-__-__",
+  },
+] as const;
+
 function LeadDialog({
   product,
   params,
@@ -278,6 +296,7 @@ function LeadDialog({
   quote: Quote | null;
   onClose: () => void;
 }) {
+  const isSport = product === "sport";
   const submitFn = useServerFn(submitLead);
   const mutation = useMutation({
     mutationFn: (values: {
@@ -285,6 +304,7 @@ function LeadDialog({
       phone: string;
       email: string;
       message: string;
+      extra: Record<string, string>;
     }) =>
       submitFn({
         data: {
@@ -293,14 +313,16 @@ function LeadDialog({
           email: values.email,
           message: values.message,
           product,
-          params,
+          params: { ...params, ...values.extra },
           company: quote?.company ?? "",
           price: quote?.price ?? 0,
         },
       }),
     onSuccess: () => {
       toast.success("Заявку надіслано", {
-        description: "Менеджер зв'яжеться з вами найближчим часом.",
+        description: isSport
+          ? "Посилання на оплату надішлемо у Viber (бізнес-чат EUROINS)."
+          : "Менеджер зв'яжеться з вами найближчим часом.",
       });
       onClose();
     },
@@ -309,7 +331,7 @@ function LeadDialog({
 
   return (
     <Dialog open={quote !== null} onOpenChange={(open) => !open && onClose()}>
-      <DialogContent>
+      <DialogContent className="max-h-[85vh] overflow-y-auto">
         <DialogHeader>
           <DialogTitle>Оформлення: {productLabels[product]}</DialogTitle>
           <DialogDescription>
@@ -321,29 +343,70 @@ function LeadDialog({
           onSubmit={(event) => {
             event.preventDefault();
             const form = new FormData(event.currentTarget);
+            const extra: Record<string, string> = {};
+            if (isSport) {
+              for (const field of sportApplicantFields) {
+                extra[field.label] = String(form.get(field.name) ?? "").trim();
+              }
+            }
             mutation.mutate({
-              name: String(form.get("name") ?? ""),
-              phone: String(form.get("phone") ?? ""),
+              name: isSport
+                ? [
+                    String(form.get("last_name") ?? ""),
+                    String(form.get("first_name") ?? ""),
+                    String(form.get("middle_name") ?? ""),
+                  ]
+                    .join(" ")
+                    .trim()
+                : String(form.get("name") ?? ""),
+              phone: isSport
+                ? String(form.get("viber_phone") ?? "")
+                : String(form.get("phone") ?? ""),
               email: String(form.get("email") ?? ""),
               message: String(form.get("message") ?? ""),
+              extra,
             });
           }}
         >
-          <div className="space-y-2">
-            <Label htmlFor="lead-name">Ім'я</Label>
-            <Input id="lead-name" name="name" required maxLength={100} placeholder="Ваше ім'я" />
-          </div>
-          <div className="space-y-2">
-            <Label htmlFor="lead-phone">Телефон</Label>
-            <Input
-              id="lead-phone"
-              name="phone"
-              required
-              type="tel"
-              maxLength={30}
-              placeholder="+38 (0__) ___-__-__"
-            />
-          </div>
+          {isSport ? (
+            <>
+              <p className="rounded-xl bg-secondary/60 p-3 text-sm text-muted-foreground">
+                Для оформлення полісу заповніть усі поля. Посилання на оплату надійде у Viber —
+                бізнес-чат EUROINS.
+              </p>
+              {sportApplicantFields.map((field) => (
+                <div key={field.name} className="space-y-2">
+                  <Label htmlFor={`lead-${field.name}`}>{field.label}</Label>
+                  <Input
+                    id={`lead-${field.name}`}
+                    name={field.name}
+                    required
+                    maxLength={200}
+                    type={"type" in field ? field.type : "text"}
+                    placeholder={"placeholder" in field ? field.placeholder : undefined}
+                  />
+                </div>
+              ))}
+            </>
+          ) : (
+            <>
+              <div className="space-y-2">
+                <Label htmlFor="lead-name">Ім'я</Label>
+                <Input id="lead-name" name="name" required maxLength={100} placeholder="Ваше ім'я" />
+              </div>
+              <div className="space-y-2">
+                <Label htmlFor="lead-phone">Телефон</Label>
+                <Input
+                  id="lead-phone"
+                  name="phone"
+                  required
+                  type="tel"
+                  maxLength={30}
+                  placeholder="+38 (0__) ___-__-__"
+                />
+              </div>
+            </>
+          )}
           <div className="space-y-2">
             <Label htmlFor="lead-email">Email (необов'язково)</Label>
             <Input id="lead-email" name="email" type="email" maxLength={255} />
@@ -354,10 +417,11 @@ function LeadDialog({
           </div>
           <Button type="submit" className="w-full" disabled={mutation.isPending}>
             {mutation.isPending && <Loader2 className="mr-2 size-4 animate-spin" />}
-            Надіслати заявку
+            {isSport ? "Оформити поліс" : "Надіслати заявку"}
           </Button>
         </form>
       </DialogContent>
     </Dialog>
   );
 }
+
