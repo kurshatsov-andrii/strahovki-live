@@ -19,9 +19,65 @@ export type ProductConfig = {
   fields: CalcField[];
   /** true → ціна рахується за день і множиться на кількість днів */
   usesDays: boolean;
+  /** true → дні рахуються автоматично з дат виїзду/приїзду + дата народження */
+  usesTravelDates?: boolean;
   /** фіксовані умови поліса, які показуємо в калькуляторі */
   notes?: string[];
 };
+
+const travelCountries = [
+  "Австрія",
+  "Албанія",
+  "Бельгія",
+  "Болгарія",
+  "Велика Британія",
+  "Греція",
+  "Грузія",
+  "Данія",
+  "Домініканська Республіка",
+  "Єгипет",
+  "Естонія",
+  "Ізраїль",
+  "Індія",
+  "Ірландія",
+  "Іспанія",
+  "Італія",
+  "Кіпр",
+  "Латвія",
+  "Литва",
+  "Мальта",
+  "Мексика",
+  "Молдова",
+  "Нідерланди",
+  "Німеччина",
+  "Норвегія",
+  "ОАЕ",
+  "Польща",
+  "Португалія",
+  "Румунія",
+  "Сербія",
+  "Словаччина",
+  "Словенія",
+  "США",
+  "Таїланд",
+  "Туніс",
+  "Туреччина",
+  "Угорщина",
+  "Фінляндія",
+  "Франція",
+  "Хорватія",
+  "Чехія",
+  "Чорногорія",
+  "Швейцарія",
+  "Швеція",
+  "Шрі-Ланка",
+];
+
+export const travelCountryOptions = travelCountries
+  .slice()
+  .sort((a, b) => a.localeCompare(b, "uk"))
+  .map((c) => ({ value: c, label: c }));
+
 
 const sportGroups: { group: string; label: string; sports: string[] }[] = [
   {
@@ -289,15 +345,24 @@ export const productConfigs: Record<ProductKey, ProductConfig> = {
   travel: {
     title: "Калькулятор туристичної страховки",
     usesDays: true,
+    usesTravelDates: true,
+    notes: [
+      "Мінімальний строк — 7 днів, максимальний — 90 днів",
+      "Оформлення для осіб віком до 70 років",
+    ],
     fields: [
       {
         key: "zone",
-        label: "Напрямок",
+        label: "Територія дії договору",
         options: [
-          { value: "schengen", label: "Шенген / Європа" },
-          { value: "turkey_egypt", label: "Туреччина, Єгипет" },
+          { value: "schengen", label: "Європа" },
           { value: "world", label: "Весь світ" },
         ],
+      },
+      {
+        key: "country",
+        label: "Країна поїздки",
+        options: travelCountryOptions,
       },
       {
         key: "coverage",
@@ -309,25 +374,25 @@ export const productConfigs: Record<ProductKey, ProductConfig> = {
         ],
       },
       {
-        key: "age",
-        label: "Вік застрахованого",
-        options: [
-          { value: "under_18", label: "До 18 років" },
-          { value: "18_64", label: "18–64 роки" },
-          { value: "over_65", label: "65+ років" },
-        ],
-      },
-      {
         key: "activity",
         label: "Активність під час поїздки",
         options: [
           { value: "standard", label: "Звичайний відпочинок" },
           { value: "active", label: "Активний відпочинок" },
-          { value: "extreme", label: "Екстремальні види спорту" },
+        ],
+      },
+      {
+        key: "franchise",
+        label: "Франшиза",
+        options: [
+          { value: "0", label: "0 €" },
+          { value: "50", label: "50 €" },
+          { value: "100", label: "100 €" },
         ],
       },
     ],
   },
+
   sport: {
     title: "Калькулятор спортивної страховки",
     usesDays: false,
@@ -356,12 +421,71 @@ export const productConfigs: Record<ProductKey, ProductConfig> = {
 
 };
 
+export const TRAVEL_MIN_DAYS = 7;
+export const TRAVEL_MAX_DAYS = 90;
+export const TRAVEL_MAX_AGE = 70;
+
+function parseDmy(value: string): Date | null {
+  const m = /^(\d{2})\.(\d{2})\.(\d{4})$/.exec(value ?? "");
+  if (!m) return null;
+  const [, d, mo, y] = m;
+  const date = new Date(Number(y), Number(mo) - 1, Number(d));
+  if (
+    date.getFullYear() !== Number(y) ||
+    date.getMonth() !== Number(mo) - 1 ||
+    date.getDate() !== Number(d)
+  )
+    return null;
+  return date;
+}
+
+/** Кількість днів між датами включно (виїзд і приїзд). */
+export function travelDays(from: string, to: string): number | null {
+  const a = parseDmy(from);
+  const b = parseDmy(to);
+  if (!a || !b) return null;
+  const diff = Math.round((b.getTime() - a.getTime()) / 86_400_000) + 1;
+  return diff > 0 ? diff : null;
+}
+
+export function ageFromBirthDate(value: string, at: Date = new Date()): number | null {
+  const birth = parseDmy(value);
+  if (!birth) return null;
+  let age = at.getFullYear() - birth.getFullYear();
+  const before =
+    at.getMonth() < birth.getMonth() ||
+    (at.getMonth() === birth.getMonth() && at.getDate() < birth.getDate());
+  if (before) age -= 1;
+  return age >= 0 && age <= 120 ? age : null;
+}
+
+export function travelAgeBand(age: number): string {
+  if (age < 18) return "under_18";
+  if (age >= 65) return "over_65";
+  return "18_64";
+}
+
+function todayPlus(days: number): string {
+  const d = new Date();
+  d.setHours(0, 0, 0, 0);
+  d.setDate(d.getDate() + days);
+  const p = (n: number) => String(n).padStart(2, "0");
+  return `${p(d.getDate())}.${p(d.getMonth() + 1)}.${d.getFullYear()}`;
+}
+
 export function defaultParams(product: ProductKey): Record<string, string> {
+  const config = productConfigs[product];
   const params: Record<string, string> = {};
-  for (const field of productConfigs[product].fields) {
+  for (const field of config.fields) {
     params[field.key] = field.options[0]!.value;
   }
-  if (productConfigs[product].usesDays) params["days"] = "10";
+  if (config.usesDays) params["days"] = "10";
+  if (config.usesTravelDates) {
+    params["date_from"] = todayPlus(1);
+    params["date_to"] = todayPlus(TRAVEL_MIN_DAYS);
+    params["days"] = String(TRAVEL_MIN_DAYS);
+    params["birth_date"] = "";
+  }
   return params;
 }
 
@@ -373,9 +497,15 @@ export function describeParams(product: ProductKey, params: Record<string, unkno
     const option = field.options.find((o) => o.value === raw);
     return `${field.label}: ${option?.label ?? (raw || "—")}`;
   });
+  if (config.usesTravelDates) {
+    parts.push(`Дата виїзду: ${String(params["date_from"] ?? "—")}`);
+    parts.push(`Дата приїзду: ${String(params["date_to"] ?? "—")}`);
+    if (params["birth_date"]) parts.push(`Дата народження: ${String(params["birth_date"])}`);
+  }
   if (config.usesDays) parts.push(`Кількість днів: ${String(params["days"] ?? "—")}`);
   return parts;
 }
+
 
 export const extraParamLabels: Record<string, string> = {
   last_name: "Прізвище",
@@ -410,9 +540,21 @@ export const extraParamLabels: Record<string, string> = {
   mass_empty: "Маса без навантаження, кг",
   engine_volume: "Об'єм двигуна, куб. см",
   power_kw: "Потужність, кВт",
+  date_from: "Дата виїзду",
+  date_to: "Дата приїзду",
+  country: "Країна поїздки",
+  franchise: "Франшиза",
 };
 
-const dateKeys = new Set(["birth_date", "passport_date", "doc_date", "start_date"]);
+const dateKeys = new Set([
+  "birth_date",
+  "passport_date",
+  "doc_date",
+  "start_date",
+  "date_from",
+  "date_to",
+]);
+
 
 const dmyRegex = /^(\d{2})\.(\d{2})\.(\d{4})$/;
 const isoDateRegex = /^(\d{4})-(\d{2})-(\d{2})/;
@@ -455,6 +597,8 @@ export function describeAllParams(
   const known = new Set<string>([
     ...(config?.fields.map((f) => f.key) ?? []),
     ...(config?.usesDays ? ["days"] : []),
+    ...(config?.usesTravelDates ? ["date_from", "date_to", "birth_date"] : []),
+
   ]);
   const base = product ? describeParams(product, params) : [];
   const rest = Object.entries(params ?? {})
