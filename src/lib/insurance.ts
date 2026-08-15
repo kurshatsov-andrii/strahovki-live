@@ -597,6 +597,8 @@ export function describeAllParams(
   const known = new Set<string>([
     ...(config?.fields.map((f) => f.key) ?? []),
     ...(config?.usesDays ? ["days"] : []),
+    ...(config?.usesTravelDates ? ["date_from", "date_to", "birth_date"] : []),
+
   ]);
   const base = product ? describeParams(product, params) : [];
   const rest = Object.entries(params ?? {})
