@@ -284,6 +284,6 @@ export function autoPolicyPrice(params: Record<string, string>): number | null {
 /** ДЦВ (додаткове цивільне відшкодування) — лише для авто на українських номерах. */
 export const AUTO_DCV_FEE: Record<string, number> = {
   "12": 288,
-  "6": 268;
+  "6": 268,
+};
 
-}
