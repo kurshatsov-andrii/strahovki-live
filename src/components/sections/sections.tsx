@@ -176,19 +176,13 @@ function TrustIndexWidget() {
   const containerRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    console.log("TrustIndex useEffect running, container:", !!containerRef.current);
     if (!containerRef.current) return;
-    const existing = document.querySelector(
-      'script[src="https://cdn.trustindex.io/loader.js?2cfbe9733f7d250d9a16cb73dca"]'
-    );
-    console.log("existing script:", !!existing);
-    if (existing) return;
+    if (containerRef.current.querySelector(".ti-widget")) return;
 
     const script = document.createElement("script");
     script.src = "https://cdn.trustindex.io/loader.js?2cfbe9733f7d250d9a16cb73dca";
     script.defer = true;
-    document.body.appendChild(script);
-    console.log("appended script:", script.src, "body scripts:", document.querySelectorAll('script[src*="trustindex"]').length);
+    containerRef.current.appendChild(script);
   }, []);
 
   return (
