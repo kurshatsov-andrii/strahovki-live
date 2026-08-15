@@ -540,9 +540,21 @@ export const extraParamLabels: Record<string, string> = {
   mass_empty: "Маса без навантаження, кг",
   engine_volume: "Об'єм двигуна, куб. см",
   power_kw: "Потужність, кВт",
+  date_from: "Дата виїзду",
+  date_to: "Дата приїзду",
+  country: "Країна поїздки",
+  franchise: "Франшиза",
 };
 
-const dateKeys = new Set(["birth_date", "passport_date", "doc_date", "start_date"]);
+const dateKeys = new Set([
+  "birth_date",
+  "passport_date",
+  "doc_date",
+  "start_date",
+  "date_from",
+  "date_to",
+]);
+
 
 const dmyRegex = /^(\d{2})\.(\d{2})\.(\d{4})$/;
 const isoDateRegex = /^(\d{4})-(\d{2})-(\d{2})/;
