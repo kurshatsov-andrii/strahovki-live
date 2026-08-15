@@ -96,7 +96,7 @@ export const sportLeadSchema = z.object({
     .string()
     .trim()
     .min(1, "Вкажіть дату видачі")
-    .refine((v) => isValidDate(v), "Некоректна дата"),
+    .refine((v) => isValidDate(v), "Некоректна дата. Формат: дд.мм.рррр"),
   address: z.string().trim().min(5, "Вкажіть повну адресу").max(200, "Максимум 200 символів"),
   viber_phone: phoneField,
   email: emailField,
