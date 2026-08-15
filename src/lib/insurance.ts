@@ -196,12 +196,15 @@ function slugify(value: string): string {
     .slice(0, 40);
 }
 
-export const sportOptions = sportGroups.flatMap((g) =>
-  g.sports.map((sport) => ({
-    value: `${g.group}:${slugify(sport)}`,
-    label: `${g.label} · ${sport}`,
-  })),
-);
+export const sportOptions = sportGroups
+  .flatMap((g) =>
+    g.sports.map((sport) => ({
+      value: `${g.group}:${slugify(sport)}`,
+      label: sport,
+    })),
+  )
+  .sort((a, b) => a.label.localeCompare(b.label, "uk"));
+
 
 
 export const productConfigs: Record<ProductKey, ProductConfig> = {
