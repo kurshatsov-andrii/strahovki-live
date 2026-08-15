@@ -459,6 +459,9 @@ export function computePrice(
   }
   if (params["sport"]) {
     effective["sport_group"] = params["sport"].split(":")[0] ?? "";
+    if (params["age"]) {
+      effective["group_age"] = `${effective["sport_group"]}_${params["age"]}`;
+    }
   }
 
   for (const [group, values] of Object.entries(coefficients ?? {})) {
