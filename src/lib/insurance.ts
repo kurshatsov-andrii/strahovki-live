@@ -328,45 +328,20 @@ export const productConfigs: Record<ProductKey, ProductConfig> = {
   sport: {
     title: "Калькулятор спортивної страховки",
     usesDays: false,
+    notes: [
+      "Страхова сума: 35 000 грн",
+      "Строк дії: 1 рік",
+      "Аматорський спорт",
+    ],
     fields: [
       {
-        key: "risk",
-        label: "Рівень занять",
-        options: [
-          { value: "amateur", label: "Аматорський спорт" },
-          { value: "pro", label: "Професійний спорт" },
-          { value: "extreme", label: "Екстремальні види" },
-        ],
-      },
-      {
-        key: "coverage",
-        label: "Сума покриття",
-        options: [
-          { value: "50000", label: "50 000 грн" },
-          { value: "100000", label: "100 000 грн" },
-          { value: "200000", label: "200 000 грн" },
-        ],
-      },
-      {
-        key: "insured",
-        label: "Кого страхуємо",
-        options: [
-          { value: "individual", label: "Одну особу" },
-          { value: "team", label: "Команду (до 15 осіб)" },
-        ],
-      },
-      {
-        key: "term",
-        label: "Строк дії",
-        options: [
-          { value: "1", label: "1 місяць" },
-          { value: "3", label: "3 місяці" },
-          { value: "6", label: "6 місяців" },
-          { value: "12", label: "12 місяців" },
-        ],
+        key: "sport",
+        label: "Вид спорту (група ризику)",
+        options: sportOptions,
       },
     ],
   },
+
 };
 
 export function defaultParams(product: ProductKey): Record<string, string> {
