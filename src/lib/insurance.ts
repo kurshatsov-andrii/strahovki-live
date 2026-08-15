@@ -388,9 +388,32 @@ export const extraParamLabels: Record<string, string> = {
   passport_date: "Коли виданий паспорт",
   address: "Адреса проживання",
   viber_phone: "Viber для оплати",
+  start_date: "Початок дії полісу",
+  doc_type: "Тип документа",
+  doc_series: "Серія документа",
+  doc_number: "Номер документа",
+  doc_issuer: "Ким виданий документ",
+  doc_date: "Дата видачі документа",
+  region: "Область",
+  city: "Населений пункт",
+  street: "Вулиця",
+  house: "№ будинку",
+  apartment: "№ квартири",
+  plate: "Номерний знак",
+  vehicle_type: "Тип ТЗ",
+  vin: "VIN (номер кузова)",
+  car_brand: "Марка авто",
+  car_model: "Модель авто",
+  car_year: "Рік випуску",
+  seats: "К-сть місць",
+  mass_total: "Повна маса, кг",
+  mass_empty: "Маса без навантаження, кг",
+  engine_volume: "Об'єм двигуна, куб. см",
+  power_kw: "Потужність, кВт",
 };
 
-const dateKeys = new Set(["birth_date", "passport_date"]);
+const dateKeys = new Set(["birth_date", "passport_date", "doc_date", "start_date"]);
+
 const dmyRegex = /^(\d{2})\.(\d{2})\.(\d{4})$/;
 const isoDateRegex = /^(\d{4})-(\d{2})-(\d{2})/;
 
