@@ -444,26 +444,28 @@ function LeadDialog({
                           </option>
                         ))}
                       </select>
+                    ) : isDate ? (
+                      <DateField
+                        id={`lead-${field.name}`}
+                        name={field.name}
+                        mode={field.dateMode ?? "any"}
+                        invalid={Boolean(errors[field.name])}
+                        placeholder={field.placeholder ?? "дд.мм.рррр"}
+                        value={dateValues[field.name] ?? ""}
+                        onChange={(value) =>
+                          setDateValues((prev) => ({ ...prev, [field.name]: value }))
+                        }
+                      />
                     ) : (
                       <>
                         <Input
                           id={`lead-${field.name}`}
                           name={field.name}
-                          maxLength={isDate ? 10 : 200}
+                          maxLength={200}
                           aria-invalid={Boolean(errors[field.name])}
                           type={field.kind === "tel" ? "tel" : "text"}
                           list={field.kind === "combo" ? `list-${field.name}` : undefined}
                           placeholder={field.placeholder}
-                          value={isDate ? (dateValues[field.name] ?? "") : undefined}
-                          onChange={
-                            isDate
-                              ? (event) =>
-                                  setDateValues((prev) => ({
-                                    ...prev,
-                                    [field.name]: formatDateInput(event.target.value),
-                                  }))
-                              : undefined
-                          }
                         />
                         {field.kind === "combo" && (
                           <datalist id={`list-${field.name}`}>
