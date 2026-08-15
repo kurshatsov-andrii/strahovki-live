@@ -62,7 +62,7 @@ export function HomeHero({
           </div>
         </div>
 
-        <div className="relative">
+        <div className="relative hidden lg:block">
           <img
             src={heroImage}
             alt="Подорож автомобілем із чинним страховим полісом"
