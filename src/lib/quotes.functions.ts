@@ -69,7 +69,7 @@ export const getQuotes = createServerFn({ method: "POST" })
 const leadSchema = z.object({
   name: z.string().trim().min(2, "Вкажіть ім'я").max(100),
   phone: z.string().trim().min(6, "Вкажіть телефон").max(30),
-  email: z.string().trim().email("Некоректний email").max(255).optional().or(z.literal("")),
+  email: z.string().trim().email("Некоректний email").max(255),
   product: productEnum.optional(),
   params: z.record(z.string(), z.string().max(300)).default({}),
   company: z.string().trim().max(100).optional(),

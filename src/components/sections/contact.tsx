@@ -11,6 +11,8 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { SectionHead } from "@/components/sections/sections";
+import { FieldError } from "@/components/ui/field-error";
+import { contactLeadSchema, fieldErrors } from "@/lib/lead-validation";
 
 function ViberIcon({ className }: { className?: string }) {
   return (
@@ -28,13 +30,22 @@ export function ContactFormSection({
   subtitle: string;
 }) {
   const [sent, setSent] = useState(false);
+  const [errors, setErrors] = useState<Record<string, string>>({});
   const site = useSiteSettings();
   const submitFn = useServerFn(submitLead);
   const mutation = useMutation({
-    mutationFn: (values: { name: string; phone: string; message: string }) =>
-      submitFn({ data: { name: values.name, phone: values.phone, message: values.message } }),
+    mutationFn: (values: { name: string; phone: string; email: string; message: string }) =>
+      submitFn({
+        data: {
+          name: values.name,
+          phone: values.phone,
+          email: values.email,
+          message: values.message,
+        },
+      }),
     onSuccess: () => {
       setSent(true);
+      setErrors({});
       toast.success("Заявку надіслано", {
         description: "Ми зв'яжемось з вами протягом кількох хвилин.",
       });
@@ -48,15 +59,29 @@ export function ContactFormSection({
         <SectionHead title={title} subtitle={subtitle} />
         <div className="mx-auto mt-12 grid max-w-4xl gap-6 md:grid-cols-[1.2fr_1fr]">
           <form
+            noValidate
             className="rounded-2xl border border-border bg-card p-6 shadow-soft"
             onSubmit={(e) => {
               e.preventDefault();
               const form = e.currentTarget;
               const data = new FormData(form);
-              mutation.mutate({
+              const parsed = contactLeadSchema.safeParse({
                 name: String(data.get("name") ?? ""),
                 phone: String(data.get("phone") ?? ""),
+                email: String(data.get("email") ?? ""),
                 message: String(data.get("message") ?? ""),
+              });
+              if (!parsed.success) {
+                setErrors(fieldErrors(parsed.error));
+                toast.error("Перевірте правильність заповнення полів");
+                return;
+              }
+              setErrors({});
+              mutation.mutate({
+                name: parsed.data.name,
+                phone: parsed.data.phone,
+                email: parsed.data.email,
+                message: parsed.data.message ?? "",
               });
               form.reset();
             }}
@@ -64,16 +89,47 @@ export function ContactFormSection({
             <div className="grid gap-4 sm:grid-cols-2">
               <div className="space-y-2">
                 <Label htmlFor="name">Ім'я</Label>
-                <Input id="name" name="name" required placeholder="Ваше ім'я" />
+                <Input
+                  id="name"
+                  name="name"
+                  placeholder="Ваше ім'я"
+                  aria-invalid={Boolean(errors["name"])}
+                />
+                <FieldError message={errors["name"]} />
               </div>
               <div className="space-y-2">
                 <Label htmlFor="phone">Телефон</Label>
-                <Input id="phone" name="phone" required type="tel" placeholder="+38 (0__) ___-__-__" />
+                <Input
+                  id="phone"
+                  name="phone"
+                  type="tel"
+                  placeholder="+38 (0__) ___-__-__"
+                  aria-invalid={Boolean(errors["phone"])}
+                />
+                <FieldError message={errors["phone"]} />
               </div>
             </div>
             <div className="mt-4 space-y-2">
+              <Label htmlFor="email">Email</Label>
+              <Input
+                id="email"
+                name="email"
+                type="email"
+                placeholder="you@example.com"
+                aria-invalid={Boolean(errors["email"])}
+              />
+              <FieldError message={errors["email"]} />
+            </div>
+            <div className="mt-4 space-y-2">
               <Label htmlFor="message">Повідомлення</Label>
-              <Textarea id="message" name="message" rows={4} placeholder="Який продукт вас цікавить?" />
+              <Textarea
+                id="message"
+                name="message"
+                rows={4}
+                placeholder="Який продукт вас цікавить?"
+                aria-invalid={Boolean(errors["message"])}
+              />
+              <FieldError message={errors["message"]} />
             </div>
             <Button type="submit" className="mt-6 w-full" disabled={mutation.isPending}>
               {mutation.isPending && <Loader2 className="mr-2 size-4 animate-spin" />}
@@ -85,6 +141,7 @@ export function ContactFormSection({
               </p>
             )}
           </form>
+
 
           <div className="flex flex-col gap-3">
             <a
