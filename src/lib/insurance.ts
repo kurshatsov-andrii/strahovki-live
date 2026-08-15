@@ -846,6 +846,7 @@ export function describeAllParams(
     ...(config?.fields.map((f) => f.key) ?? []),
     ...(config?.usesDays ? ["days"] : []),
     ...(config?.usesTravelDates ? ["date_from", "date_to", "birth_date"] : []),
+    ...(config?.usesAutoForm ? ["driver_age", "region", "city"] : []),
 
   ]);
   const base = product ? describeParams(product, params) : [];
