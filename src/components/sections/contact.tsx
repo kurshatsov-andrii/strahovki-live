@@ -11,6 +11,8 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { SectionHead } from "@/components/sections/sections";
+import { FieldError } from "@/components/ui/field-error";
+import { contactLeadSchema, fieldErrors } from "@/lib/lead-validation";
 
 function ViberIcon({ className }: { className?: string }) {
   return (
