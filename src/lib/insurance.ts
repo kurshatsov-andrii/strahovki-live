@@ -365,6 +365,36 @@ export function describeParams(product: ProductKey, params: Record<string, unkno
   return parts;
 }
 
+export const extraParamLabels: Record<string, string> = {
+  last_name: "Прізвище",
+  first_name: "Ім'я",
+  middle_name: "По батькові",
+  birth_date: "Дата народження",
+  tax_id: "Ідентифікаційний код",
+  passport_number: "Номер паспорта",
+  passport_issuer: "Ким виданий паспорт",
+  passport_date: "Коли виданий паспорт",
+  address: "Адреса проживання",
+  viber_phone: "Viber для оплати",
+};
+
+/** Усі параметри заявки: продуктові поля + персональні дані клієнта. */
+export function describeAllParams(
+  product: ProductKey | null,
+  params: Record<string, unknown>,
+): string[] {
+  const config = product ? productConfigs[product] : undefined;
+  const known = new Set<string>([
+    ...(config?.fields.map((f) => f.key) ?? []),
+    ...(config?.usesDays ? ["days"] : []),
+  ]);
+  const base = product ? describeParams(product, params) : [];
+  const rest = Object.entries(params ?? {})
+    .filter(([key, value]) => !known.has(key) && value !== null && String(value).trim() !== "")
+    .map(([key, value]) => `${extraParamLabels[key] ?? key}: ${String(value)}`);
+  return [...base, ...rest];
+}
+
 export type Coefficients = Record<string, Record<string, number>>;
 
 export function computePrice(
