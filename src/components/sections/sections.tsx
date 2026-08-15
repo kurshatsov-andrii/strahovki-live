@@ -1,10 +1,11 @@
-import { Link } from "@tanstack/react-router";
+import { Link, ClientOnly } from "@tanstack/react-router";
 import { Check, Star } from "lucide-react";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 import { Button } from "@/components/ui/button";
 import { getIcon } from "@/lib/icon-map";
 import type { Advantage, FaqItem } from "@/content/site";
 import { home } from "@/content/site";
+import { useEffect, useRef } from "react";
 
 export function SectionHead({
   eyebrow,
