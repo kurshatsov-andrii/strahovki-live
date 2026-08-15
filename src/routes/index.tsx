@@ -45,6 +45,11 @@ export const Route = createFileRoute("/")({
           url: "https://strahovki.live",
         }),
       },
+      {
+        src: "https://cdn.trustindex.io/loader.js?2cfbe9733f7d250d9a16cb73dca",
+        defer: true,
+        async: true,
+      },
     ],
   }),
   component: Index,
