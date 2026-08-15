@@ -378,6 +378,39 @@ export const extraParamLabels: Record<string, string> = {
   viber_phone: "Viber для оплати",
 };
 
+const dateKeys = new Set(["birth_date", "passport_date"]);
+const dmyRegex = /^(\d{2})\.(\d{2})\.(\d{4})$/;
+const isoDateRegex = /^(\d{4})-(\d{2})-(\d{2})/;
+
+function pad(n: number) {
+  return String(n).padStart(2, "0");
+}
+
+export function formatDisplayDate(value: string): string | null {
+  if (!value) return null;
+  const dmy = value.match(dmyRegex);
+  if (dmy) return value;
+  const iso = value.match(isoDateRegex);
+  if (iso) {
+    const [, y, m, d] = iso;
+    const date = new Date(Number(y), Number(m) - 1, Number(d));
+    if (
+      date.getFullYear() === Number(y) &&
+      date.getMonth() === Number(m) - 1 &&
+      date.getDate() === Number(d)
+    ) {
+      return `${pad(date.getDate())}.${pad(date.getMonth() + 1)}.${date.getFullYear()}`;
+    }
+  }
+  return null;
+}
+
+export function formatDateTime(value: string | Date | number): string {
+  const date = new Date(value);
+  if (Number.isNaN(date.getTime())) return String(value);
+  return `${pad(date.getDate())}.${pad(date.getMonth() + 1)}.${date.getFullYear()} ${pad(date.getHours())}:${pad(date.getMinutes())}`;
+}
+
 /** Усі параметри заявки: продуктові поля + персональні дані клієнта. */
 export function describeAllParams(
   product: ProductKey | null,
@@ -391,7 +424,12 @@ export function describeAllParams(
   const base = product ? describeParams(product, params) : [];
   const rest = Object.entries(params ?? {})
     .filter(([key, value]) => !known.has(key) && value !== null && String(value).trim() !== "")
-    .map(([key, value]) => `${extraParamLabels[key] ?? key}: ${String(value)}`);
+    .map(([key, value]) => {
+      const label = extraParamLabels[key] ?? key;
+      const raw = String(value);
+      const display = dateKeys.has(key) ? formatDisplayDate(raw) ?? raw : raw;
+      return `${label}: ${display}`;
+    });
   return [...base, ...rest];
 }
 
