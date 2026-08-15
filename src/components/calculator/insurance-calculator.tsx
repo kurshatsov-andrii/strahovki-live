@@ -297,6 +297,7 @@ function LeadDialog({
   onClose: () => void;
 }) {
   const isSport = product === "sport";
+  const [errors, setErrors] = useState<Record<string, string>>({});
   const submitFn = useServerFn(submitLead);
   const mutation = useMutation({
     mutationFn: (values: {
@@ -319,6 +320,7 @@ function LeadDialog({
         },
       }),
     onSuccess: () => {
+      setErrors({});
       toast.success("Заявку надіслано", {
         description: isSport
           ? "Посилання на оплату надішлемо у Viber (бізнес-чат EUROINS)."
@@ -330,7 +332,15 @@ function LeadDialog({
   });
 
   return (
-    <Dialog open={quote !== null} onOpenChange={(open) => !open && onClose()}>
+    <Dialog
+      open={quote !== null}
+      onOpenChange={(open) => {
+        if (!open) {
+          setErrors({});
+          onClose();
+        }
+      }}
+    >
       <DialogContent className="max-h-[85vh] overflow-y-auto">
         <DialogHeader>
           <DialogTitle>Оформлення: {productLabels[product]}</DialogTitle>
@@ -339,31 +349,42 @@ function LeadDialog({
           </DialogDescription>
         </DialogHeader>
         <form
+          noValidate
           className="space-y-4"
           onSubmit={(event) => {
             event.preventDefault();
             const form = new FormData(event.currentTarget);
+            const raw = Object.fromEntries(
+              [...form.entries()].map(([key, value]) => [key, String(value)]),
+            );
+
+            const parsed = isSport
+              ? sportLeadSchema.safeParse(raw)
+              : simpleLeadSchema.safeParse(raw);
+
+            if (!parsed.success) {
+              setErrors(fieldErrors(parsed.error));
+              toast.error("Перевірте правильність заповнення полів");
+              return;
+            }
+            setErrors({});
+            const values = parsed.data;
+
             const extra: Record<string, string> = {};
             if (isSport) {
               for (const field of sportApplicantFields) {
-                extra[field.label] = String(form.get(field.name) ?? "").trim();
+                extra[field.label] = String(raw[field.name] ?? "").trim();
               }
             }
+
             mutation.mutate({
-              name: isSport
-                ? [
-                    String(form.get("last_name") ?? ""),
-                    String(form.get("first_name") ?? ""),
-                    String(form.get("middle_name") ?? ""),
-                  ]
-                    .join(" ")
-                    .trim()
-                : String(form.get("name") ?? ""),
-              phone: isSport
-                ? String(form.get("viber_phone") ?? "")
-                : String(form.get("phone") ?? ""),
-              email: String(form.get("email") ?? ""),
-              message: String(form.get("message") ?? ""),
+              name:
+                "last_name" in values
+                  ? `${values.last_name} ${values.first_name} ${values.middle_name}`.trim()
+                  : values.name,
+              phone: "viber_phone" in values ? values.viber_phone : values.phone,
+              email: values.email,
+              message: values.message ?? "",
               extra,
             });
           }}
@@ -380,11 +401,12 @@ function LeadDialog({
                   <Input
                     id={`lead-${field.name}`}
                     name={field.name}
-                    required
                     maxLength={200}
+                    aria-invalid={Boolean(errors[field.name])}
                     type={"type" in field ? field.type : "text"}
                     placeholder={"placeholder" in field ? field.placeholder : undefined}
                   />
+                  <FieldError message={errors[field.name]} />
                 </div>
               ))}
             </>
@@ -392,28 +414,51 @@ function LeadDialog({
             <>
               <div className="space-y-2">
                 <Label htmlFor="lead-name">Ім'я</Label>
-                <Input id="lead-name" name="name" required maxLength={100} placeholder="Ваше ім'я" />
+                <Input
+                  id="lead-name"
+                  name="name"
+                  maxLength={100}
+                  aria-invalid={Boolean(errors["name"])}
+                  placeholder="Ваше ім'я"
+                />
+                <FieldError message={errors["name"]} />
               </div>
               <div className="space-y-2">
                 <Label htmlFor="lead-phone">Телефон</Label>
                 <Input
                   id="lead-phone"
                   name="phone"
-                  required
                   type="tel"
                   maxLength={30}
+                  aria-invalid={Boolean(errors["phone"])}
                   placeholder="+38 (0__) ___-__-__"
                 />
+                <FieldError message={errors["phone"]} />
               </div>
             </>
           )}
           <div className="space-y-2">
-            <Label htmlFor="lead-email">Email (необов'язково)</Label>
-            <Input id="lead-email" name="email" type="email" maxLength={255} />
+            <Label htmlFor="lead-email">Email</Label>
+            <Input
+              id="lead-email"
+              name="email"
+              type="email"
+              maxLength={255}
+              aria-invalid={Boolean(errors["email"])}
+              placeholder="you@example.com"
+            />
+            <FieldError message={errors["email"]} />
           </div>
           <div className="space-y-2">
             <Label htmlFor="lead-message">Коментар</Label>
-            <Textarea id="lead-message" name="message" rows={3} maxLength={1000} />
+            <Textarea
+              id="lead-message"
+              name="message"
+              rows={3}
+              maxLength={1000}
+              aria-invalid={Boolean(errors["message"])}
+            />
+            <FieldError message={errors["message"]} />
           </div>
           <Button type="submit" className="w-full" disabled={mutation.isPending}>
             {mutation.isPending && <Loader2 className="mr-2 size-4 animate-spin" />}
@@ -424,4 +469,10 @@ function LeadDialog({
     </Dialog>
   );
 }
+
+export function FieldError({ message }: { message?: string }) {
+  if (!message) return null;
+  return <p className="text-xs font-medium text-destructive">{message}</p>;
+}
+
 
