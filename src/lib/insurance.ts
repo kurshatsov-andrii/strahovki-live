@@ -289,15 +289,24 @@ export const productConfigs: Record<ProductKey, ProductConfig> = {
   travel: {
     title: "Калькулятор туристичної страховки",
     usesDays: true,
+    usesTravelDates: true,
+    notes: [
+      "Мінімальний строк — 7 днів, максимальний — 90 днів",
+      "Оформлення для осіб віком до 70 років",
+    ],
     fields: [
       {
         key: "zone",
-        label: "Напрямок",
+        label: "Територія дії договору",
         options: [
-          { value: "schengen", label: "Шенген / Європа" },
-          { value: "turkey_egypt", label: "Туреччина, Єгипет" },
+          { value: "schengen", label: "Європа" },
           { value: "world", label: "Весь світ" },
         ],
+      },
+      {
+        key: "country",
+        label: "Країна поїздки",
+        options: travelCountryOptions,
       },
       {
         key: "coverage",
@@ -309,25 +318,25 @@ export const productConfigs: Record<ProductKey, ProductConfig> = {
         ],
       },
       {
-        key: "age",
-        label: "Вік застрахованого",
-        options: [
-          { value: "under_18", label: "До 18 років" },
-          { value: "18_64", label: "18–64 роки" },
-          { value: "over_65", label: "65+ років" },
-        ],
-      },
-      {
         key: "activity",
         label: "Активність під час поїздки",
         options: [
           { value: "standard", label: "Звичайний відпочинок" },
           { value: "active", label: "Активний відпочинок" },
-          { value: "extreme", label: "Екстремальні види спорту" },
+        ],
+      },
+      {
+        key: "franchise",
+        label: "Франшиза",
+        options: [
+          { value: "0", label: "0 €" },
+          { value: "50", label: "50 €" },
+          { value: "100", label: "100 €" },
         ],
       },
     ],
   },
+
   sport: {
     title: "Калькулятор спортивної страховки",
     usesDays: false,
