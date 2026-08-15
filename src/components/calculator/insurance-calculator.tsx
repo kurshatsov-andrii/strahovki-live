@@ -31,6 +31,7 @@ import {
   type ProductKey,
 } from "@/lib/insurance";
 import { FieldError } from "@/components/ui/field-error";
+import { DateField } from "@/components/ui/date-field";
 import {
   fieldErrors,
   greenCardLeadSchema,
@@ -310,13 +311,6 @@ function LeadDialog({
     if (quote) setDateValues({});
   }, [quote]);
 
-  function formatDateInput(value: string) {
-    const digits = value.replace(/\D/g, "").slice(0, 8);
-    if (digits.length <= 2) return digits;
-    if (digits.length <= 4) return `${digits.slice(0, 2)}.${digits.slice(2)}`;
-    return `${digits.slice(0, 2)}.${digits.slice(2, 4)}.${digits.slice(4)}`;
-  }
-
   const mutation = useMutation({
     mutationFn: (values: {
       name: string;
@@ -452,7 +446,7 @@ function LeadDialog({
                         invalid={Boolean(errors[field.name])}
                         placeholder={field.placeholder ?? "дд.мм.рррр"}
                         value={dateValues[field.name] ?? ""}
-                        onChange={(value) =>
+                        onChange={(value: string) =>
                           setDateValues((prev) => ({ ...prev, [field.name]: value }))
                         }
                       />
