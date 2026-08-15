@@ -353,8 +353,29 @@ export function InsuranceCalculator({ product }: { product: ProductKey }) {
                       </SelectContent>
                     </Select>
                   </div>
+                  <div className="space-y-2">
+                    <Label>Пільгова категорія страхувальника — громадянина України</Label>
+                    <Select
+                      value={params["privilege"] ?? "none"}
+                      onValueChange={(value) =>
+                        setParams((prev) => ({ ...prev, privilege: value }))
+                      }
+                    >
+                      <SelectTrigger>
+                        <SelectValue placeholder="Відсутня" />
+                      </SelectTrigger>
+                      <SelectContent>
+                        {autoPrivilegeOptions.map((option) => (
+                          <SelectItem key={option.value} value={option.value}>
+                            {option.label}
+                          </SelectItem>
+                        ))}
+                      </SelectContent>
+                    </Select>
+                  </div>
                 </>
               )}
+
 
 
               {isTravel && (
