@@ -173,26 +173,29 @@ export function FaqSection({ items }: { items: FaqItem[] }) {
 }
 
 export function TestimonialsSection() {
+  const widgetRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    if (typeof window === "undefined") return;
+    if (document.getElementById("trustindex-loader")) return;
+
+    const script = document.createElement("script");
+    script.id = "trustindex-loader";
+    script.src = "https://cdn.trustindex.io/loader.js?2cfbe9733f7d250d9a16cb73dca";
+    script.defer = true;
+    script.async = true;
+    document.body.appendChild(script);
+  }, []);
+
   return (
     <section className="py-20">
       <div className="container-page">
         <SectionHead title={home.testimonials.title} />
-        <div className="mt-12 grid gap-5 md:grid-cols-3">
-          {home.testimonials.items.map((t) => (
-            <figure key={t.name} className="rounded-2xl border border-border bg-card p-6 shadow-soft">
-              <div className="flex gap-1 text-accent">
-                {Array.from({ length: 5 }).map((_, i) => (
-                  <Star key={i} className="size-4 fill-current" />
-                ))}
-              </div>
-              <blockquote className="mt-4 text-sm text-muted-foreground">{t.text}</blockquote>
-              <figcaption className="mt-5 text-sm font-semibold">
-                {t.name}
-                <span className="ml-2 font-normal text-muted-foreground">{t.role}</span>
-              </figcaption>
-            </figure>
-          ))}
-        </div>
+        <div
+          ref={widgetRef}
+          className="trustindex-widget mt-12 min-h-[180px]"
+          data-widget-id="2cfbe9733f7d250d9a16cb73dca"
+        />
       </div>
     </section>
   );
