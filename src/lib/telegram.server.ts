@@ -39,8 +39,9 @@ export function buildLeadMessage(lead: LeadNotification) {
   const params = Object.entries(lead.params ?? {}).filter(([, v]) => v);
   if (params.length)
     lines.push(
-      `⚙️ <b>Параметри:</b> ${escapeHtml(params.map(([k, v]) => `${k}: ${v}`).join(", "))}`,
+      `⚙️ <b>Параметри:</b>\n${params.map(([k, v]) => escapeHtml(`• ${k}: ${v}`)).join("\n")}`,
     );
+
   if (lead.message) lines.push(`💬 <b>Повідомлення:</b> ${escapeHtml(lead.message)}`);
   return lines.join("\n");
 }

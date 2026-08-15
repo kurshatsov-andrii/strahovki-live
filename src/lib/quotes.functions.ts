@@ -25,7 +25,7 @@ const productEnum = z.enum(["auto", "green_card", "travel", "sport"]);
 
 const quoteSchema = z.object({
   product: productEnum,
-  params: z.record(z.string(), z.string()).default({}),
+  params: z.record(z.string(), z.string().max(300)).default({}),
 });
 
 export type Quote = {
@@ -71,7 +71,7 @@ const leadSchema = z.object({
   phone: z.string().trim().min(6, "Вкажіть телефон").max(30),
   email: z.string().trim().email("Некоректний email").max(255).optional().or(z.literal("")),
   product: productEnum.optional(),
-  params: z.record(z.string(), z.string()).default({}),
+  params: z.record(z.string(), z.string().max(300)).default({}),
   company: z.string().trim().max(100).optional(),
   price: z.number().nonnegative().max(10_000_000).optional(),
   message: z.string().trim().max(1000).optional(),
