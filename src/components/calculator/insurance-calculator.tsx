@@ -27,6 +27,7 @@ import {
   ageFromBirthDate,
   defaultParams,
   formatUah,
+  isEuropeanTravelCountry,
   productConfigs,
   productLabels,
   travelAgeBand,
@@ -123,13 +124,22 @@ export function InsuranceCalculator({ product }: { product: ProductKey }) {
     setParams((prev) => (prev["days"] === value ? prev : { ...prev, days: value }));
   }, [isTravel, computedDays]);
 
+  useEffect(() => {
+    if (!isTravel) return;
+    const country = params["country"] ?? "";
+    if (!isEuropeanTravelCountry(country) && params["zone"] !== "world") {
+      setParams((prev) => ({ ...prev, zone: "world" }));
+    }
+  }, [isTravel, params.country, params.zone]);
+
   const runCalculation = (values: Record<string, string>) => {
     if (isTravel) {
       const age = ageFromBirthDate(values["birth_date"] ?? "");
       if (age === null || age > TRAVEL_MAX_AGE) return;
       const d = travelDays(values["date_from"] ?? "", values["date_to"] ?? "");
       if (!d || d < TRAVEL_MIN_DAYS || d > TRAVEL_MAX_DAYS) return;
-      calculate.mutate({ ...values, days: String(d), age: travelAgeBand(age) });
+      const enriched = { coverage: "30000", franchise: "0", ...values };
+      calculate.mutate({ ...enriched, days: String(d), age: travelAgeBand(age) });
       return;
     }
     calculate.mutate(values);
@@ -192,28 +202,37 @@ export function InsuranceCalculator({ product }: { product: ProductKey }) {
             )}
             <div className="grid gap-4">
 
-              {config.fields.map((field) => (
-                <div key={field.key} className="space-y-2">
-                  <Label>{field.label}</Label>
-                  <Select
-                    value={params[field.key] ?? ""}
-                    onValueChange={(value) =>
-                      setParams((prev) => ({ ...prev, [field.key]: value }))
-                    }
-                  >
-                    <SelectTrigger>
-                      <SelectValue placeholder="Оберіть" />
-                    </SelectTrigger>
-                    <SelectContent>
-                      {field.options.map((option) => (
-                        <SelectItem key={option.value} value={option.value}>
-                          {option.label}
-                        </SelectItem>
-                      ))}
-                    </SelectContent>
-                  </Select>
-                </div>
-              ))}
+              {config.fields.map((field) => {
+                const isZone = isTravel && field.key === "zone";
+                const country = params["country"] ?? "";
+                const zoneLocked = isZone && !isEuropeanTravelCountry(country);
+                const options = zoneLocked
+                  ? [{ value: "world", label: "Весь світ" }]
+                  : field.options;
+                return (
+                  <div key={field.key} className="space-y-2">
+                    <Label>{field.label}</Label>
+                    <Select
+                      value={params[field.key] ?? ""}
+                      disabled={zoneLocked}
+                      onValueChange={(value) =>
+                        setParams((prev) => ({ ...prev, [field.key]: value }))
+                      }
+                    >
+                      <SelectTrigger>
+                        <SelectValue placeholder="Оберіть" />
+                      </SelectTrigger>
+                      <SelectContent>
+                        {options.map((option) => (
+                          <SelectItem key={option.value} value={option.value}>
+                            {option.label}
+                          </SelectItem>
+                        ))}
+                      </SelectContent>
+                    </Select>
+                  </div>
+                );
+              })}
 
               {isTravel && (
                 <>
