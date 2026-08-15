@@ -339,6 +339,15 @@ export const productConfigs: Record<ProductKey, ProductConfig> = {
         label: "Вид спорту (група ризику)",
         options: sportOptions,
       },
+      {
+        key: "age",
+        label: "Вік застрахованого",
+        options: [
+          { value: "a1", label: "З 6 до 15 років" },
+          { value: "a2", label: "З 16 до 50 років" },
+          { value: "a3", label: "З 51 до 65 років" },
+        ],
+      },
     ],
   },
 
@@ -450,6 +459,9 @@ export function computePrice(
   }
   if (params["sport"]) {
     effective["sport_group"] = params["sport"].split(":")[0] ?? "";
+    if (params["age"]) {
+      effective["group_age"] = `${effective["sport_group"]}_${params["age"]}`;
+    }
   }
 
   for (const [group, values] of Object.entries(coefficients ?? {})) {
