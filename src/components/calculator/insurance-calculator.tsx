@@ -216,13 +216,32 @@ export function InsuranceCalculator({ product }: { product: ProductKey }) {
             )}
             <div className="grid gap-4">
 
+              {isAuto && (
+                <div className="space-y-2">
+                  <Label htmlFor="driver_age">Вік наймолодшого водія, який буде за кермом</Label>
+                  <Input
+                    id="driver_age"
+                    type="number"
+                    min={AUTO_MIN_DRIVER_AGE}
+                    max={AUTO_MAX_DRIVER_AGE}
+                    value={params["driver_age"] ?? ""}
+                    onChange={(event) =>
+                      setParams((prev) => ({ ...prev, driver_age: event.target.value }))
+                    }
+                  />
+                  {autoAgeError && <p className="text-xs text-destructive">{autoAgeError}</p>}
+                </div>
+              )}
+
               {config.fields.map((field) => {
                 const isZone = isTravel && field.key === "zone";
                 const country = params["country"] ?? "";
                 const zoneLocked = isZone && !isEuropeanTravelCountry(country);
                 const options = zoneLocked
                   ? [{ value: "world", label: "Весь світ" }]
-                  : field.options;
+                  : isAuto && field.key === "term"
+                    ? autoTermOptions
+                    : field.options;
                 return (
                   <div key={field.key} className="space-y-2">
                     <Label>{field.label}</Label>
@@ -247,6 +266,54 @@ export function InsuranceCalculator({ product }: { product: ProductKey }) {
                   </div>
                 );
               })}
+
+              {isAuto && params["plates"] === "ua" && (
+                <>
+                  <div className="space-y-2">
+                    <Label>Область реєстрації власника ТЗ</Label>
+                    <Select
+                      value={params["region"] ?? ""}
+                      onValueChange={(value) =>
+                        setParams((prev) => ({
+                          ...prev,
+                          region: value,
+                          city: citiesForRegion(value)[0]?.value ?? "",
+                        }))
+                      }
+                    >
+                      <SelectTrigger>
+                        <SelectValue placeholder="Оберіть область" />
+                      </SelectTrigger>
+                      <SelectContent>
+                        {ukraineRegionOptions.map((option) => (
+                          <SelectItem key={option.value} value={option.value}>
+                            {option.label}
+                          </SelectItem>
+                        ))}
+                      </SelectContent>
+                    </Select>
+                  </div>
+                  <div className="space-y-2">
+                    <Label>Населений пункт реєстрації власника ТЗ</Label>
+                    <Select
+                      value={params["city"] ?? ""}
+                      onValueChange={(value) => setParams((prev) => ({ ...prev, city: value }))}
+                    >
+                      <SelectTrigger>
+                        <SelectValue placeholder="Оберіть населений пункт" />
+                      </SelectTrigger>
+                      <SelectContent>
+                        {autoCityOptions.map((option) => (
+                          <SelectItem key={option.value} value={option.value}>
+                            {option.label}
+                          </SelectItem>
+                        ))}
+                      </SelectContent>
+                    </Select>
+                  </div>
+                </>
+              )}
+
 
               {isTravel && (
                 <>
