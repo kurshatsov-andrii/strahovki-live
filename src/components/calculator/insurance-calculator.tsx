@@ -121,7 +121,18 @@ export function InsuranceCalculator({ product }: { product: ProductKey }) {
               calculate.mutate(params);
             }}
           >
+            {config.notes && config.notes.length > 0 && (
+              <ul className="mb-4 space-y-1 rounded-xl bg-secondary/60 p-4 text-sm text-muted-foreground">
+                {config.notes.map((note) => (
+                  <li key={note} className="flex items-center gap-2">
+                    <ShieldCheck className="size-4 text-primary" />
+                    {note}
+                  </li>
+                ))}
+              </ul>
+            )}
             <div className="grid gap-4">
+
               {config.fields.map((field) => (
                 <div key={field.key} className="space-y-2">
                   <Label>{field.label}</Label>
