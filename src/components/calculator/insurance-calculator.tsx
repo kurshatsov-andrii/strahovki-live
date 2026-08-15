@@ -108,6 +108,20 @@ export function InsuranceCalculator({ product }: { product: ProductKey }) {
     [isTravel, params],
   );
 
+  const returnBounds = useMemo(() => {
+    if (!isTravel) return null;
+    const raw = params["date_from"] ?? "";
+    if (!/^\d{2}\.\d{2}\.\d{4}$/.test(raw)) return null;
+    const [d, m, y] = raw.split(".").map(Number);
+    const start = new Date(y, m - 1, d);
+    if (Number.isNaN(start.getTime())) return null;
+    const min = new Date(start);
+    min.setDate(min.getDate() + TRAVEL_MIN_DAYS - 1);
+    const max = new Date(start);
+    max.setDate(max.getDate() + TRAVEL_MAX_DAYS - 1);
+    return { min, max };
+  }, [isTravel, params]);
+
   const travelError = useMemo(() => {
     if (!isTravel) return null;
     if (!params["birth_date"]) return "Вкажіть дату народження застрахованого.";
