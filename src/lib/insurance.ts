@@ -427,7 +427,8 @@ export function describeAllParams(
     .map(([key, value]) => {
       const label = extraParamLabels[key] ?? key;
       const raw = String(value);
-      const display = dateKeys.has(key) ? formatDisplayDate(raw) ?? raw : raw;
+      const display =
+        dateKeys.has(key) || isoDateRegex.test(raw) ? formatDisplayDate(raw) ?? raw : raw;
       return `${label}: ${display}`;
     });
   return [...base, ...rest];
