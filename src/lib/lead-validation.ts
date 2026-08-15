@@ -39,9 +39,29 @@ export const simpleLeadSchema = z.object({
   message: messageField,
 });
 
+const dateRegex = /^(\d{2})\.(\d{2})\.(\d{4})$/;
+
+function parseDMY(value: string) {
+  const match = value.match(dateRegex);
+  if (!match) return null;
+  const [, d, m, y] = match;
+  const day = Number(d);
+  const month = Number(m);
+  const year = Number(y);
+  const date = new Date(year, month - 1, day);
+  if (
+    date.getFullYear() !== year ||
+    date.getMonth() !== month - 1 ||
+    date.getDate() !== day
+  ) {
+    return null;
+  }
+  return date;
+}
+
 function isValidDate(value: string, { maxToday = true, minYear = 1900 } = {}) {
-  const date = new Date(value);
-  if (Number.isNaN(date.getTime())) return false;
+  const date = parseDMY(value);
+  if (!date) return false;
   if (date.getFullYear() < minYear) return false;
   if (maxToday && date.getTime() > Date.now()) return false;
   return true;
@@ -55,9 +75,10 @@ export const sportLeadSchema = z.object({
     .string()
     .trim()
     .min(1, "Вкажіть дату народження")
-    .refine((v) => isValidDate(v), "Некоректна дата")
+    .refine((v) => isValidDate(v), "Некоректна дата. Формат: дд.мм.рррр")
     .refine((v) => {
-      const d = new Date(v);
+      const d = parseDMY(v);
+      if (!d) return false;
       const age = (Date.now() - d.getTime()) / (365.25 * 24 * 3600 * 1000);
       return age >= 1 && age <= 100;
     }, "Вік має бути від 1 до 100 років"),
