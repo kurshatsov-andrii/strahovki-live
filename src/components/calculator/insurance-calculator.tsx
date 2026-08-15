@@ -112,8 +112,8 @@ export function InsuranceCalculator({ product }: { product: ProductKey }) {
     if (!isTravel) return null;
     const raw = params["date_from"] ?? "";
     if (!/^\d{2}\.\d{2}\.\d{4}$/.test(raw)) return null;
-    const [d, m, y] = raw.split(".").map(Number);
-    const start = new Date(y, m - 1, d);
+    const parts = raw.split(".").map(Number);
+    const start = new Date(parts[2]!, parts[1]! - 1, parts[0]!);
     if (Number.isNaN(start.getTime())) return null;
     const min = new Date(start);
     min.setDate(min.getDate() + TRAVEL_MIN_DAYS - 1);
@@ -286,8 +286,7 @@ export function InsuranceCalculator({ product }: { product: ProductKey }) {
                         id="date_to"
                         name="date_to"
                         mode="any"
-                        minDate={returnBounds?.min}
-                        maxDate={returnBounds?.max}
+                        {...(returnBounds ? { minDate: returnBounds.min, maxDate: returnBounds.max } : {})}
                         value={params["date_to"] ?? ""}
                         onChange={(value) => setParams((prev) => ({ ...prev, date_to: value }))}
                         invalid={Boolean(
