@@ -172,36 +172,22 @@ export function FaqSection({ items }: { items: FaqItem[] }) {
   );
 }
 
-function TrustIndexWidget() {
-  const containerRef = useRef<HTMLDivElement>(null);
-
-  useEffect(() => {
-    if (!containerRef.current) return;
-    if (containerRef.current.querySelector(".ti-widget")) return;
-
-    const script = document.createElement("script");
-    script.src = "https://cdn.trustindex.io/loader.js?2cfbe9733f7d250d9a16cb73dca";
-    script.defer = true;
-    containerRef.current.appendChild(script);
-  }, []);
-
-  return (
-    <div
-      ref={containerRef}
-      className="trustindex-widget mt-12 min-h-[180px]"
-      data-widget-id="2cfbe9733f7d250d9a16cb73dca"
-    />
-  );
-}
-
 export function TestimonialsSection() {
   return (
     <section className="py-20">
       <div className="container-page">
         <SectionHead title={home.testimonials.title} />
-        <ClientOnly fallback={<div className="mt-12 min-h-[180px]" />}>
-          <TrustIndexWidget />
-        </ClientOnly>
+        <div
+          className="trustindex-widget mt-12 min-h-[180px]"
+          data-widget-id="2cfbe9733f7d250d9a16cb73dca"
+          suppressHydrationWarning
+        >
+          <script
+            defer
+            async
+            src="https://cdn.trustindex.io/loader.js?2cfbe9733f7d250d9a16cb73dca"
+          />
+        </div>
       </div>
     </section>
   );
