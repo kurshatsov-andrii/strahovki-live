@@ -1,4 +1,5 @@
 import { defaultCityForRegion, ukraineRegionOptions, ukraineRegions } from "@/lib/ukraine-regions";
+import { autoPrivilegeOptions } from "@/lib/auto-tariffs";
 
 export const PRODUCTS = ["auto", "green_card", "travel", "sport"] as const;
 export type ProductKey = (typeof PRODUCTS)[number];
@@ -721,6 +722,7 @@ export function defaultParams(product: ProductKey): Record<string, string> {
     params["driver_age"] = "30";
     params["region"] = ukraineRegionOptions[0]!.value;
     params["city"] = defaultCityForRegion(ukraineRegionOptions[0]!.value);
+    params["privilege"] = "none";
   }
   return params;
 }
@@ -745,6 +747,10 @@ export function describeParams(product: ProductKey, params: Record<string, unkno
       const region = ukraineRegions.find((r) => r.value === String(params["region"] ?? ""));
       parts.push(`Область реєстрації власника ТЗ: ${region?.label ?? "—"}`);
       parts.push(`Населений пункт реєстрації: ${String(params["city"] ?? "—")}`);
+      const privilege = String(params["privilege"] ?? "none");
+      parts.push(
+        `Пільгова категорія: ${autoPrivilegeOptions.find((o) => o.value === privilege)?.label ?? "Відсутня"}`,
+      );
     }
   }
   if (product === "travel") {
@@ -773,6 +779,7 @@ export const extraParamLabels: Record<string, string> = {
   doc_issuer: "Ким виданий документ",
   doc_date: "Дата видачі документа",
   region: "Область",
+  privilege: "Пільгова категорія",
   driver_age: "Вік наймолодшого водія",
   driver: "Категорія водія",
   city: "Населений пункт",
@@ -848,7 +855,7 @@ export function describeAllParams(
     ...(config?.fields.map((f) => f.key) ?? []),
     ...(config?.usesDays ? ["days"] : []),
     ...(config?.usesTravelDates ? ["date_from", "date_to", "birth_date"] : []),
-    ...(config?.usesAutoForm ? ["driver_age", "region", "city"] : []),
+    ...(config?.usesAutoForm ? ["driver_age", "region", "city", "privilege", "driver"] : []),
 
   ]);
   const base = product ? describeParams(product, params) : [];

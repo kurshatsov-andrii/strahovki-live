@@ -43,6 +43,8 @@ import {
   type ProductKey,
 } from "@/lib/insurance";
 import { citiesForRegion, defaultCityForRegion, ukraineRegionOptions } from "@/lib/ukraine-regions";
+import { autoPrivilegeOptions } from "@/lib/auto-tariffs";
+
 import { FieldError } from "@/components/ui/field-error";
 import { DateField } from "@/components/ui/date-field";
 import {
@@ -194,6 +196,7 @@ export function InsuranceCalculator({ product }: { product: ProductKey }) {
       if (values["plates"] !== "ua") {
         delete cleaned["region"];
         delete cleaned["city"];
+        delete cleaned["privilege"];
       }
       calculate.mutate(cleaned);
       return;
@@ -353,8 +356,29 @@ export function InsuranceCalculator({ product }: { product: ProductKey }) {
                       </SelectContent>
                     </Select>
                   </div>
+                  <div className="space-y-2">
+                    <Label>Пільгова категорія страхувальника — громадянина України</Label>
+                    <Select
+                      value={params["privilege"] ?? "none"}
+                      onValueChange={(value) =>
+                        setParams((prev) => ({ ...prev, privilege: value }))
+                      }
+                    >
+                      <SelectTrigger>
+                        <SelectValue placeholder="Відсутня" />
+                      </SelectTrigger>
+                      <SelectContent>
+                        {autoPrivilegeOptions.map((option) => (
+                          <SelectItem key={option.value} value={option.value}>
+                            {option.label}
+                          </SelectItem>
+                        ))}
+                      </SelectContent>
+                    </Select>
+                  </div>
                 </>
               )}
+
 
 
               {isTravel && (
