@@ -24,10 +24,16 @@ import {
 } from "@/components/ui/dialog";
 import { getQuotes, submitLead, type Quote } from "@/lib/quotes.functions";
 import {
+  ageFromBirthDate,
   defaultParams,
   formatUah,
   productConfigs,
   productLabels,
+  travelAgeBand,
+  travelDays,
+  TRAVEL_MAX_AGE,
+  TRAVEL_MAX_DAYS,
+  TRAVEL_MIN_DAYS,
   type ProductKey,
 } from "@/lib/insurance";
 import { FieldError } from "@/components/ui/field-error";
