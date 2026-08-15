@@ -272,8 +272,15 @@ export function InsuranceCalculator({ product }: { product: ProductKey }) {
                         id="date_to"
                         name="date_to"
                         mode="any"
+                        minDate={returnBounds?.min}
+                        maxDate={returnBounds?.max}
                         value={params["date_to"] ?? ""}
                         onChange={(value) => setParams((prev) => ({ ...prev, date_to: value }))}
+                        invalid={Boolean(
+                          params["date_to"] &&
+                            computedDays !== null &&
+                            (computedDays < TRAVEL_MIN_DAYS || computedDays > TRAVEL_MAX_DAYS),
+                        )}
                       />
                     </div>
                   </div>
