@@ -560,6 +560,7 @@ export const productConfigs: Record<ProductKey, ProductConfig> = {
       "Мінімальний строк — 7 днів, максимальний — 90 днів",
       "Оформлення для осіб віком до 70 років",
       "Сума покриття: 30 000 €, франшиза: 0 €",
+      "Для мандрівників старше 70 років — індивідуальний розрахунок, франшиза 50 €, термін до 14 днів",
     ],
     fields: [
       {
@@ -653,9 +654,12 @@ export function ageFromBirthDate(value: string, at: Date = new Date()): number |
 }
 
 export function travelAgeBand(age: number): string {
-  if (age < 18) return "under_18";
-  if (age >= 65) return "over_65";
-  return "18_64";
+  if (age < 1) return "1_3";
+  if (age <= 3) return "1_3";
+  if (age <= 59) return "4_59";
+  if (age <= 65) return "60_65";
+  if (age <= 70) return "66_70";
+  return "over_70";
 }
 
 function todayPlus(days: number): string {
@@ -843,7 +847,7 @@ export function computePrice(
     if (typeof factor === "number" && Number.isFinite(factor)) price *= factor;
   }
   if (perDay) price *= Math.max(1, days);
-  return Math.round(price);
+  return Math.round(price * 100) / 100;
 }
 
 export const leadStatuses = [
@@ -860,5 +864,8 @@ export function statusLabel(status: string): string {
 }
 
 export function formatUah(value: number): string {
-  return `${new Intl.NumberFormat("uk-UA").format(value)} грн`;
+  return `${new Intl.NumberFormat("uk-UA", {
+    minimumFractionDigits: 0,
+    maximumFractionDigits: 2,
+  }).format(value)} грн`;
 }
