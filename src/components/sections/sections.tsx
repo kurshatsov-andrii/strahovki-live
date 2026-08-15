@@ -172,15 +172,39 @@ export function FaqSection({ items }: { items: FaqItem[] }) {
   );
 }
 
+function TrustIndexWidget() {
+  const containerRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    if (!containerRef.current) return;
+    const existing = document.querySelector(
+      'script[src="https://cdn.trustindex.io/loader.js?2cfbe9733f7d250d9a16cb73dca"]'
+    );
+    if (existing) return;
+
+    const script = document.createElement("script");
+    script.src = "https://cdn.trustindex.io/loader.js?2cfbe9733f7d250d9a16cb73dca";
+    script.defer = true;
+    document.body.appendChild(script);
+  }, []);
+
+  return (
+    <div
+      ref={containerRef}
+      className="trustindex-widget mt-12 min-h-[180px]"
+      data-widget-id="2cfbe9733f7d250d9a16cb73dca"
+    />
+  );
+}
+
 export function TestimonialsSection() {
   return (
     <section className="py-20">
       <div className="container-page">
         <SectionHead title={home.testimonials.title} />
-        <div
-          className="trustindex-widget mt-12 min-h-[180px]"
-          data-widget-id="2cfbe9733f7d250d9a16cb73dca"
-        />
+        <ClientOnly fallback={<div className="mt-12 min-h-[180px]" />}>
+          <TrustIndexWidget />
+        </ClientOnly>
       </div>
     </section>
   );
