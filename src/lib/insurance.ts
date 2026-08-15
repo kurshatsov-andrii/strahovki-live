@@ -773,6 +773,8 @@ export const extraParamLabels: Record<string, string> = {
   doc_issuer: "Ким виданий документ",
   doc_date: "Дата видачі документа",
   region: "Область",
+  driver_age: "Вік наймолодшого водія",
+  driver: "Категорія водія",
   city: "Населений пункт",
   street: "Вулиця",
   house: "№ будинку",
