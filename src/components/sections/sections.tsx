@@ -176,6 +176,7 @@ export function TestimonialsSection() {
   const widgetRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
+    console.log("[TrustIndex] useEffect running");
     if (typeof window === "undefined") return;
     if (document.getElementById("trustindex-loader")) return;
 
@@ -185,6 +186,7 @@ export function TestimonialsSection() {
     script.defer = true;
     script.async = true;
     document.body.appendChild(script);
+    console.log("[TrustIndex] script appended");
   }, []);
 
   return (
