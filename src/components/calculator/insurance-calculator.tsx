@@ -93,7 +93,7 @@ export function InsuranceCalculator({ product }: { product: ProductKey }) {
     setToday(
       new Intl.DateTimeFormat("uk-UA", {
         day: "2-digit",
-        month: "long",
+        month: "2-digit",
         year: "numeric",
       }).format(new Date()),
     );
