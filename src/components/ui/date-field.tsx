@@ -93,7 +93,7 @@ export function DateField({
             mode="single"
             locale={uk}
             captionLayout="dropdown"
-            defaultMonth={selected ?? (mode === "future3m" ? fromDate : undefined)}
+            defaultMonth={selected ?? (mode === "future3m" ? fromDate : startOfToday())}
             startMonth={fromDate}
             endMonth={toDate}
             disabled={{ before: fromDate, after: toDate }}
