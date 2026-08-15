@@ -712,6 +712,14 @@ export function defaultParams(product: ProductKey): Record<string, string> {
     params["coverage"] = "30000";
     params["franchise"] = "0";
   }
+  if (config.usesAutoForm) {
+    params["vehicle"] = "B1";
+    params["plates"] = "ua";
+    params["term"] = "12";
+    params["driver_age"] = "30";
+    params["region"] = ukraineRegionOptions[0]!.value;
+    params["city"] = citiesForRegion(ukraineRegionOptions[0]!.value)[0]?.value ?? "";
+  }
   return params;
 }
 
