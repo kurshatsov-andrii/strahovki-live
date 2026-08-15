@@ -112,13 +112,29 @@ export function fieldErrors(error: z.ZodError): Record<string, string> {
   return result;
 }
 
-const optionalText = (max = 100) => z.string().trim().max(max, `Максимум ${max} символів`).optional();
-const requiredText = (min: number, max: number) =>
+const latinMessage = "Заповніть латиницею (англійськими літерами)";
+const latinRegex = /^[A-Za-z0-9\s'’.,\-\/№#()]+$/;
+
+const latinOptionalText = (max = 100) =>
+  z
+    .string()
+    .trim()
+    .max(max, `Максимум ${max} символів`)
+    .refine((v) => v === "" || latinRegex.test(v), latinMessage)
+    .optional();
+const latinRequiredText = (min: number, max: number) =>
   z
     .string()
     .trim()
     .min(min, `Мінімум ${min} символи`)
-    .max(max, `Максимум ${max} символів`);
+    .max(max, `Максимум ${max} символів`)
+    .regex(latinRegex, latinMessage);
+const latinNameField = z
+  .string()
+  .trim()
+  .min(2, "Мінімум 2 символи")
+  .max(100, "Максимум 100 символів")
+  .regex(/^[A-Za-z'’\- ]+$/, latinMessage);
 const numberText = (label: string, max = 10) =>
   z
     .string()
@@ -133,41 +149,36 @@ export const greenCardLeadSchema = z
       .trim()
       .min(1, "Вкажіть дату початку дії")
       .refine((v) => isValidDate(v, { maxToday: false }), "Некоректна дата. Формат: дд.мм.рррр"),
-    last_name: personNameField,
-    first_name: personNameField,
-    middle_name: z
-      .string()
-      .trim()
-      .max(100, "Максимум 100 символів")
-      .optional()
-      .or(z.literal("")),
+    last_name: latinNameField,
+    first_name: latinNameField,
+    middle_name: latinOptionalText(100),
     birth_date: z
       .string()
       .trim()
       .min(1, "Вкажіть дату народження")
       .refine((v) => isValidDate(v), "Некоректна дата. Формат: дд.мм.рррр"),
     tax_id: z.string().trim().regex(/^\d{10}$/, "ІПН має містити 10 цифр"),
-    doc_type: requiredText(3, 100),
-    doc_series: optionalText(10),
-    doc_number: requiredText(4, 30),
-    doc_issuer: requiredText(2, 200),
+    doc_type: z.string().trim().min(3, "Оберіть документ").max(100),
+    doc_series: latinOptionalText(10),
+    doc_number: latinRequiredText(4, 30),
+    doc_issuer: latinRequiredText(2, 200),
     doc_date: z
       .string()
       .trim()
       .min(1, "Вкажіть дату видачі")
       .refine((v) => isValidDate(v), "Некоректна дата. Формат: дд.мм.рррр"),
-    region: requiredText(2, 100),
-    city: requiredText(2, 100),
-    street: requiredText(2, 150),
-    house: requiredText(1, 20),
-    apartment: optionalText(20),
+    region: latinRequiredText(2, 100),
+    city: latinRequiredText(2, 100),
+    street: latinRequiredText(2, 150),
+    house: latinRequiredText(1, 20),
+    apartment: latinOptionalText(20),
     phone: phoneField,
     email: emailField,
-    plate: requiredText(4, 20),
-    vehicle_type: requiredText(1, 100),
-    vin: optionalText(30),
-    car_brand: requiredText(1, 60),
-    car_model: requiredText(1, 60),
+    plate: latinRequiredText(4, 20),
+    vehicle_type: z.string().trim().min(1, "Оберіть тип ТЗ").max(100),
+    vin: latinOptionalText(30),
+    car_brand: latinRequiredText(1, 60),
+    car_model: latinRequiredText(1, 60),
     car_year: z
       .string()
       .trim()
@@ -175,8 +186,8 @@ export const greenCardLeadSchema = z
     seats: numberText("К-сть місць", 3),
     mass_total: numberText("Повна маса", 7),
     mass_empty: numberText("Маса без навантаження", 7),
-    engine_volume: optionalText(10),
-    power_kw: optionalText(10),
+    engine_volume: latinOptionalText(10),
+    power_kw: latinOptionalText(10),
     message: messageField,
   })
   .refine((data) => Boolean(data.engine_volume?.trim() || data.power_kw?.trim()), {
