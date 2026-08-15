@@ -172,28 +172,11 @@ export function FaqSection({ items }: { items: FaqItem[] }) {
 }
 
 export function TestimonialsSection() {
-  const widgetRef = useRef<HTMLDivElement>(null);
-
-  useEffect(() => {
-    console.log("[TrustIndex] useEffect running");
-    if (typeof window === "undefined") return;
-    if (document.getElementById("trustindex-loader")) return;
-
-    const script = document.createElement("script");
-    script.id = "trustindex-loader";
-    script.src = "https://cdn.trustindex.io/loader.js?2cfbe9733f7d250d9a16cb73dca";
-    script.defer = true;
-    script.async = true;
-    document.body.appendChild(script);
-    console.log("[TrustIndex] script appended");
-  }, []);
-
   return (
     <section className="py-20">
       <div className="container-page">
         <SectionHead title={home.testimonials.title} />
         <div
-          ref={widgetRef}
           className="trustindex-widget mt-12 min-h-[180px]"
           data-widget-id="2cfbe9733f7d250d9a16cb73dca"
         />
