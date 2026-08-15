@@ -739,6 +739,14 @@ export function describeParams(product: ProductKey, params: Record<string, unkno
     if (params["birth_date"]) parts.push(`Дата народження: ${String(params["birth_date"])}`);
   }
   if (config.usesDays) parts.push(`Кількість днів: ${String(params["days"] ?? "—")}`);
+  if (config.usesAutoForm) {
+    parts.push(`Вік наймолодшого водія: ${String(params["driver_age"] ?? "—")}`);
+    if (String(params["plates"] ?? "") === "ua") {
+      const region = ukraineRegions.find((r) => r.value === String(params["region"] ?? ""));
+      parts.push(`Область реєстрації власника ТЗ: ${region?.label ?? "—"}`);
+      parts.push(`Населений пункт реєстрації: ${String(params["city"] ?? "—")}`);
+    }
+  }
   if (product === "travel") {
     parts.push(`Сума покриття: ${String(params["coverage"] ?? "30000")} €`);
     parts.push(`Франшиза: ${String(params["franchise"] ?? "0")} €`);
