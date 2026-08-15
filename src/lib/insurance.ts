@@ -379,6 +379,10 @@ export function computePrice(
   if (params["zone"] && params["term"]) {
     effective["zone_term"] = `${params["zone"]}_${params["term"]}`;
   }
+  if (params["sport"]) {
+    effective["sport_group"] = params["sport"].split(":")[0] ?? "";
+  }
+
   for (const [group, values] of Object.entries(coefficients ?? {})) {
     const selected = effective[group];
     if (!selected) continue;
