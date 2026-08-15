@@ -276,5 +276,14 @@ export function autoPolicyPrice(params: Record<string, string>): number | null {
   const annual = autoAnnualPayment(params["vehicle"] ?? "B1", zone, age, privilege);
   if (annual === null) return null;
   const factor = autoTermFactors[params["term"] ?? "12"] ?? 1;
-  return Math.round(annual * factor * 100) / 100;
+  const base = annual * factor;
+  const dcv = foreign ? 0 : (AUTO_DCV_FEE[params["term"] ?? "12"] ?? 0);
+  return Math.round((base + dcv) * 100) / 100;
+}
+
+/** ДЦВ (додаткове цивільне відшкодування) — лише для авто на українських номерах. */
+export const AUTO_DCV_FEE: Record<string, number> = {
+  "12": 288,
+  "6": 268;
+
 }
