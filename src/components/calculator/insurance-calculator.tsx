@@ -410,6 +410,12 @@ function LeadDialog({
                   ? "Для оформлення полісу заповніть усі поля. Посилання на оплату надійде у Viber — бізнес-чат EUROINS."
                   : "Для оформлення зеленої карти заповніть дані страхувальника, документа та транспортного засобу."}
               </p>
+              {isGreenCard && (
+                <p className="rounded-xl border border-primary/30 bg-primary/5 p-3 text-sm font-semibold text-primary">
+                  Увага: всі дані вписуйте ТІЛЬКИ англійськими літерами (латиницею) — так вони
+                  друкуються у полісі Зелена карта.
+                </p>
+              )}
               {detailedFields.map((field) => {
                 const isDate = field.kind === "date";
                 return (
