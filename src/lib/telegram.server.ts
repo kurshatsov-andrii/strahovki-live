@@ -1,3 +1,4 @@
+import { extraParamLabels, formatDisplayDate } from "@/lib/insurance";
 
 function escapeHtml(value: string) {
   return value
@@ -39,7 +40,16 @@ export function buildLeadMessage(lead: LeadNotification) {
   const params = Object.entries(lead.params ?? {}).filter(([, v]) => v);
   if (params.length)
     lines.push(
-      `⚙️ <b>Параметри:</b>\n${params.map(([k, v]) => escapeHtml(`• ${k}: ${v}`)).join("\n")}`,
+      `⚙️ <b>Параметри:</b>\n${params
+        .map(([k, v]) => {
+          const label = extraParamLabels[k] ?? k;
+          const display =
+            (k === "birth_date" || k === "passport_date")
+              ? formatDisplayDate(String(v)) ?? String(v)
+              : String(v);
+          return escapeHtml(`• ${label}: ${display}`);
+        })
+        .join("\n")}`,
     );
 
   if (lead.message) lines.push(`💬 <b>Повідомлення:</b> ${escapeHtml(lead.message)}`);

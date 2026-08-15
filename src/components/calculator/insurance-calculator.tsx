@@ -93,7 +93,7 @@ export function InsuranceCalculator({ product }: { product: ProductKey }) {
     setToday(
       new Intl.DateTimeFormat("uk-UA", {
         day: "2-digit",
-        month: "long",
+        month: "2-digit",
         year: "numeric",
       }).format(new Date()),
     );
@@ -273,11 +273,11 @@ const sportApplicantFields = [
   { name: "last_name", label: "Прізвище", placeholder: "Куршацов" },
   { name: "first_name", label: "Ім'я", placeholder: "Андрій" },
   { name: "middle_name", label: "По батькові", placeholder: "Іванович" },
-  { name: "birth_date", label: "Дата народження", type: "date" },
+  { name: "birth_date", label: "Дата народження", type: "text", placeholder: "дд.мм.рррр" },
   { name: "tax_id", label: "Ідентифікаційний код", placeholder: "10 цифр" },
   { name: "passport_number", label: "Номер паспорта", placeholder: "Серія та номер / ID-картка" },
   { name: "passport_issuer", label: "Ким виданий паспорт" },
-  { name: "passport_date", label: "Коли виданий паспорт", type: "date" },
+  { name: "passport_date", label: "Коли виданий паспорт", type: "text", placeholder: "дд.мм.рррр" },
   { name: "address", label: "Адреса проживання" },
   {
     name: "viber_phone",
@@ -300,7 +300,22 @@ function LeadDialog({
 }) {
   const isSport = product === "sport";
   const [errors, setErrors] = useState<Record<string, string>>({});
+  const [dateValues, setDateValues] = useState<Record<string, string>>({
+    birth_date: "",
+    passport_date: "",
+  });
   const submitFn = useServerFn(submitLead);
+
+  useEffect(() => {
+    if (quote) setDateValues({ birth_date: "", passport_date: "" });
+  }, [quote]);
+
+  function formatDateInput(value: string) {
+    const digits = value.replace(/\D/g, "").slice(0, 8);
+    if (digits.length <= 2) return digits;
+    if (digits.length <= 4) return `${digits.slice(0, 2)}.${digits.slice(2)}`;
+    return `${digits.slice(0, 2)}.${digits.slice(2, 4)}.${digits.slice(4)}`;
+  }
   const mutation = useMutation({
     mutationFn: (values: {
       name: string;
@@ -375,7 +390,7 @@ function LeadDialog({
             const extra: Record<string, string> = {};
             if (isSport) {
               for (const field of sportApplicantFields) {
-                extra[field.label] = String(raw[field.name] ?? "").trim();
+                extra[field.name] = String(raw[field.name] ?? "").trim();
               }
             }
 
@@ -397,20 +412,33 @@ function LeadDialog({
                 Для оформлення полісу заповніть усі поля. Посилання на оплату надійде у Viber —
                 бізнес-чат EUROINS.
               </p>
-              {sportApplicantFields.map((field) => (
-                <div key={field.name} className="space-y-2">
-                  <Label htmlFor={`lead-${field.name}`}>{field.label}</Label>
-                  <Input
-                    id={`lead-${field.name}`}
-                    name={field.name}
-                    maxLength={200}
-                    aria-invalid={Boolean(errors[field.name])}
-                    type={"type" in field ? field.type : "text"}
-                    placeholder={"placeholder" in field ? field.placeholder : undefined}
-                  />
-                  <FieldError message={errors[field.name]} />
-                </div>
-              ))}
+              {sportApplicantFields.map((field) => {
+                const isDate = field.name === "birth_date" || field.name === "passport_date";
+                return (
+                  <div key={field.name} className="space-y-2">
+                    <Label htmlFor={`lead-${field.name}`}>{field.label}</Label>
+                    <Input
+                      id={`lead-${field.name}`}
+                      name={field.name}
+                      maxLength={isDate ? 10 : 200}
+                      aria-invalid={Boolean(errors[field.name])}
+                      type={isDate ? "text" : ("type" in field ? field.type : "text")}
+                      placeholder={"placeholder" in field ? field.placeholder : undefined}
+                      value={isDate ? dateValues[field.name] : undefined}
+                      onChange={
+                        isDate
+                          ? (event) =>
+                              setDateValues((prev) => ({
+                                ...prev,
+                                [field.name]: formatDateInput(event.target.value),
+                              }))
+                          : undefined
+                      }
+                    />
+                    <FieldError message={errors[field.name]} />
+                  </div>
+                );
+              })}
             </>
           ) : (
             <>

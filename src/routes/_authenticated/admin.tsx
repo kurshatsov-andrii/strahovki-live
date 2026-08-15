@@ -32,6 +32,7 @@ import {
 } from "@/lib/admin.functions";
 import {
   describeAllParams,
+  formatDateTime,
   formatUah,
   leadStatuses,
   productLabels,
@@ -192,7 +193,7 @@ function LeadsTab() {
                   {lead.email ? ` · ${lead.email}` : ""}
                 </div>
                 <div className="mt-1 text-xs text-muted-foreground">
-                  {new Date(lead.created_at).toLocaleString("uk-UA")}
+                  {formatDateTime(lead.created_at)}
                 </div>
               </div>
               <div className="text-right">
