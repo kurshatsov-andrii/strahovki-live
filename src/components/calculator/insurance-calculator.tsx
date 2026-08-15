@@ -25,6 +25,11 @@ import {
 import { getQuotes, submitLead, type Quote } from "@/lib/quotes.functions";
 import {
   ageFromBirthDate,
+  autoDriverBand,
+  autoTermOptionsForeign,
+  autoTermOptionsUa,
+  AUTO_MAX_DRIVER_AGE,
+  AUTO_MIN_DRIVER_AGE,
   defaultParams,
   formatUah,
   isEuropeanTravelCountry,
@@ -37,6 +42,7 @@ import {
   TRAVEL_MIN_DAYS,
   type ProductKey,
 } from "@/lib/insurance";
+import { citiesForRegion, ukraineRegionOptions } from "@/lib/ukraine-regions";
 import { FieldError } from "@/components/ui/field-error";
 import { DateField } from "@/components/ui/date-field";
 import {
