@@ -298,6 +298,10 @@ function LeadDialog({
       ? greenCardApplicantFields
       : [];
   const isDetailed = detailedFields.length > 0;
+  const [docType, setDocType] = useState("Посвідчення водія");
+  const visibleFields = detailedFields.filter(
+    (field) => !(field.name === "doc_series" && docType.toLowerCase().includes("id")),
+  );
   const [errors, setErrors] = useState<Record<string, string>>({});
   const [dateValues, setDateValues] = useState<Record<string, string>>({});
   const submitFn = useServerFn(submitLead);
