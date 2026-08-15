@@ -5,6 +5,7 @@ export type ApplicantField = {
   options?: { value: string; label: string }[];
   suggestions?: string[];
   placeholder?: string;
+  dateMode?: "past" | "future3m";
   hint?: string;
 };
 
@@ -12,11 +13,11 @@ export const sportApplicantFields: ApplicantField[] = [
   { name: "last_name", label: "Прізвище", placeholder: "Куршацов" },
   { name: "first_name", label: "Ім'я", placeholder: "Андрій" },
   { name: "middle_name", label: "По батькові", placeholder: "Іванович" },
-  { name: "birth_date", label: "Дата народження", kind: "date", placeholder: "дд.мм.рррр" },
+  { name: "birth_date", label: "Дата народження", kind: "date", dateMode: "past", placeholder: "дд.мм.рррр" },
   { name: "tax_id", label: "Ідентифікаційний код", placeholder: "10 цифр" },
   { name: "passport_number", label: "Номер паспорта", placeholder: "Серія та номер / ID-картка" },
   { name: "passport_issuer", label: "Ким виданий паспорт" },
-  { name: "passport_date", label: "Коли виданий паспорт", kind: "date", placeholder: "дд.мм.рррр" },
+  { name: "passport_date", label: "Коли виданий паспорт", kind: "date", dateMode: "past", placeholder: "дд.мм.рррр" },
   { name: "address", label: "Адреса проживання" },
   {
     name: "viber_phone",
@@ -96,11 +97,18 @@ export const carModelSuggestions = [
 ];
 
 export const greenCardApplicantFields: ApplicantField[] = [
-  { name: "start_date", label: "Початок дії полісу", kind: "date", placeholder: "дд.мм.рррр" },
+  {
+    name: "start_date",
+    label: "Початок дії полісу",
+    kind: "date",
+    dateMode: "future3m",
+    placeholder: "дд.мм.рррр",
+    hint: "Від завтра і до 3 місяців наперед",
+  },
   { name: "last_name", label: "Прізвище страхувальника (латиницею)", placeholder: "Kurshatsov" },
   { name: "first_name", label: "Ім'я страхувальника (латиницею)", placeholder: "Andrii" },
   { name: "middle_name", label: "По батькові (латиницею)", placeholder: "Ivanovych" },
-  { name: "birth_date", label: "Дата народження", kind: "date", placeholder: "дд.мм.рррр" },
+  { name: "birth_date", label: "Дата народження", kind: "date", dateMode: "past", placeholder: "дд.мм.рррр" },
   { name: "tax_id", label: "ІПН страхувальника", placeholder: "10 цифр" },
   {
     name: "doc_type",
@@ -116,7 +124,7 @@ export const greenCardApplicantFields: ApplicantField[] = [
   { name: "doc_series", label: "Серія документа (латиницею)", placeholder: "BXI" },
   { name: "doc_number", label: "Номер документа", placeholder: "249475" },
   { name: "doc_issuer", label: "Ким виданий документ (латиницею)", placeholder: "TSC 3245" },
-  { name: "doc_date", label: "Дата видачі документа", kind: "date", placeholder: "дд.мм.рррр" },
+  { name: "doc_date", label: "Дата видачі документа", kind: "date", dateMode: "past", placeholder: "дд.мм.рррр" },
   { name: "region", label: "Область (латиницею)", placeholder: "Kyivska obl." },
   { name: "city", label: "Населений пункт (латиницею)", placeholder: "Kyiv" },
   { name: "street", label: "Вулиця (латиницею)", placeholder: "Heroiv Stalingrada Avenue" },
