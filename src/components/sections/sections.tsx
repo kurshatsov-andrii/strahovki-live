@@ -181,13 +181,10 @@ export function TestimonialsSection() {
           className="trustindex-widget mt-12 min-h-[180px]"
           data-widget-id="2cfbe9733f7d250d9a16cb73dca"
           suppressHydrationWarning
-        >
-          <script
-            defer
-            async
-            src="https://cdn.trustindex.io/loader.js?2cfbe9733f7d250d9a16cb73dca"
-          />
-        </div>
+          dangerouslySetInnerHTML={{
+            __html: `<script defer async src="https://cdn.trustindex.io/loader.js?2cfbe9733f7d250d9a16cb73dca"></script>`,
+          }}
+        />
       </div>
     </section>
   );
