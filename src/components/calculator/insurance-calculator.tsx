@@ -390,7 +390,7 @@ function LeadDialog({
             const extra: Record<string, string> = {};
             if (isSport) {
               for (const field of sportApplicantFields) {
-                extra[field.label] = String(raw[field.name] ?? "").trim();
+                extra[field.name] = String(raw[field.name] ?? "").trim();
               }
             }
 
@@ -412,20 +412,33 @@ function LeadDialog({
                 Для оформлення полісу заповніть усі поля. Посилання на оплату надійде у Viber —
                 бізнес-чат EUROINS.
               </p>
-              {sportApplicantFields.map((field) => (
-                <div key={field.name} className="space-y-2">
-                  <Label htmlFor={`lead-${field.name}`}>{field.label}</Label>
-                  <Input
-                    id={`lead-${field.name}`}
-                    name={field.name}
-                    maxLength={200}
-                    aria-invalid={Boolean(errors[field.name])}
-                    type={"type" in field ? field.type : "text"}
-                    placeholder={"placeholder" in field ? field.placeholder : undefined}
-                  />
-                  <FieldError message={errors[field.name]} />
-                </div>
-              ))}
+              {sportApplicantFields.map((field) => {
+                const isDate = field.name === "birth_date" || field.name === "passport_date";
+                return (
+                  <div key={field.name} className="space-y-2">
+                    <Label htmlFor={`lead-${field.name}`}>{field.label}</Label>
+                    <Input
+                      id={`lead-${field.name}`}
+                      name={field.name}
+                      maxLength={isDate ? 10 : 200}
+                      aria-invalid={Boolean(errors[field.name])}
+                      type={isDate ? "text" : ("type" in field ? field.type : "text")}
+                      placeholder={"placeholder" in field ? field.placeholder : undefined}
+                      value={isDate ? dateValues[field.name] : undefined}
+                      onChange={
+                        isDate
+                          ? (event) =>
+                              setDateValues((prev) => ({
+                                ...prev,
+                                [field.name]: formatDateInput(event.target.value),
+                              }))
+                          : undefined
+                      }
+                    />
+                    <FieldError message={errors[field.name]} />
+                  </div>
+                );
+              })}
             </>
           ) : (
             <>
