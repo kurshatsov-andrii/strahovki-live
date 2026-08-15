@@ -130,7 +130,7 @@ export function InsuranceCalculator({ product }: { product: ProductKey }) {
     if (!isEuropeanTravelCountry(country) && params["zone"] !== "world") {
       setParams((prev) => ({ ...prev, zone: "world" }));
     }
-  }, [isTravel, params.country, params.zone]);
+  }, [isTravel, params["country"], params["zone"]]);
 
   const runCalculation = (values: Record<string, string>) => {
     if (isTravel) {
