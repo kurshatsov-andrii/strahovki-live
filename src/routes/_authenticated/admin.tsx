@@ -31,7 +31,7 @@ import {
   updateLead,
 } from "@/lib/admin.functions";
 import {
-  describeParams,
+  describeAllParams,
   formatUah,
   leadStatuses,
   productLabels,
@@ -210,9 +210,9 @@ function LeadsTab() {
               </div>
             </div>
 
-            {lead.product && (
+            {describeAllParams((lead.product as ProductKey) ?? null, (lead.params ?? {}) as Record<string, unknown>).length > 0 && (
               <ul className="mt-4 grid gap-1 text-sm text-muted-foreground sm:grid-cols-2">
-                {describeParams(lead.product as ProductKey, lead.params ?? {}).map((line) => (
+                {describeAllParams((lead.product as ProductKey) ?? null, (lead.params ?? {}) as Record<string, unknown>).map((line) => (
                   <li key={line}>{line}</li>
                 ))}
               </ul>
