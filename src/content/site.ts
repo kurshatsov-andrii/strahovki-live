@@ -31,7 +31,7 @@ export const home = {
     title: "Страхування, яке працює тоді, коли потрібно вам",
     subtitle:
       "Розрахуйте вартість і оформіть автоцивілку, зелену карту, туристичну або спортивну страховку за кілька хвилин. Електронний поліс — одразу на email і в Telegram.",
-    primaryCta: { label: "Оформити страховку", to: "#products" },
+    primaryCta: { label: "Розрахувати вартість", to: "#calculator" },
     secondaryCta: { label: "Зв'язатися з нами", to: "/contacts" },
   },
   serviceCards: [
