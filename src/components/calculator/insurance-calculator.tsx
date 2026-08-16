@@ -239,6 +239,14 @@ export function InsuranceCalculator({ product }: { product: ProductKey }) {
           <p className="mt-2 text-sm font-semibold text-primary">
             Актуальні ціни на {today || "сьогодні"}
           </p>
+          <ol className="mt-5 flex flex-wrap items-center justify-center gap-x-3 gap-y-2 text-sm text-muted-foreground">
+            <li className="font-semibold text-foreground">1. Заповніть дані</li>
+            <li aria-hidden="true">→</li>
+            <li>2. Отримайте ціну</li>
+            <li aria-hidden="true">→</li>
+            <li>3. Залиште заявку</li>
+          </ol>
+
         </div>
 
         <div className="mx-auto mt-12 grid max-w-5xl gap-6 lg:grid-cols-[1fr_1fr]">
