@@ -256,16 +256,17 @@ export function InsuranceCalculator({
 
         </div>
 
-        <div className="mx-auto mt-12 grid max-w-5xl gap-6 lg:grid-cols-[1fr_1fr]">
+        <div className="mx-auto mt-12 grid max-w-5xl gap-6 lg:grid-cols-[minmax(0,1fr)_minmax(0,1fr)]">
           <form
-            className="rounded-2xl border border-border bg-card p-6 shadow-soft"
+            className="min-w-0 rounded-2xl border border-border bg-card p-4 shadow-soft sm:p-6"
+
             onSubmit={(event) => {
               event.preventDefault();
               runCalculation(params);
             }}
           >
             {onProductChange && (
-              <div className="-mx-6 -mt-6 mb-6 border-b border-border bg-secondary/40 px-6 py-4">
+              <div className="-mx-4 -mt-4 mb-6 border-b border-border bg-secondary/40 px-4 py-4 sm:-mx-6 sm:-mt-6 sm:px-6">
                 <div className="flex flex-wrap justify-center gap-2">
                   {PRODUCTS.map((item) => (
                     <button
