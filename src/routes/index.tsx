@@ -58,25 +58,26 @@ function Index() {
         primary={home.hero.primaryCta}
         secondary={home.hero.secondaryCta}
       />
-      <ConsultantSection />
-      <InsuranceNavigator />
-      <ServiceCardsSection />
       <CalculatorWithProductSwitch />
-      <PolicyCheckSection />
+      <p className="container-page pb-4 text-center text-sm text-muted-foreground">
+        {home.partners.title}
+      </p>
+      <ServiceCardsSection />
+      <ConsultantSection />
       <AdvantagesSection
         title={home.advantages.title}
         subtitle={home.advantages.subtitle}
         items={home.advantages.items}
+        withStats
       />
-      <StatsSection />
       <HowItWorksSection />
       <FaqSection items={generalFaq} />
       <TestimonialsSection />
-      <PartnersSection />
       <ContactFormSection
         title={home.contactSection.title}
         subtitle={home.contactSection.subtitle}
       />
+
     </>
   );
 }
