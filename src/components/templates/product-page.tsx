@@ -2,9 +2,8 @@ import { PageHero } from "@/components/sections/hero";
 import {
   AdvantagesSection,
   FaqSection,
-  HowItWorksSection,
-  SeoTextSection,
 } from "@/components/sections/sections";
+
 import { ContactFormSection } from "@/components/sections/contact";
 import { InsuranceCalculator } from "@/components/calculator/insurance-calculator";
 import { ConsultantSection } from "@/components/sections/consultant";
