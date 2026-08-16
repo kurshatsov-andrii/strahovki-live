@@ -173,28 +173,6 @@ export function TestimonialsSection() {
   );
 }
 
-export function PartnersSection() {
-  return (
-    <section className="border-y border-border bg-secondary/40 py-14">
-      <div className="container-page">
-        <p className="text-center text-sm font-medium text-muted-foreground">
-          {home.partners.title}
-        </p>
-        <div className="mt-8 flex flex-wrap justify-center gap-4">
-          {home.partners.items.map((name) => (
-            <div
-              key={name}
-              className="flex h-16 w-full items-center justify-center rounded-xl bg-card text-sm font-bold text-muted-foreground shadow-soft sm:w-64"
-            >
-              {name}
-            </div>
-          ))}
-        </div>
-      </div>
-    </section>
-  );
-}
-
 export function SeoTextSection({ title, body }: { title: string; body: string }) {
   return (
     <section className="py-20">

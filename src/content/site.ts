@@ -144,11 +144,6 @@ export const home = {
       },
     ],
   },
-  partners: {
-    title: "Ми співпрацюємо зі страховими компаніями EUROINS та USG",
-    items: ["EUROINS", "USG"],
-  },
-
   contactSection: {
     title: "Залишились питання?",
     subtitle: "Напишіть нам у месенджер або залиште заявку — відповімо протягом кількох хвилин.",
