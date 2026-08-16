@@ -59,9 +59,6 @@ function Index() {
         secondary={home.hero.secondaryCta}
       />
       <CalculatorWithProductSwitch />
-      <p className="container-page pb-4 text-center text-sm text-muted-foreground">
-        {home.partners.title}
-      </p>
       <ServiceCardsSection />
       <ConsultantSection />
       <AdvantagesSection
