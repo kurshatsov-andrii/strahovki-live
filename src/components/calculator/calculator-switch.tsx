@@ -6,7 +6,7 @@ export function CalculatorWithProductSwitch() {
   const [product, setProduct] = useState<ProductKey>("auto");
 
   return (
-    <div>
+    <div className="bg-secondary/50">
       <div className="container-page pt-16">
         <div className="mx-auto flex max-w-3xl flex-wrap justify-center gap-2">
           {PRODUCTS.map((item) => (

@@ -226,7 +226,7 @@ export function InsuranceCalculator({ product }: { product: ProductKey }) {
   }, []);
 
   return (
-    <section id="calculator" className="bg-secondary/50 py-20">
+    <section id="calculator" className="bg-secondary/50 py-16 sm:py-20">
       <div className="container-page">
         <div className="mx-auto max-w-2xl text-center">
           <div className="inline-flex items-center gap-2 rounded-full border border-border bg-card px-4 py-1.5 text-xs font-semibold uppercase tracking-wide text-primary">
