@@ -35,6 +35,7 @@ import {
   isEuropeanTravelCountry,
   productConfigs,
   productLabels,
+  PRODUCTS,
   travelAgeBand,
   travelDays,
   TRAVEL_MAX_AGE,
