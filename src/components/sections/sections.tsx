@@ -41,37 +41,24 @@ export function SectionHead({
 
 export function ServiceCardsSection() {
   return (
-    <section id="products" className="py-20">
+    <section id="products" className="py-16">
       <div className="container-page">
-        <SectionHead
-          eyebrow="Наші продукти"
-          title="Оберіть страховий продукт"
-          subtitle="Чотири напрямки страхування з онлайн-оформленням та електронним полісом."
-        />
-        <div className="mt-12 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
+        <SectionHead title="Оберіть страховий продукт" />
+        <div className="mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
           {home.serviceCards.map((card) => {
             const Icon = getIcon(card.icon);
             return (
               <Link
                 key={card.to}
                 to={card.to}
-                className="group flex flex-col rounded-2xl border border-border bg-card p-6 shadow-soft transition-all hover:-translate-y-1 hover:shadow-lift"
+                className="group flex items-start gap-4 rounded-2xl border border-border bg-card p-5 shadow-soft transition-all hover:-translate-y-1 hover:shadow-lift"
               >
-                <span className="bg-brand-gradient flex size-12 items-center justify-center rounded-xl text-primary-foreground">
-                  <Icon className="size-6" />
+                <span className="bg-brand-gradient flex size-11 shrink-0 items-center justify-center rounded-xl text-primary-foreground">
+                  <Icon className="size-5" />
                 </span>
-                <h3 className="mt-5 text-lg font-bold">{card.title}</h3>
-                <p className="mt-2 text-sm text-muted-foreground">{card.description}</p>
-                <ul className="mt-5 flex-1 space-y-2 text-sm">
-                  {card.benefits.map((b) => (
-                    <li key={b} className="flex gap-2">
-                      <Check className="mt-0.5 size-4 shrink-0 text-accent" />
-                      <span className="text-muted-foreground">{b}</span>
-                    </li>
-                  ))}
-                </ul>
-                <span className="mt-6 inline-flex h-10 w-full items-center justify-center rounded-md bg-secondary px-4 py-2 text-sm font-semibold text-secondary-foreground transition-colors group-hover:bg-secondary/80">
-                  Детальніше
+                <span>
+                  <h3 className="font-bold leading-tight">{card.title}</h3>
+                  <p className="mt-1.5 text-sm text-muted-foreground">{card.description}</p>
                 </span>
               </Link>
             );
@@ -86,10 +73,12 @@ export function AdvantagesSection({
   title,
   subtitle,
   items,
+  withStats,
 }: {
   title: string;
   subtitle?: string;
   items: Advantage[];
+  withStats?: boolean;
 }) {
   return (
     <section className="bg-secondary/50 py-20">
@@ -107,25 +96,16 @@ export function AdvantagesSection({
             );
           })}
         </div>
-      </div>
-    </section>
-  );
-}
-
-export function StatsSection() {
-  return (
-    <section className="py-16">
-      <div className="container-page">
-        <div className="bg-navy-gradient grid gap-8 rounded-3xl px-8 py-12 sm:grid-cols-2 lg:grid-cols-4">
-          {home.stats.map((stat) => (
-            <div key={stat.label} className="text-center">
-              <div className="text-3xl font-extrabold text-navy-foreground sm:text-4xl">
-                {stat.value}
+        {withStats && (
+          <div className="mt-8 grid gap-6 rounded-2xl border border-border bg-card px-6 py-6 sm:grid-cols-4">
+            {home.stats.map((stat) => (
+              <div key={stat.label} className="text-center">
+                <div className="text-2xl font-extrabold text-primary">{stat.value}</div>
+                <div className="mt-1 text-xs text-muted-foreground">{stat.label}</div>
               </div>
-              <div className="mt-2 text-sm text-navy-foreground/70">{stat.label}</div>
-            </div>
-          ))}
-        </div>
+            ))}
+          </div>
+        )}
       </div>
     </section>
   );
@@ -133,17 +113,19 @@ export function StatsSection() {
 
 export function HowItWorksSection() {
   return (
-    <section className="py-20">
+    <section className="py-16">
       <div className="container-page">
         <SectionHead title={home.howItWorks.title} subtitle={home.howItWorks.subtitle} />
-        <ol className="mt-12 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
+        <ol className="mx-auto mt-10 grid max-w-4xl gap-4 sm:grid-cols-3">
           {home.howItWorks.steps.map((step, i) => (
-            <li key={step.title} className="rounded-2xl border border-border bg-card p-6 shadow-soft">
-              <span className="flex size-10 items-center justify-center rounded-full bg-accent/15 text-sm font-bold text-accent-foreground">
+            <li key={step.title} className="flex items-start gap-3">
+              <span className="flex size-8 shrink-0 items-center justify-center rounded-full bg-accent/15 text-sm font-bold text-accent-foreground">
                 {i + 1}
               </span>
-              <h3 className="mt-4 font-bold">{step.title}</h3>
-              <p className="mt-2 text-sm text-muted-foreground">{step.description}</p>
+              <span>
+                <h3 className="font-bold leading-tight">{step.title}</h3>
+                <p className="mt-1 text-sm text-muted-foreground">{step.description}</p>
+              </span>
             </li>
           ))}
         </ol>
@@ -151,6 +133,7 @@ export function HowItWorksSection() {
     </section>
   );
 }
+
 
 export function FaqSection({ items }: { items: FaqItem[] }) {
   return (
