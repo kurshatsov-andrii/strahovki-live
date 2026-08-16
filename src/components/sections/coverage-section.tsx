@@ -1,4 +1,4 @@
-import { Check, X } from "lucide-react";
+import { Check, ChevronDown, X } from "lucide-react";
 
 export function CoverageSection({
   title,
@@ -21,11 +21,13 @@ export function CoverageSection({
         <h2 className="text-center text-2xl font-extrabold sm:text-3xl">{title}</h2>
 
         <div className="mt-8 grid gap-6 lg:grid-cols-2">
-          <details className="rounded-2xl border border-border bg-card p-6 shadow-soft">
+          <details className="group rounded-2xl border border-border bg-card p-6 shadow-soft">
             <summary className="flex cursor-pointer list-none items-center gap-2 text-lg font-bold text-primary">
-              <Check className="size-5" /> {validTitle}
-              <span className="ml-auto text-sm font-medium text-muted-foreground">
-                {validCountries.length}
+              <Check className="size-5 shrink-0" />
+              <span className="min-w-0">{validTitle}</span>
+              <span className="ml-auto flex shrink-0 items-center gap-1 rounded-full bg-secondary px-3 py-1 text-xs font-semibold text-foreground">
+                {validCountries.length} країн
+                <ChevronDown className="size-4 transition-transform group-open:rotate-180" />
               </span>
             </summary>
             <ul className="mt-4 grid grid-cols-1 gap-x-4 gap-y-2 text-sm sm:grid-cols-2">

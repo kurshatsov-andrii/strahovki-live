@@ -1,3 +1,4 @@
+import { ChevronDown } from "lucide-react";
 import { PageHero } from "@/components/sections/hero";
 import {
   AdvantagesSection,
@@ -40,16 +41,13 @@ export function ProductPage({
 
       <FaqSection items={content.faq} />
 
-      <section className="pb-20">
+      <section className="py-16">
         <div className="container-page mx-auto max-w-3xl">
           <details className="group rounded-2xl border border-border bg-card p-6 shadow-soft">
-            <summary className="cursor-pointer list-none text-lg font-bold">
-              Детальніше про {content.hero.title.toLowerCase()}
-              <span className="ml-2 text-sm font-medium text-muted-foreground group-open:hidden">
-                показати
-              </span>
+            <summary className="flex cursor-pointer list-none items-center gap-3 text-lg font-bold">
+              <span className="min-w-0">{content.description.title}</span>
+              <ChevronDown className="ml-auto size-5 shrink-0 text-primary transition-transform group-open:rotate-180" />
             </summary>
-            <h3 className="mt-6 text-xl font-bold">{content.description.title}</h3>
             <p className="mt-3 text-muted-foreground">{content.description.body}</p>
             <h3 className="mt-8 text-xl font-bold">{content.seoText.title}</h3>
             <p className="mt-3 text-muted-foreground">{content.seoText.body}</p>
