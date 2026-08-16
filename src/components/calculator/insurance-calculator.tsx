@@ -35,6 +35,7 @@ import {
   isEuropeanTravelCountry,
   productConfigs,
   productLabels,
+  PRODUCTS,
   travelAgeBand,
   travelDays,
   TRAVEL_MAX_AGE,
@@ -90,7 +91,13 @@ const crossSells: Partial<Record<ProductKey, CrossSell>> = {
   },
 };
 
-export function InsuranceCalculator({ product }: { product: ProductKey }) {
+export function InsuranceCalculator({
+  product,
+  onProductChange,
+}: {
+  product: ProductKey;
+  onProductChange?: (product: ProductKey) => void;
+}) {
   const config = productConfigs[product];
   const isTravel = Boolean(config.usesTravelDates);
   const [params, setParams] = useState<Record<string, string>>(() => defaultParams(product));
@@ -257,6 +264,26 @@ export function InsuranceCalculator({ product }: { product: ProductKey }) {
               runCalculation(params);
             }}
           >
+            {onProductChange && (
+              <div className="-mx-6 -mt-6 mb-6 border-b border-border bg-secondary/40 px-6 py-4">
+                <div className="flex flex-wrap justify-center gap-2">
+                  {PRODUCTS.map((item) => (
+                    <button
+                      key={item}
+                      type="button"
+                      onClick={() => onProductChange(item)}
+                      className={`rounded-full border px-4 py-2 text-sm font-semibold transition ${
+                        product === item
+                          ? "border-primary bg-primary text-primary-foreground"
+                          : "border-border bg-card text-muted-foreground hover:border-primary"
+                      }`}
+                    >
+                      {productLabels[item]}
+                    </button>
+                  ))}
+                </div>
+              </div>
+            )}
             {config.notes && config.notes.length > 0 && (
               <ul className="mb-4 space-y-1 rounded-xl bg-secondary/60 p-4 text-sm text-muted-foreground">
                 {config.notes.map((note) => (
