@@ -91,6 +91,15 @@ export function SiteFooter() {
             <Link to="/offer" className="hover:text-foreground">
               Договір оферти
             </Link>
+            <a
+              href="https://policy.mtsbu.ua/#tab1"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="hover:text-foreground"
+            >
+              Перевірка полісу МТСБУ
+            </a>
+
           </div>
         </div>
       </div>

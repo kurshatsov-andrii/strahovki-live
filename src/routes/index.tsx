@@ -4,17 +4,14 @@ import {
   AdvantagesSection,
   FaqSection,
   HowItWorksSection,
-  PartnersSection,
   ServiceCardsSection,
-  StatsSection,
   TestimonialsSection,
 } from "@/components/sections/sections";
 import { ContactFormSection } from "@/components/sections/contact";
 import { generalFaq, home } from "@/content/site";
 import { CalculatorWithProductSwitch } from "@/components/calculator/calculator-switch";
 import { ConsultantSection } from "@/components/sections/consultant";
-import { PolicyCheckSection } from "@/components/sections/policy-check";
-import { InsuranceNavigator } from "@/components/sections/insurance-navigator";
+
 
 const title = "Страховки — онлайн страхування авто, зелена карта, туризм і спорт";
 const description =
@@ -61,25 +58,26 @@ function Index() {
         primary={home.hero.primaryCta}
         secondary={home.hero.secondaryCta}
       />
-      <ConsultantSection />
-      <InsuranceNavigator />
-      <ServiceCardsSection />
       <CalculatorWithProductSwitch />
-      <PolicyCheckSection />
+      <p className="container-page pb-4 text-center text-sm text-muted-foreground">
+        {home.partners.title}
+      </p>
+      <ServiceCardsSection />
+      <ConsultantSection />
       <AdvantagesSection
         title={home.advantages.title}
         subtitle={home.advantages.subtitle}
         items={home.advantages.items}
+        withStats
       />
-      <StatsSection />
       <HowItWorksSection />
       <FaqSection items={generalFaq} />
       <TestimonialsSection />
-      <PartnersSection />
       <ContactFormSection
         title={home.contactSection.title}
         subtitle={home.contactSection.subtitle}
       />
+
     </>
   );
 }
