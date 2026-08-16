@@ -256,9 +256,10 @@ export function InsuranceCalculator({
 
         </div>
 
-        <div className="mx-auto mt-12 grid max-w-5xl gap-6 lg:grid-cols-[1fr_1fr]">
+        <div className="mx-auto mt-12 grid max-w-5xl gap-6 lg:grid-cols-[minmax(0,1fr)_minmax(0,1fr)]">
           <form
-            className="rounded-2xl border border-border bg-card p-6 shadow-soft"
+            className="min-w-0 rounded-2xl border border-border bg-card p-4 shadow-soft sm:p-6"
+
             onSubmit={(event) => {
               event.preventDefault();
               runCalculation(params);
