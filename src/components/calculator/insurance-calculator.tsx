@@ -256,7 +256,7 @@ export function InsuranceCalculator({
 
         </div>
 
-        <div className="mx-auto mt-12 grid max-w-5xl gap-6 lg:grid-cols-[minmax(0,1fr)_minmax(0,1fr)]">
+        <div className="mx-auto mt-12 grid max-w-5xl grid-cols-[minmax(0,1fr)] gap-6 lg:grid-cols-[minmax(0,1fr)_minmax(0,1fr)]">
           <form
             className="min-w-0 rounded-2xl border border-border bg-card p-4 shadow-soft sm:p-6"
 
@@ -295,7 +295,7 @@ export function InsuranceCalculator({
                 ))}
               </ul>
             )}
-            <div className="grid gap-4">
+            <div className="grid grid-cols-[minmax(0,1fr)] gap-4">
 
               {isAuto && (
                 <div className="space-y-2">
