@@ -266,7 +266,7 @@ export function InsuranceCalculator({
             }}
           >
             {onProductChange && (
-              <div className="-mx-6 -mt-6 mb-6 border-b border-border bg-secondary/40 px-6 py-4">
+              <div className="-mx-4 -mt-4 mb-6 border-b border-border bg-secondary/40 px-4 py-4 sm:-mx-6 sm:-mt-6 sm:px-6">
                 <div className="flex flex-wrap justify-center gap-2">
                   {PRODUCTS.map((item) => (
                     <button
