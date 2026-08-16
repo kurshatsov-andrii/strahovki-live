@@ -4,7 +4,6 @@ import {
   FaqSection,
 } from "@/components/sections/sections";
 
-import { ContactFormSection } from "@/components/sections/contact";
 import { InsuranceCalculator } from "@/components/calculator/insurance-calculator";
 import { ConsultantSection } from "@/components/sections/consultant";
 import { PolicyCheckSection } from "@/components/sections/policy-check";
@@ -29,31 +28,34 @@ export function ProductPage({
 
       <InsuranceCalculator product={product} />
 
+      <ConsultantSection variant="compact" />
+
+      <AdvantagesSection title={content.advantages.title} items={content.advantages.items} />
+
       {content.coverage && <CoverageSection {...content.coverage} />}
 
       {(product === "auto" || product === "green_card") && (
         <PolicyCheckSection variant={product} />
       )}
 
-      <ConsultantSection variant="compact" />
-
-      <AdvantagesSection title={content.advantages.title} items={content.advantages.items} />
       <FaqSection items={content.faq} />
 
-      <section className="py-20">
+      <section className="pb-20">
         <div className="container-page mx-auto max-w-3xl">
-          <h2 className="text-2xl font-extrabold sm:text-3xl">{content.description.title}</h2>
-          <p className="mt-4 text-muted-foreground">{content.description.body}</p>
-          <h2 className="mt-10 text-2xl font-extrabold sm:text-3xl">{content.seoText.title}</h2>
-          <p className="mt-4 text-muted-foreground">{content.seoText.body}</p>
+          <details className="group rounded-2xl border border-border bg-card p-6 shadow-soft">
+            <summary className="cursor-pointer list-none text-lg font-bold">
+              Детальніше про {content.hero.title.toLowerCase()}
+              <span className="ml-2 text-sm font-medium text-muted-foreground group-open:hidden">
+                показати
+              </span>
+            </summary>
+            <h3 className="mt-6 text-xl font-bold">{content.description.title}</h3>
+            <p className="mt-3 text-muted-foreground">{content.description.body}</p>
+            <h3 className="mt-8 text-xl font-bold">{content.seoText.title}</h3>
+            <p className="mt-3 text-muted-foreground">{content.seoText.body}</p>
+          </details>
         </div>
       </section>
-
-      <ContactFormSection
-        title="Потрібна консультація?"
-        subtitle="Залиште заявку — розрахуємо вартість і оформимо поліс."
-      />
     </>
   );
 }
-
