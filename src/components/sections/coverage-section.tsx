@@ -16,15 +16,18 @@ export function CoverageSection({
   note: string;
 }) {
   return (
-    <section className="bg-secondary/30 py-20">
+    <section className="bg-secondary/30 py-16">
       <div className="container-page">
         <h2 className="text-center text-2xl font-extrabold sm:text-3xl">{title}</h2>
 
-        <div className="mt-10 grid gap-8 lg:grid-cols-2">
-          <div className="rounded-2xl border border-border bg-card p-6 shadow-soft">
-            <h3 className="flex items-center gap-2 text-lg font-bold text-primary">
+        <div className="mt-8 grid gap-6 lg:grid-cols-2">
+          <details className="rounded-2xl border border-border bg-card p-6 shadow-soft">
+            <summary className="flex cursor-pointer list-none items-center gap-2 text-lg font-bold text-primary">
               <Check className="size-5" /> {validTitle}
-            </h3>
+              <span className="ml-auto text-sm font-medium text-muted-foreground">
+                {validCountries.length}
+              </span>
+            </summary>
             <ul className="mt-4 grid grid-cols-1 gap-x-4 gap-y-2 text-sm sm:grid-cols-2">
               {validCountries.map((country) => (
                 <li key={country} className="flex items-start gap-2">
@@ -33,7 +36,8 @@ export function CoverageSection({
                 </li>
               ))}
             </ul>
-          </div>
+          </details>
+
 
           <div className="rounded-2xl border border-border bg-card p-6 shadow-soft">
             <h3 className="flex items-center gap-2 text-lg font-bold text-destructive">
