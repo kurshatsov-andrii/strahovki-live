@@ -91,7 +91,13 @@ const crossSells: Partial<Record<ProductKey, CrossSell>> = {
   },
 };
 
-export function InsuranceCalculator({ product }: { product: ProductKey }) {
+export function InsuranceCalculator({
+  product,
+  onProductChange,
+}: {
+  product: ProductKey;
+  onProductChange?: (product: ProductKey) => void;
+}) {
   const config = productConfigs[product];
   const isTravel = Boolean(config.usesTravelDates);
   const [params, setParams] = useState<Record<string, string>>(() => defaultParams(product));
