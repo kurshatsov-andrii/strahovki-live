@@ -210,3 +210,76 @@ export const greenCardLeadSchema = z
       data.doc_type.toLowerCase().includes("id") || Boolean(data.doc_series?.trim()),
     { message: "Вкажіть серію документа", path: ["doc_series"] },
   );
+
+const anyText = (min: number, max: number, label = "Заповніть поле") =>
+  z.string().trim().min(min, min <= 1 ? label : `Мінімум ${min} символи`).max(max, `Максимум ${max} символів`);
+const optionalText = (max: number) =>
+  z.string().trim().max(max, `Максимум ${max} символів`).optional();
+const optionalDate = z
+  .string()
+  .trim()
+  .refine((v) => v === "" || isValidDate(v, { maxToday: false }), "Некоректна дата. Формат: дд.мм.рррр")
+  .optional();
+
+export const autoLeadSchema = z
+  .object({
+    start_date: z
+      .string()
+      .trim()
+      .min(1, "Вкажіть дату початку дії")
+      .refine((v) => isValidDate(v, { maxToday: false }), "Некоректна дата. Формат: дд.мм.рррр")
+      .refine((v) => {
+        const d = parseDMY(v);
+        if (!d) return false;
+        const today = new Date();
+        today.setHours(0, 0, 0, 0);
+        const min = new Date(today);
+        min.setDate(min.getDate() + 1);
+        const max = new Date(today);
+        max.setMonth(max.getMonth() + 3);
+        return d.getTime() >= min.getTime() && d.getTime() <= max.getTime();
+      }, "Дата має бути від завтра і не пізніше ніж через 3 місяці"),
+    last_name: personNameField,
+    first_name: personNameField,
+    middle_name: personNameField,
+    birth_date: z
+      .string()
+      .trim()
+      .min(1, "Вкажіть дату народження")
+      .refine((v) => isValidDate(v), "Некоректна дата. Формат: дд.мм.рррр"),
+    tax_id: z.string().trim().regex(/^\d{10}$/, "ІПН має містити 10 цифр"),
+    address: anyText(5, 250, "Вкажіть адресу"),
+    address_fact: optionalText(250),
+    phone: phoneField,
+    doc_type: anyText(3, 100, "Оберіть тип документа"),
+    doc_number: anyText(4, 40, "Вкажіть номер документа"),
+    doc_date: z
+      .string()
+      .trim()
+      .min(1, "Вкажіть дату видачі")
+      .refine((v) => isValidDate(v), "Некоректна дата. Формат: дд.мм.рррр"),
+    doc_valid_until: optionalDate,
+    doc_issuer: anyText(3, 200, "Вкажіть, ким виданий"),
+    car_brand: anyText(1, 60, "Вкажіть марку"),
+    car_model: anyText(1, 60, "Вкажіть модель"),
+    car_model_note: optionalText(60),
+    reg_country: anyText(2, 60, "Вкажіть країну реєстрації"),
+    plate: anyText(4, 20, "Вкажіть держномер"),
+    vin: optionalText(30),
+    car_year: z
+      .string()
+      .trim()
+      .regex(/^(19|20)\d{2}$/, "Рік у форматі 2020"),
+    engine_volume: optionalText(10),
+    car_color: optionalText(40),
+    power_kw: optionalText(10),
+    mass_total: numberText("Повна маса", 7),
+    mass_empty: numberText("Маса без навантаження", 7),
+    seats: numberText("К-сть місць", 3),
+    email: emailField,
+    message: messageField,
+  })
+  .refine((data) => Boolean(data.engine_volume?.trim() || data.power_kw?.trim()), {
+    message: "Вкажіть об'єм двигуна або потужність у кВт (для електромобіля)",
+    path: ["engine_volume"],
+  });
