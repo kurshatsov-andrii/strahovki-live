@@ -54,11 +54,13 @@ import {
   greenCardLeadSchema,
   simpleLeadSchema,
   sportLeadSchema,
+  travelLeadSchema,
 } from "@/lib/lead-validation";
 import {
   autoApplicantFields,
   greenCardApplicantFields,
   sportApplicantFields,
+  travelApplicantFields,
   type ApplicantField,
 } from "@/lib/applicant-fields";
 
@@ -633,13 +635,16 @@ function LeadDialog({
   const isSport = product === "sport";
   const isGreenCard = product === "green_card";
   const isAutoLead = product === "auto";
+  const isTravelLead = product === "travel";
   const detailedFields: ApplicantField[] = isSport
     ? sportApplicantFields
     : isGreenCard
       ? greenCardApplicantFields
       : isAutoLead
         ? autoApplicantFields
-        : [];
+        : isTravelLead
+          ? travelApplicantFields
+          : [];
   const isDetailed = detailedFields.length > 0;
   const [docType, setDocType] = useState("Посвідчення водія");
   const visibleFields = detailedFields.filter(
@@ -718,7 +723,9 @@ function LeadDialog({
                 ? greenCardLeadSchema.safeParse(raw)
                 : isAutoLead
                   ? autoLeadSchema.safeParse(raw)
-                  : simpleLeadSchema.safeParse(raw);
+                  : isTravelLead
+                    ? travelLeadSchema.safeParse(raw)
+                    : simpleLeadSchema.safeParse(raw);
 
             if (!parsed.success) {
               setErrors(fieldErrors(parsed.error));
@@ -752,7 +759,9 @@ function LeadDialog({
                   ? "Для оформлення полісу заповніть усі поля. Посилання на оплату надійде у Viber — бізнес-чат EUROINS."
                   : isAutoLead
                     ? "Для оформлення автоцивілки заповніть дані власника, документа та транспортного засобу."
-                    : "Для оформлення зеленої карти заповніть дані страхувальника, документа та транспортного засобу."}
+                    : isTravelLead
+                      ? "Для оформлення туристичного полісу заповніть дані застрахованого. Посилання на оплату надішлемо у Viber."
+                      : "Для оформлення зеленої карти заповніть дані страхувальника, документа та транспортного засобу."}
               </p>
               {isGreenCard && (
                 <p className="rounded-xl border border-primary/30 bg-primary/5 p-3 text-sm font-semibold text-primary">
