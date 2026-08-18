@@ -210,7 +210,7 @@ export const autoApplicantFields: ApplicantField[] = [
   },
   { name: "doc_number", label: "Номер документа", placeholder: "005907653" },
   { name: "doc_date", label: "Дата видачі", kind: "date", dateMode: "past", placeholder: "дд.мм.рррр" },
-  { name: "doc_valid_until", label: "Дата кінця дії (за наявності)", kind: "date", dateMode: "any", placeholder: "дд.мм.рррр" },
+  { name: "doc_valid_until", label: "Дата кінця дії (за наявності)", kind: "date", placeholder: "дд.мм.рррр" },
   { name: "doc_issuer", label: "Ким виданий", placeholder: "Орган, що видав 6313" },
   {
     name: "car_brand",
