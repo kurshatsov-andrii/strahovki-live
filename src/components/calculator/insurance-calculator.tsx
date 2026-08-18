@@ -562,9 +562,6 @@ export function InsuranceCalculator({
                         Найвигідніша пропозиція
                       </div>
                     )}
-                    {quote.note && (
-                      <p className="mt-2 text-sm text-muted-foreground">{quote.note}</p>
-                    )}
                     {config.usesDays && (
                       <p className="mt-2 text-xs text-muted-foreground">
                         Розрахунок на {days} {days === 1 ? "день" : "днів"}
