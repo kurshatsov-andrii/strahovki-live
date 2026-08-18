@@ -184,6 +184,7 @@ export const greenCardLeadSchema = z
     house: latinRequiredText(1, 20),
     apartment: latinOptionalText(20),
     phone: phoneField,
+    viber_phone: phoneField,
     email: emailField,
     plate: latinRequiredText(4, 20),
     vehicle_type: z.string().trim().min(1, "Оберіть тип ТЗ").max(100),
@@ -251,6 +252,7 @@ export const autoLeadSchema = z
     address: anyText(5, 250, "Вкажіть адресу"),
     address_fact: optionalText(250),
     phone: phoneField,
+    viber_phone: phoneField,
     doc_type: anyText(3, 100, "Оберіть тип документа"),
     doc_number: anyText(4, 40, "Вкажіть номер документа"),
     doc_date: z
