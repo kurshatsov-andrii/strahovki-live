@@ -89,6 +89,14 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
 
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
+      { title: "Lovable App" },
+      { property: "og:title", content: "Lovable App" },
+      { name: "twitter:title", content: "Lovable App" },
+      { name: "description", content: "Оформіть автоцивілку, зелену карту, туристичне чи спортивне страхування онлайн за кілька хвилин. Реальні тарифи та електронний поліс." },
+      { property: "og:description", content: "Оформіть автоцивілку, зелену карту, туристичне чи спортивне страхування онлайн за кілька хвилин. Реальні тарифи та електронний поліс." },
+      { name: "twitter:description", content: "Оформіть автоцивілку, зелену карту, туристичне чи спортивне страхування онлайн за кілька хвилин. Реальні тарифи та електронний поліс." },
+      { property: "og:image", content: "https://storage.googleapis.com/gpt-engineer-file-uploads/fhzHLE2HiFZe0qgeuSJhU49nthl2/social-images/social-1787045393180-social-image.webp" },
+      { name: "twitter:image", content: "https://storage.googleapis.com/gpt-engineer-file-uploads/fhzHLE2HiFZe0qgeuSJhU49nthl2/social-images/social-1787045393180-social-image.webp" },
     ],
     scripts: [
       {
