@@ -131,12 +131,6 @@ export const greenCardApplicantFields: ApplicantField[] = [
   { name: "house", label: "№ будинку", placeholder: "16/Б" },
   { name: "apartment", label: "№ квартири (за наявності)", placeholder: "69" },
   { name: "phone", label: "Телефон", kind: "tel", placeholder: "+38 (0__) ___-__-__" },
-  {
-    name: "viber_phone",
-    label: "Мобільний номер Viber (для посилання на оплату)",
-    kind: "tel",
-    placeholder: "+38 (0__) ___-__-__",
-  },
   { name: "plate", label: "Номерний знак", placeholder: "KA7885IP" },
   {
     name: "vehicle_type",
