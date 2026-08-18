@@ -209,6 +209,12 @@ export const autoApplicantFields: ApplicantField[] = [
   { name: "address_fact", label: "Фактична адреса (якщо відрізняється)", placeholder: "Заповніть, якщо відрізняється від адреси реєстрації" },
   { name: "phone", label: "Мобільний телефон", kind: "tel", placeholder: "+38 (0__) ___-__-__" },
   {
+    name: "viber_phone",
+    label: "Мобільний номер Viber (для посилання на оплату)",
+    kind: "tel",
+    placeholder: "+38 (0__) ___-__-__",
+  },
+  {
     name: "doc_type",
     label: "Тип документа",
     kind: "select",
