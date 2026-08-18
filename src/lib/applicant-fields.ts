@@ -249,3 +249,57 @@ export const autoApplicantFields: ApplicantField[] = [
   { name: "mass_empty", label: "Маса без навантаження, кг", placeholder: "1463" },
   { name: "seats", label: "Кількість посадочних місць", placeholder: "5" },
 ];
+
+export const travelApplicantFields: ApplicantField[] = [
+  { name: "last_name", label: "Прізвище", placeholder: "ЛЮБЕНКО" },
+  { name: "first_name", label: "Ім'я", placeholder: "АЛЕСЯ" },
+  { name: "middle_name", label: "По батькові", placeholder: "ВОЛОДИМИРІВНА" },
+  {
+    name: "name_latin",
+    label: "Прізвище, Ім'я на англійській мові",
+    placeholder: "Liubenko Alesia",
+  },
+  { name: "birth_date", label: "Дата народження", kind: "date", dateMode: "past", placeholder: "дд.мм.рррр" },
+  {
+    name: "resident",
+    label: "Резидент",
+    kind: "select",
+    options: [
+      { value: "Так", label: "Так" },
+      { value: "Ні", label: "Ні" },
+    ],
+  },
+  { name: "country", label: "Країна", placeholder: "Україна" },
+  { name: "tax_id", label: "ІПН", placeholder: "10 цифр" },
+  { name: "phone", label: "Мобільний телефон", kind: "tel", placeholder: "+38 (0__) ___-__-__" },
+  {
+    name: "viber_phone",
+    label: "Мобільний номер Viber (для посилання на оплату)",
+    kind: "tel",
+    placeholder: "+38 (0__) ___-__-__",
+  },
+  {
+    name: "spd",
+    label: "СПД",
+    kind: "select",
+    options: [
+      { value: "Ні", label: "Ні" },
+      { value: "Так", label: "Так" },
+    ],
+  },
+  {
+    name: "address",
+    label: "Адреса проживання",
+    placeholder: "Kharkiv, Astronomichna St., 35Zh, apt. 100",
+  },
+  {
+    name: "suspicion_id",
+    label: "Ідентифікатор підозри",
+    kind: "select",
+    options: [
+      { value: "Відсутній", label: "Відсутній" },
+      { value: "Наявний", label: "Наявний" },
+    ],
+  },
+  { name: "passport", label: "Паспорт", placeholder: "FE089126" },
+];

@@ -284,3 +284,31 @@ export const autoLeadSchema = z
     message: "Вкажіть об'єм двигуна або потужність у кВт (для електромобіля)",
     path: ["engine_volume"],
   });
+
+export const travelLeadSchema = z.object({
+  last_name: personNameField,
+  first_name: personNameField,
+  middle_name: personNameField,
+  name_latin: z
+    .string()
+    .trim()
+    .min(3, "Мінімум 3 символи")
+    .max(120, "Максимум 120 символів")
+    .regex(/^[A-Za-z'’\- ]+$/, latinMessage),
+  birth_date: z
+    .string()
+    .trim()
+    .min(1, "Вкажіть дату народження")
+    .refine((v) => isValidDate(v), "Некоректна дата. Формат: дд.мм.рррр"),
+  resident: anyText(1, 20, "Оберіть значення"),
+  country: anyText(2, 60, "Вкажіть країну"),
+  tax_id: z.string().trim().regex(/^\d{10}$/, "ІПН має містити 10 цифр"),
+  phone: phoneField,
+  viber_phone: phoneField,
+  spd: anyText(1, 20, "Оберіть значення"),
+  address: anyText(5, 250, "Вкажіть адресу"),
+  suspicion_id: anyText(1, 50, "Оберіть значення"),
+  passport: anyText(4, 40, "Вкажіть паспорт"),
+  email: emailField,
+  message: messageField,
+});
