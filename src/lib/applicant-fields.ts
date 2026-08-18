@@ -194,9 +194,9 @@ export const autoApplicantFields: ApplicantField[] = [
     placeholder: "дд.мм.рррр",
     hint: "Від завтра і до 3 місяців наперед",
   },
-  { name: "last_name", label: "Прізвище", placeholder: "ЛЮБЕНКО" },
-  { name: "first_name", label: "Ім'я", placeholder: "АЛЕСЯ" },
-  { name: "middle_name", label: "По батькові", placeholder: "ВОЛОДИМИРІВНА" },
+  { name: "last_name", label: "Прізвище", placeholder: "Куршацов" },
+  { name: "first_name", label: "Ім'я", placeholder: "Андрій" },
+  { name: "middle_name", label: "По батькові", placeholder: "Іванович" },
   { name: "birth_date", label: "Дата народження", kind: "date", dateMode: "past", placeholder: "дд.мм.рррр" },
   { name: "tax_id", label: "ІПН", placeholder: "10 цифр" },
   { name: "address", label: "Адреса реєстрації", placeholder: "Харківська область, Харків, вул. Астрономічна, буд. 35Ж, кв. 100" },
@@ -251,13 +251,13 @@ export const autoApplicantFields: ApplicantField[] = [
 ];
 
 export const travelApplicantFields: ApplicantField[] = [
-  { name: "last_name", label: "Прізвище", placeholder: "ЛЮБЕНКО" },
-  { name: "first_name", label: "Ім'я", placeholder: "АЛЕСЯ" },
-  { name: "middle_name", label: "По батькові", placeholder: "ВОЛОДИМИРІВНА" },
+  { name: "last_name", label: "Прізвище", placeholder: "Куршацов" },
+  { name: "first_name", label: "Ім'я", placeholder: "Андрій" },
+  { name: "middle_name", label: "По батькові", placeholder: "Іванович" },
   {
     name: "name_latin",
     label: "Прізвище, Ім'я на англійській мові",
-    placeholder: "Liubenko Alesia",
+    placeholder: "Kurshatsov Andrii",
   },
   { name: "birth_date", label: "Дата народження", kind: "date", dateMode: "past", placeholder: "дд.мм.рррр" },
   {

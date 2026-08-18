@@ -839,7 +839,7 @@ function LeadDialog({
                   name="name"
                   maxLength={100}
                   aria-invalid={Boolean(errors["name"])}
-                  placeholder="Ваше ім'я"
+                  placeholder="Куршацов Андрій Іванович"
                 />
                 <FieldError message={errors["name"]} />
               </div>
