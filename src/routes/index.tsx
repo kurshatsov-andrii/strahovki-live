@@ -8,7 +8,7 @@ import {
   TestimonialsSection,
 } from "@/components/sections/sections";
 import { ContactFormSection } from "@/components/sections/contact";
-import { generalFaq, home } from "@/content/site";
+import { homeFaq, home } from "@/content/site";
 import { CalculatorWithProductSwitch } from "@/components/calculator/calculator-switch";
 import { ConsultantSection } from "@/components/sections/consultant";
 
@@ -68,7 +68,7 @@ function Index() {
         withStats
       />
       <HowItWorksSection />
-      <FaqSection items={generalFaq} />
+      <FaqSection items={homeFaq} />
       <TestimonialsSection />
       <ContactFormSection
         title={home.contactSection.title}
