@@ -92,7 +92,7 @@ export function ContactFormSection({
                 <Input
                   id="name"
                   name="name"
-                  placeholder="Ваше ім'я"
+                  placeholder="Куршацов Андрій Іванович"
                   aria-invalid={Boolean(errors["name"])}
                 />
                 <FieldError message={errors["name"]} />
