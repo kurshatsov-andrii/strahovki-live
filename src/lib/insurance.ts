@@ -712,6 +712,8 @@ export function defaultParams(product: ProductKey): Record<string, string> {
     params["birth_date"] = "";
   }
   if (product === "travel") {
+    params["country"] = "Польща";
+    params["zone"] = "schengen";
     params["coverage"] = "30000";
     params["franchise"] = "0";
   }
