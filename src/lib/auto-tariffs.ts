@@ -264,22 +264,68 @@ export function autoAnnualPayment(
   return typeof value === "number" ? value : null;
 }
 
+/** Фіксовані ціни для авто на іноземних номерах: ТЗ × вік водія × строк. */
+const TERM_ORDER = ["15d", "21d", "1", "2", "3", "4", "5", "6", "12"] as const;
+
+const foreignPrices: Record<AutoAgeBand, Record<string, number[]>> = {
+  u23: {
+    B1: [1023, 1228, 1364, 2046, 2728, 3410, 4092, 4774, 6820],
+    B2: [1207, 1448, 1609, 2414, 3218, 4023, 4827, 5632, 8046],
+    B3: [1324, 1589, 1765, 2648, 3530, 4413, 5295, 6178, 8825],
+    B4: [1796, 2155, 2395, 3592, 4789, 5987, 7184, 8381, 11973],
+    B5: [2182, 2618, 2909, 4363, 5818, 7272, 8726, 10181, 14544],
+  },
+  a24_39: {
+    B1: [787, 944, 1049, 1574, 2099, 2623, 3148, 3672, 5246],
+    B2: [928, 1114, 1238, 1857, 2476, 3094, 3713, 4332, 6189],
+    B3: [1018, 1222, 1358, 2037, 2716, 3394, 4073, 4752, 6789],
+    B4: [1382, 1658, 1842, 2763, 3684, 4605, 5526, 6447, 9210],
+    B5: [1678, 2014, 2238, 3356, 4475, 5594, 6713, 7831, 11188],
+  },
+  a40: {
+    B1: [708, 850, 944, 1417, 1889, 2361, 2833, 3305, 4722],
+    B2: [835, 1003, 1114, 1671, 2228, 2785, 3342, 3899, 5570],
+    B3: [916, 1100, 1222, 1833, 2444, 3055, 3666, 4277, 6110],
+    B4: [1243, 1492, 1658, 2487, 3316, 4145, 4973, 5802, 8289],
+    B5: [1510, 1812, 2014, 3021, 4028, 5035, 6041, 7048, 10069],
+  },
+};
+
+export function autoForeignPrice(
+  vehicle: string,
+  age: number,
+  term: string,
+): number | null {
+  const row = foreignPrices[autoAgeBand(age)][vehicle];
+  if (!row) return null;
+  const idx = TERM_ORDER.indexOf(term as (typeof TERM_ORDER)[number]);
+  if (idx < 0) return null;
+  return row[idx] ?? null;
+}
+
 /** Підсумкова вартість автоцивілки за офіційними тарифами. */
 export function autoPolicyPrice(params: Record<string, string>): number | null {
   const age = Number(params["driver_age"] ?? "");
   if (!Number.isFinite(age)) return null;
   const foreign = params["plates"] === "foreign";
+  const term = params["term"] ?? "12";
+  const vehicle = params["vehicle"] ?? "B1";
+  if (foreign) {
+    const fixed = autoForeignPrice(vehicle, age, term);
+    if (fixed !== null) return fixed;
+  }
   const zone: AutoZone = foreign
     ? "6"
     : autoZoneForCity(params["city"] ?? "", params["region"] ?? "");
   const privilege = foreign ? "none" : params["privilege"] ?? "none";
-  const annual = autoAnnualPayment(params["vehicle"] ?? "B1", zone, age, privilege);
+  const annual = autoAnnualPayment(vehicle, zone, age, privilege);
   if (annual === null) return null;
-  const factor = autoTermFactors[params["term"] ?? "12"] ?? 1;
+  const factor = autoTermFactors[term] ?? 1;
   const base = annual * factor;
-  const dcv = foreign ? 0 : (AUTO_DCV_FEE[params["term"] ?? "12"] ?? 0);
+  const dcv = foreign ? 0 : (AUTO_DCV_FEE[term] ?? 0);
   return Math.round((base + dcv) * 100) / 100;
 }
+
 
 /** ДЦВ (додаткове цивільне відшкодування) — лише для авто на українських номерах. */
 export const AUTO_DCV_FEE: Record<string, number> = {
