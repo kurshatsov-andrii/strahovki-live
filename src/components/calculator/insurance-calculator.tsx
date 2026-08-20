@@ -503,7 +503,7 @@ export function InsuranceCalculator({
               <div className="mt-4 rounded-xl border border-primary/30 bg-primary/5 p-4 text-sm">
                 <p className="font-semibold">Оформлення онлайн доступне до 70 років</p>
                 <p className="mt-1 text-muted-foreground">
-                  Для мандрівників старше 70 років вартість визначається індивідуально андерайтером, франшиза 50 €, максимальний термін — 14 днів. Напишіть особисто — підберемо умови вручну.
+                  Для мандрівників старше 70 років вартість визначається індивідуально андерайтером, франшиза 150 €, максимальний термін — 14 днів. Напишіть особисто — підберемо умови вручну.
                 </p>
                 <div className="mt-3 flex flex-wrap gap-2">
                   <Button asChild size="sm" variant="outline">
