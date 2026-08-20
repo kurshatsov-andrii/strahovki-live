@@ -567,13 +567,23 @@ export function InsuranceCalculator({
                         Розрахунок на {days} {days === 1 ? "день" : "днів"}
                       </p>
                     )}
+                    {product === "travel" && (
+                      <p className="mt-2 max-w-sm text-xs text-muted-foreground">
+                        Ціна приблизна — залежить від курсу долара. Оформіть замовлення,
+                        страховий консультант зв'яжеться з вами для уточнення вартості.
+                      </p>
+                    )}
                   </div>
                   <div className="text-right">
-                    <div className="text-2xl font-extrabold">{formatUah(quote.price)}</div>
+                    <div className="text-2xl font-extrabold">
+                      {product === "travel" ? "~ " : ""}
+                      {formatUah(quote.price)}
+                    </div>
                     <Button className="mt-3" size="sm" onClick={() => setSelected(quote)}>
                       Оформити
                     </Button>
                   </div>
+
                 </div>
               </div>
             ))}

@@ -4,6 +4,7 @@ import { z } from "zod";
 import type { Database } from "@/integrations/supabase/types";
 import { computePrice, type Coefficients, type ProductKey } from "@/lib/insurance";
 import { autoPolicyPrice } from "@/lib/auto-tariffs";
+import { travelPolicyPrice } from "@/lib/travel-tariffs";
 
 function createPublicClient() {
   const key = process.env["SUPABASE_PUBLISHABLE_KEY"]!;
@@ -51,13 +52,16 @@ export const getQuotes = createServerFn({ method: "POST" })
 
     const days = Number(data.params["days"] ?? 1) || 1;
     const officialAutoPrice = data.product === "auto" ? autoPolicyPrice(data.params) : null;
+    const travelPrice = data.product === "travel" ? travelPolicyPrice(data.params) : null;
+    const fixedPrice = officialAutoPrice ?? travelPrice;
+
 
     return (rows ?? [])
       .map((row) => ({
         tariffId: row.id,
         company: row.company,
         note: row.note,
-        price: officialAutoPrice ?? computePrice(
+        price: fixedPrice ?? computePrice(
           Number(row.base_price),
           (row.coefficients ?? {}) as Coefficients,
           row.per_day,
