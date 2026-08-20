@@ -61,7 +61,7 @@ export const getQuotes = createServerFn({ method: "POST" })
         tariffId: row.id,
         company: row.company,
         note: row.note,
-        price: officialAutoPrice ?? computePrice(
+        price: fixedPrice ?? computePrice(
           Number(row.base_price),
           (row.coefficients ?? {}) as Coefficients,
           row.per_day,
