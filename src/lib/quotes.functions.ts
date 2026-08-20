@@ -52,6 +52,9 @@ export const getQuotes = createServerFn({ method: "POST" })
 
     const days = Number(data.params["days"] ?? 1) || 1;
     const officialAutoPrice = data.product === "auto" ? autoPolicyPrice(data.params) : null;
+    const travelPrice = data.product === "travel" ? travelPolicyPrice(data.params) : null;
+    const fixedPrice = officialAutoPrice ?? travelPrice;
+
 
     return (rows ?? [])
       .map((row) => ({
