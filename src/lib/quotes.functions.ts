@@ -4,6 +4,7 @@ import { z } from "zod";
 import type { Database } from "@/integrations/supabase/types";
 import { computePrice, type Coefficients, type ProductKey } from "@/lib/insurance";
 import { autoPolicyPrice } from "@/lib/auto-tariffs";
+import { travelPolicyPrice } from "@/lib/travel-tariffs";
 
 function createPublicClient() {
   const key = process.env["SUPABASE_PUBLISHABLE_KEY"]!;
