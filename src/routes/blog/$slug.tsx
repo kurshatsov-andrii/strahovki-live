@@ -65,7 +65,7 @@ function BlogPostPage() {
 
   return (
     <>
-      <article className="section">
+      <article className="py-16 md:py-20">
         <div className="container-page max-w-3xl">
           <Link to="/blog" className="text-sm font-medium text-muted-foreground hover:text-primary">
             ← Усі статті
