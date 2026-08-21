@@ -348,6 +348,12 @@ export function InsuranceCalculator({
                         ))}
                       </SelectContent>
                     </Select>
+                    {isTravel && field.key === "country" && (
+                      <p className="text-xs text-muted-foreground">
+                        Вкажіть країну, де плануєте перебувати найбільше днів.
+                        Поліс діє на всій обраній території — Європа або Весь світ.
+                      </p>
+                    )}
                   </div>
                 );
               })}

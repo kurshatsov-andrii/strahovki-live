@@ -593,7 +593,7 @@ export const productConfigs: Record<ProductKey, ProductConfig> = {
     fields: [
       {
         key: "country",
-        label: "Країна поїздки",
+        label: "Основна країна поїздки",
         options: travelCountryOptions,
       },
       {
