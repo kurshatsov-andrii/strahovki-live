@@ -1,7 +1,11 @@
+import { useState } from "react";
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { PageHero } from "@/components/sections/hero";
 import { ContactFormSection } from "@/components/sections/contact";
 import { listBlogPosts } from "@/lib/blog.functions";
+import { Button } from "@/components/ui/button";
+
+const PAGE_SIZE = 9;
 
 const title = "Блог про страхування — поради та новини | Страховки";
 const description =
@@ -31,6 +35,8 @@ export const Route = createFileRoute("/blog/")({
 
 function BlogIndex() {
   const posts = Route.useLoaderData();
+  const [visible, setVisible] = useState(PAGE_SIZE);
+  const shown = posts.slice(0, visible);
 
   return (
     <>
@@ -46,7 +52,7 @@ function BlogIndex() {
             <p className="text-muted-foreground">Статті скоро з'являться.</p>
           ) : (
             <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
-              {posts.map((post) => (
+              {shown.map((post) => (
                 <article
                   key={post.slug}
                   className="flex flex-col overflow-hidden rounded-2xl border border-border bg-card transition-shadow hover:shadow-lg"
@@ -89,6 +95,18 @@ function BlogIndex() {
                   </div>
                 </article>
               ))}
+            </div>
+          )}
+
+          {visible < posts.length && (
+            <div className="mt-10 flex justify-center">
+              <Button
+                size="lg"
+                variant="outline"
+                onClick={() => setVisible((v) => v + PAGE_SIZE)}
+              >
+                Завантажити ще ({posts.length - visible})
+              </Button>
             </div>
           )}
         </div>
