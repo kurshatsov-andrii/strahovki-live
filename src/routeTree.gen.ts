@@ -21,6 +21,7 @@ import { Route as SportyvneStrahuvannyaRouteImport } from './routes/sportyvne-st
 import { Route as TurystychneStrahuvannyaRouteImport } from './routes/turystychne-strahuvannya'
 import { Route as ZelenaKartaRouteImport } from './routes/zelena-karta'
 import { Route as AuthenticatedAdminRouteImport } from './routes/_authenticated/admin'
+import { Route as BlogIndexRouteImport } from './routes/blog/index'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
@@ -81,6 +82,11 @@ const AuthenticatedAdminRoute = AuthenticatedAdminRouteImport.update({
   path: '/admin',
   getParentRoute: () => AuthenticatedRouteRoute,
 } as any)
+const BlogIndexRoute = BlogIndexRouteImport.update({
+  id: '/blog/',
+  path: '/blog/',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
@@ -94,6 +100,7 @@ export interface FileRoutesByFullPath {
   '/turystychne-strahuvannya': typeof TurystychneStrahuvannyaRoute
   '/zelena-karta': typeof ZelenaKartaRoute
   '/admin': typeof AuthenticatedAdminRoute
+  '/blog/': typeof BlogIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
@@ -107,6 +114,7 @@ export interface FileRoutesByTo {
   '/turystychne-strahuvannya': typeof TurystychneStrahuvannyaRoute
   '/zelena-karta': typeof ZelenaKartaRoute
   '/admin': typeof AuthenticatedAdminRoute
+  '/blog': typeof BlogIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -122,6 +130,7 @@ export interface FileRoutesById {
   '/turystychne-strahuvannya': typeof TurystychneStrahuvannyaRoute
   '/zelena-karta': typeof ZelenaKartaRoute
   '/_authenticated/admin': typeof AuthenticatedAdminRoute
+  '/blog/': typeof BlogIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -137,6 +146,7 @@ export interface FileRouteTypes {
     | '/turystychne-strahuvannya'
     | '/zelena-karta'
     | '/admin'
+    | '/blog/'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
@@ -150,6 +160,7 @@ export interface FileRouteTypes {
     | '/turystychne-strahuvannya'
     | '/zelena-karta'
     | '/admin'
+    | '/blog'
   id:
     | '__root__'
     | '/'
@@ -164,6 +175,7 @@ export interface FileRouteTypes {
     | '/turystychne-strahuvannya'
     | '/zelena-karta'
     | '/_authenticated/admin'
+    | '/blog/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -178,6 +190,7 @@ export interface RootRouteChildren {
   SportyvneStrahuvannyaRoute: typeof SportyvneStrahuvannyaRoute
   TurystychneStrahuvannyaRoute: typeof TurystychneStrahuvannyaRoute
   ZelenaKartaRoute: typeof ZelenaKartaRoute
+  BlogIndexRoute: typeof BlogIndexRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -266,6 +279,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedAdminRouteImport
       parentRoute: typeof AuthenticatedRouteRoute
     }
+    '/blog/': {
+      id: '/blog/'
+      path: '/blog'
+      fullPath: '/blog/'
+      preLoaderRoute: typeof BlogIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
@@ -292,6 +312,7 @@ const rootRouteChildren: RootRouteChildren = {
   SportyvneStrahuvannyaRoute: SportyvneStrahuvannyaRoute,
   TurystychneStrahuvannyaRoute: TurystychneStrahuvannyaRoute,
   ZelenaKartaRoute: ZelenaKartaRoute,
+  BlogIndexRoute: BlogIndexRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
