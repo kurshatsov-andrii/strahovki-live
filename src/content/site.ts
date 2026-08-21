@@ -19,6 +19,7 @@ export const navLinks = [
   { to: "/zelena-karta", label: "Зелена карта" },
   { to: "/turystychne-strahuvannya", label: "Туристичне" },
   { to: "/sportyvne-strahuvannya", label: "Спортивне" },
+  { to: "/blog", label: "Блог" },
   { to: "/contacts", label: "Контакти" },
 ] as const;
 

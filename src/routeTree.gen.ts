@@ -21,6 +21,9 @@ import { Route as SportyvneStrahuvannyaRouteImport } from './routes/sportyvne-st
 import { Route as TurystychneStrahuvannyaRouteImport } from './routes/turystychne-strahuvannya'
 import { Route as ZelenaKartaRouteImport } from './routes/zelena-karta'
 import { Route as AuthenticatedAdminRouteImport } from './routes/_authenticated/admin'
+import { Route as BlogIndexRouteImport } from './routes/blog/index'
+import { Route as BlogSlugRouteImport } from './routes/blog/$slug'
+import { Route as ApiPublicBlogSyncRouteImport } from './routes/api/public/blog/sync'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
@@ -81,6 +84,21 @@ const AuthenticatedAdminRoute = AuthenticatedAdminRouteImport.update({
   path: '/admin',
   getParentRoute: () => AuthenticatedRouteRoute,
 } as any)
+const BlogIndexRoute = BlogIndexRouteImport.update({
+  id: '/blog/',
+  path: '/blog/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const BlogSlugRoute = BlogSlugRouteImport.update({
+  id: '/blog/$slug',
+  path: '/blog/$slug',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ApiPublicBlogSyncRoute = ApiPublicBlogSyncRouteImport.update({
+  id: '/api/public/blog/sync',
+  path: '/api/public/blog/sync',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
@@ -94,6 +112,9 @@ export interface FileRoutesByFullPath {
   '/turystychne-strahuvannya': typeof TurystychneStrahuvannyaRoute
   '/zelena-karta': typeof ZelenaKartaRoute
   '/admin': typeof AuthenticatedAdminRoute
+  '/blog/$slug': typeof BlogSlugRoute
+  '/blog/': typeof BlogIndexRoute
+  '/api/public/blog/sync': typeof ApiPublicBlogSyncRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
@@ -107,6 +128,9 @@ export interface FileRoutesByTo {
   '/turystychne-strahuvannya': typeof TurystychneStrahuvannyaRoute
   '/zelena-karta': typeof ZelenaKartaRoute
   '/admin': typeof AuthenticatedAdminRoute
+  '/blog/$slug': typeof BlogSlugRoute
+  '/blog': typeof BlogIndexRoute
+  '/api/public/blog/sync': typeof ApiPublicBlogSyncRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -122,6 +146,9 @@ export interface FileRoutesById {
   '/turystychne-strahuvannya': typeof TurystychneStrahuvannyaRoute
   '/zelena-karta': typeof ZelenaKartaRoute
   '/_authenticated/admin': typeof AuthenticatedAdminRoute
+  '/blog/$slug': typeof BlogSlugRoute
+  '/blog/': typeof BlogIndexRoute
+  '/api/public/blog/sync': typeof ApiPublicBlogSyncRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -137,6 +164,9 @@ export interface FileRouteTypes {
     | '/turystychne-strahuvannya'
     | '/zelena-karta'
     | '/admin'
+    | '/blog/$slug'
+    | '/blog/'
+    | '/api/public/blog/sync'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
@@ -150,6 +180,9 @@ export interface FileRouteTypes {
     | '/turystychne-strahuvannya'
     | '/zelena-karta'
     | '/admin'
+    | '/blog/$slug'
+    | '/blog'
+    | '/api/public/blog/sync'
   id:
     | '__root__'
     | '/'
@@ -164,6 +197,9 @@ export interface FileRouteTypes {
     | '/turystychne-strahuvannya'
     | '/zelena-karta'
     | '/_authenticated/admin'
+    | '/blog/$slug'
+    | '/blog/'
+    | '/api/public/blog/sync'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -178,6 +214,9 @@ export interface RootRouteChildren {
   SportyvneStrahuvannyaRoute: typeof SportyvneStrahuvannyaRoute
   TurystychneStrahuvannyaRoute: typeof TurystychneStrahuvannyaRoute
   ZelenaKartaRoute: typeof ZelenaKartaRoute
+  BlogSlugRoute: typeof BlogSlugRoute
+  BlogIndexRoute: typeof BlogIndexRoute
+  ApiPublicBlogSyncRoute: typeof ApiPublicBlogSyncRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -266,6 +305,27 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedAdminRouteImport
       parentRoute: typeof AuthenticatedRouteRoute
     }
+    '/blog/': {
+      id: '/blog/'
+      path: '/blog'
+      fullPath: '/blog/'
+      preLoaderRoute: typeof BlogIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/blog/$slug': {
+      id: '/blog/$slug'
+      path: '/blog/$slug'
+      fullPath: '/blog/$slug'
+      preLoaderRoute: typeof BlogSlugRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/api/public/blog/sync': {
+      id: '/api/public/blog/sync'
+      path: '/api/public/blog/sync'
+      fullPath: '/api/public/blog/sync'
+      preLoaderRoute: typeof ApiPublicBlogSyncRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
@@ -292,6 +352,9 @@ const rootRouteChildren: RootRouteChildren = {
   SportyvneStrahuvannyaRoute: SportyvneStrahuvannyaRoute,
   TurystychneStrahuvannyaRoute: TurystychneStrahuvannyaRoute,
   ZelenaKartaRoute: ZelenaKartaRoute,
+  BlogSlugRoute: BlogSlugRoute,
+  BlogIndexRoute: BlogIndexRoute,
+  ApiPublicBlogSyncRoute: ApiPublicBlogSyncRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
