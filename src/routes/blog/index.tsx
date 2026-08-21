@@ -52,12 +52,19 @@ function BlogIndex() {
                   className="flex flex-col overflow-hidden rounded-2xl border border-border bg-card transition-shadow hover:shadow-lg"
                 >
                   {post.image_url && (
-                    <img
-                      src={post.image_url}
-                      alt={`Ілюстрація до статті: ${post.title}`}
-                      loading="lazy"
-                      className="h-48 w-full object-cover"
-                    />
+                    <Link
+                      to="/blog/$slug"
+                      params={{ slug: post.slug }}
+                      className="block bg-muted"
+                      aria-label={post.title}
+                    >
+                      <img
+                        src={post.image_url}
+                        alt={`Ілюстрація до статті: ${post.title}`}
+                        loading="lazy"
+                        className="aspect-[16/9] w-full object-contain"
+                      />
+                    </Link>
                   )}
                   <div className="flex flex-1 flex-col gap-3 p-5">
                     <time
