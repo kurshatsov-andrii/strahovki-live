@@ -14,6 +14,7 @@ import { reportLovableError } from "../lib/lovable-error-reporting";
 import { SiteHeader } from "@/components/layout/site-header";
 import { SiteFooter } from "@/components/layout/site-footer";
 import { Toaster } from "@/components/ui/sonner";
+import { PlerdySpaTracker } from "@/components/analytics/plerdy-spa-tracker";
 
 function NotFoundComponent() {
   return (
@@ -181,6 +182,7 @@ function RootComponent() {
         <SiteFooter />
       </div>
       <Toaster />
+      <PlerdySpaTracker />
     </QueryClientProvider>
   );
 }
