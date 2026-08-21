@@ -82,9 +82,13 @@ export function parseChannelHtml(html: string, startDate = START_DATE): ParsedPo
     const dateMatch = block.match(/datetime="([^"]+)"/);
     const postMatch = block.match(/data-post="[^/]+\/(\d+)"/);
     const textMatch = block.match(/class="tgme_widget_message_text[^"]*"[^>]*>([\s\S]*?)<\/div>/);
-    const photoMatch = block.match(
-      /tgme_widget_message_photo_wrap[^"]*"\s*style="background-image:url\('([^']+)'\)/,
-    );
+    const photoMatch =
+      block.match(
+        /tgme_widget_message_photo_wrap[^"]*"\s*style="background-image:url\('([^']+)'\)/,
+      ) ??
+      block.match(
+        /link_preview_image"\s*style="background-image:url\('([^']+)'\)/,
+      );
     if (!dateMatch || !postMatch || !textMatch) continue;
     const publishedAt = dateMatch[1] ?? "";
     if (publishedAt.slice(0, 10) < startDate) continue;
