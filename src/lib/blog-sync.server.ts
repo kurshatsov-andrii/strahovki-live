@@ -86,10 +86,10 @@ export function parseChannelHtml(html: string, startDate = START_DATE): ParsedPo
       /tgme_widget_message_photo_wrap[^"]*"\s*style="background-image:url\('([^']+)'\)/,
     );
     if (!dateMatch || !postMatch || !textMatch) continue;
-    const publishedAt = dateMatch[1];
+    const publishedAt = dateMatch[1] ?? "";
     if (publishedAt.slice(0, 10) < startDate) continue;
 
-    const text = htmlToText(textMatch[1]);
+    const text = htmlToText(textMatch[1] ?? "");
     if (!text) continue;
 
     const lines = text.split("\n").filter(Boolean);
@@ -97,14 +97,14 @@ export function parseChannelHtml(html: string, startDate = START_DATE): ParsedPo
     const title = stripEmoji(rawTitle).replace(/^[-–—\s]+/, "") || "Новина зі страхування";
     const body = lines.slice(1).join("\n\n").trim() || text;
     const description = stripEmoji(body.replace(/\n+/g, " ")).slice(0, 157).trim();
-    const id = Number(postMatch[1]);
+    const id = Number(postMatch[1] ?? 0);
 
     posts.push({
       telegram_message_id: id,
       title: title.slice(0, 200),
       description,
       content: text,
-      image_url: photoMatch ? photoMatch[1] : null,
+      image_url: photoMatch?.[1] ?? null,
       source_url: `https://t.me/${CHANNEL}/${id}`,
       published_at: publishedAt,
       slug: `${slugify(title) || "post"}-${id}`,
