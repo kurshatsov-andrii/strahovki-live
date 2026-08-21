@@ -14,6 +14,51 @@ export type Database = {
   }
   public: {
     Tables: {
+      blog_posts: {
+        Row: {
+          content: string
+          created_at: string
+          description: string
+          id: string
+          image_url: string | null
+          is_published: boolean
+          published_at: string
+          slug: string
+          source_url: string | null
+          telegram_message_id: number
+          title: string
+          updated_at: string
+        }
+        Insert: {
+          content?: string
+          created_at?: string
+          description?: string
+          id?: string
+          image_url?: string | null
+          is_published?: boolean
+          published_at: string
+          slug: string
+          source_url?: string | null
+          telegram_message_id: number
+          title: string
+          updated_at?: string
+        }
+        Update: {
+          content?: string
+          created_at?: string
+          description?: string
+          id?: string
+          image_url?: string | null
+          is_published?: boolean
+          published_at?: string
+          slug?: string
+          source_url?: string | null
+          telegram_message_id?: number
+          title?: string
+          updated_at?: string
+        }
+        Relationships: []
+      }
       leads: {
         Row: {
           admin_note: string | null
