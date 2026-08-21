@@ -40,7 +40,7 @@ function BlogIndex() {
         subtitle="Поради, новини та розбори від страхового консультанта Куршацова Андрія."
       />
 
-      <section className="section">
+      <section className="py-16 md:py-20">
         <div className="container-page">
           {posts.length === 0 ? (
             <p className="text-muted-foreground">Статті скоро з'являться.</p>
