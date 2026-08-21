@@ -54,7 +54,7 @@ function BlogIndex() {
                   {post.image_url && (
                     <img
                       src={post.image_url}
-                      alt={post.title}
+                      alt={`Ілюстрація до статті: ${post.title}`}
                       loading="lazy"
                       className="h-48 w-full object-cover"
                     />
