@@ -19,10 +19,21 @@ export const Route = createFileRoute("/sitemap.xml")({
           { path: "/zelena-karta", changefreq: "weekly", priority: "0.9" },
           { path: "/turystychne-strahuvannya", changefreq: "weekly", priority: "0.9" },
           { path: "/sportyvne-strahuvannya", changefreq: "weekly", priority: "0.9" },
+          { path: "/blog", changefreq: "daily", priority: "0.8" },
           { path: "/contacts", changefreq: "monthly", priority: "0.6" },
           { path: "/privacy", changefreq: "yearly", priority: "0.3" },
           { path: "/offer", changefreq: "yearly", priority: "0.3" },
         ];
+
+        try {
+          const { fetchPosts } = await import("@/lib/blog.server");
+          const posts = await fetchPosts();
+          for (const post of posts) {
+            entries.push({ path: `/blog/${post.slug}`, changefreq: "monthly", priority: "0.7" });
+          }
+        } catch (error) {
+          console.error("[sitemap] blog posts unavailable", error);
+        }
 
         const urls = entries.map((e) =>
           [
