@@ -82,9 +82,13 @@ export function parseChannelHtml(html: string, startDate = START_DATE): ParsedPo
     const dateMatch = block.match(/datetime="([^"]+)"/);
     const postMatch = block.match(/data-post="[^/]+\/(\d+)"/);
     const textMatch = block.match(/class="tgme_widget_message_text[^"]*"[^>]*>([\s\S]*?)<\/div>/);
-    const photoMatch = block.match(
-      /tgme_widget_message_photo_wrap[^"]*"\s*style="background-image:url\('([^']+)'\)/,
-    );
+    const photoMatch =
+      block.match(
+        /tgme_widget_message_photo_wrap[^"]*"\s*style="background-image:url\('([^']+)'\)/,
+      ) ??
+      block.match(
+        /link_preview_image"\s*style="background-image:url\('([^']+)'\)/,
+      );
     if (!dateMatch || !postMatch || !textMatch) continue;
     const publishedAt = dateMatch[1] ?? "";
     if (publishedAt.slice(0, 10) < startDate) continue;
@@ -149,10 +153,21 @@ export async function syncBlogFromTelegram(): Promise<{ synced: number; total: n
 
   const known = new Set((existing ?? []).map((r) => r.telegram_message_id));
   const fresh = posts.filter((p) => !known.has(p.telegram_message_id));
-  if (fresh.length === 0) return { synced: 0, total: posts.length };
 
-  const { error } = await supabase.from("blog_posts").insert(fresh);
-  if (error) throw new Error(error.message);
+  if (fresh.length > 0) {
+    const { error } = await supabase.from("blog_posts").insert(fresh);
+    if (error) throw new Error(error.message);
+  }
+
+  // Дозаповнюємо зображення для вже збережених статей
+  for (const post of posts) {
+    if (!post.image_url || !known.has(post.telegram_message_id)) continue;
+    await supabase
+      .from("blog_posts")
+      .update({ image_url: post.image_url })
+      .eq("telegram_message_id", post.telegram_message_id)
+      .is("image_url", null);
+  }
 
   return { synced: fresh.length, total: posts.length };
 }

@@ -82,7 +82,7 @@ function BlogPostPage() {
           {post.image_url && (
             <img
               src={post.image_url}
-              alt={post.title}
+              alt={`Ілюстрація до статті: ${post.title}`}
               className="mt-6 w-full rounded-2xl object-cover"
               loading="lazy"
             />
