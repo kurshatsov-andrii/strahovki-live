@@ -24,6 +24,7 @@ import { Route as AuthenticatedAdminRouteImport } from './routes/_authenticated/
 import { Route as BlogIndexRouteImport } from './routes/blog/index'
 import { Route as BlogSlugRouteImport } from './routes/blog/$slug'
 import { Route as ApiPublicBlogSyncRouteImport } from './routes/api/public/blog/sync'
+import { Route as ApiPublicBlogImageIdRouteImport } from './routes/api/public/blog/image/$id'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
@@ -99,6 +100,11 @@ const ApiPublicBlogSyncRoute = ApiPublicBlogSyncRouteImport.update({
   path: '/api/public/blog/sync',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ApiPublicBlogImageIdRoute = ApiPublicBlogImageIdRouteImport.update({
+  id: '/api/public/blog/image/$id',
+  path: '/api/public/blog/image/$id',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
@@ -115,6 +121,7 @@ export interface FileRoutesByFullPath {
   '/blog/$slug': typeof BlogSlugRoute
   '/blog/': typeof BlogIndexRoute
   '/api/public/blog/sync': typeof ApiPublicBlogSyncRoute
+  '/api/public/blog/image/$id': typeof ApiPublicBlogImageIdRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
@@ -131,6 +138,7 @@ export interface FileRoutesByTo {
   '/blog/$slug': typeof BlogSlugRoute
   '/blog': typeof BlogIndexRoute
   '/api/public/blog/sync': typeof ApiPublicBlogSyncRoute
+  '/api/public/blog/image/$id': typeof ApiPublicBlogImageIdRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -149,6 +157,7 @@ export interface FileRoutesById {
   '/blog/$slug': typeof BlogSlugRoute
   '/blog/': typeof BlogIndexRoute
   '/api/public/blog/sync': typeof ApiPublicBlogSyncRoute
+  '/api/public/blog/image/$id': typeof ApiPublicBlogImageIdRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -167,6 +176,7 @@ export interface FileRouteTypes {
     | '/blog/$slug'
     | '/blog/'
     | '/api/public/blog/sync'
+    | '/api/public/blog/image/$id'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
@@ -183,6 +193,7 @@ export interface FileRouteTypes {
     | '/blog/$slug'
     | '/blog'
     | '/api/public/blog/sync'
+    | '/api/public/blog/image/$id'
   id:
     | '__root__'
     | '/'
@@ -200,6 +211,7 @@ export interface FileRouteTypes {
     | '/blog/$slug'
     | '/blog/'
     | '/api/public/blog/sync'
+    | '/api/public/blog/image/$id'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -217,6 +229,7 @@ export interface RootRouteChildren {
   BlogSlugRoute: typeof BlogSlugRoute
   BlogIndexRoute: typeof BlogIndexRoute
   ApiPublicBlogSyncRoute: typeof ApiPublicBlogSyncRoute
+  ApiPublicBlogImageIdRoute: typeof ApiPublicBlogImageIdRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -326,6 +339,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ApiPublicBlogSyncRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/api/public/blog/image/$id': {
+      id: '/api/public/blog/image/$id'
+      path: '/api/public/blog/image/$id'
+      fullPath: '/api/public/blog/image/$id'
+      preLoaderRoute: typeof ApiPublicBlogImageIdRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
@@ -355,6 +375,7 @@ const rootRouteChildren: RootRouteChildren = {
   BlogSlugRoute: BlogSlugRoute,
   BlogIndexRoute: BlogIndexRoute,
   ApiPublicBlogSyncRoute: ApiPublicBlogSyncRoute,
+  ApiPublicBlogImageIdRoute: ApiPublicBlogImageIdRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)

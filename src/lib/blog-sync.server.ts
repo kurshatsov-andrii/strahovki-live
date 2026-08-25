@@ -136,6 +136,33 @@ function adminClient() {
   });
 }
 
+const BUCKET = "blog-images";
+
+export function storedImagePath(id: number): string {
+  return `/api/public/blog/image/${id}`;
+}
+
+// Посилання Telegram CDN мають короткий термін дії — копіюємо файл у власне сховище
+async function storeImage(
+  supabase: ReturnType<typeof adminClient>,
+  id: number,
+  remoteUrl: string,
+): Promise<string | null> {
+  try {
+    const res = await fetch(remoteUrl);
+    if (!res.ok) return null;
+    const bytes = new Uint8Array(await res.arrayBuffer());
+    const { error } = await supabase.storage.from(BUCKET).upload(`${id}.jpg`, bytes, {
+      contentType: res.headers.get("content-type") ?? "image/jpeg",
+      upsert: true,
+    });
+    if (error) return null;
+    return storedImagePath(id);
+  } catch {
+    return null;
+  }
+}
+
 export async function syncBlogFromTelegram(): Promise<{ synced: number; total: number }> {
   const res = await fetch(CHANNEL_URL, {
     headers: { "User-Agent": "Mozilla/5.0 (compatible; StrahovkiBot/1.0)" },
@@ -148,26 +175,37 @@ export async function syncBlogFromTelegram(): Promise<{ synced: number; total: n
   const supabase = adminClient();
   const { data: existing, error: readError } = await supabase
     .from("blog_posts")
-    .select("telegram_message_id");
+    .select("telegram_message_id, image_url");
   if (readError) throw new Error(readError.message);
 
-  const known = new Set((existing ?? []).map((r) => r.telegram_message_id));
-  const fresh = posts.filter((p) => !known.has(p.telegram_message_id));
+  const known = new Map((existing ?? []).map((r) => [r.telegram_message_id, r.image_url]));
 
+  for (const post of posts) {
+    const id = post.telegram_message_id;
+    const current = known.get(id);
+    const isStored = typeof current === "string" && current.startsWith("/api/public/blog/image/");
+
+    if (post.image_url && !isStored) {
+      post.image_url = await storeImage(supabase, id, post.image_url);
+    } else if (isStored) {
+      post.image_url = current as string;
+    }
+
+    if (!known.has(id)) continue;
+    if (post.image_url && !isStored) {
+      await supabase
+        .from("blog_posts")
+        .update({ image_url: post.image_url })
+        .eq("telegram_message_id", id);
+    }
+  }
+
+  const fresh = posts.filter((p) => !known.has(p.telegram_message_id));
   if (fresh.length > 0) {
     const { error } = await supabase.from("blog_posts").insert(fresh);
     if (error) throw new Error(error.message);
   }
 
-  // Дозаповнюємо зображення для вже збережених статей
-  for (const post of posts) {
-    if (!post.image_url || !known.has(post.telegram_message_id)) continue;
-    await supabase
-      .from("blog_posts")
-      .update({ image_url: post.image_url })
-      .eq("telegram_message_id", post.telegram_message_id)
-      .is("image_url", null);
-  }
-
   return { synced: fresh.length, total: posts.length };
 }
+
