@@ -18,7 +18,9 @@ export const Route = createFileRoute("/blog/$slug")({
     const url = `https://strahovki.live/blog/${params.slug}`;
     const title = loaderData ? `${loaderData.title} | Страховки` : "Стаття | Страховки";
     const description = loaderData?.description ?? "Стаття про страхування від консультанта Страховки.";
-    const image = loaderData?.image_url ?? null;
+    const rawImage = loaderData?.image_url ?? null;
+    const image = rawImage?.startsWith("/") ? `https://strahovki.live${rawImage}` : rawImage;
+
     return {
       meta: [
         { title },
