@@ -90,9 +90,9 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
 
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
-      { title: "Lovable App" },
-      { property: "og:title", content: "Lovable App" },
-      { name: "twitter:title", content: "Lovable App" },
+      { title: "Страховки — автоцивілка, зелена карта, туристичне страхування онлайн" },
+      { property: "og:title", content: "Страховки — страхування онлайн" },
+      { name: "twitter:title", content: "Страховки — страхування онлайн" },
       { name: "description", content: "Оформіть автоцивілку, зелену карту, туристичне чи спортивне страхування онлайн за кілька хвилин. Реальні тарифи та електронний поліс." },
       { property: "og:description", content: "Оформіть автоцивілку, зелену карту, туристичне чи спортивне страхування онлайн за кілька хвилин. Реальні тарифи та електронний поліс." },
       { name: "twitter:description", content: "Оформіть автоцивілку, зелену карту, туристичне чи спортивне страхування онлайн за кілька хвилин. Реальні тарифи та електронний поліс." },
