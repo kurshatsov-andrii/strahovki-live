@@ -8,6 +8,32 @@ function formatDate(iso: string) {
   return `${String(d.getDate()).padStart(2, "0")}.${String(d.getMonth() + 1).padStart(2, "0")}.${d.getFullYear()}`;
 }
 
+const PRODUCT_LINKS: { pattern: RegExp; to: string }[] = [
+  { pattern: /автоцивілк[аиуою]|ОСЦПВ|ОСАГО/i, to: "/autostrahuvannya" },
+  { pattern: /зелен[аауої]\s+карт[ациуі]/i, to: "/zelena-karta" },
+  { pattern: /туристичн[аеомуі]+\s+страхуванн[яюі]/i, to: "/turystychne-strahuvannya" },
+  { pattern: /спортивн[аеомуі]+\s+страхуванн[яюі]/i, to: "/sportyvne-strahuvannya" },
+];
+
+function linkifyParagraph(text: string, linked: Set<string>) {
+  for (const { pattern, to } of PRODUCT_LINKS) {
+    if (linked.has(to)) continue;
+    const match = text.match(pattern);
+    if (!match || match.index === undefined) continue;
+    linked.add(to);
+    return (
+      <>
+        {text.slice(0, match.index)}
+        <Link to={to} className="font-medium text-primary underline underline-offset-2 hover:text-primary/80">
+          {match[0]}
+        </Link>
+        {text.slice(match.index + match[0].length)}
+      </>
+    );
+  }
+  return text;
+}
+
 export const Route = createFileRoute("/blog/$slug")({
   loader: async ({ params }) => {
     const post = await getBlogPost({ data: { slug: params.slug } });
@@ -91,9 +117,30 @@ function BlogPostPage() {
           )}
 
           <div className="mt-6 space-y-4 text-base leading-relaxed text-foreground/90">
-            {paragraphs.slice(1).map((line, i) => (
-              <p key={i}>{line}</p>
-            ))}
+            {(() => {
+              const linked = new Set<string>();
+              return paragraphs.slice(1).map((line, i) => (
+                <p key={i}>{linkifyParagraph(line, linked)}</p>
+              ));
+            })()}
+          </div>
+
+          <div className="mt-10 rounded-2xl border border-border bg-card p-6 shadow-soft">
+            <h2 className="text-lg font-bold">Оформіть страхування онлайн</h2>
+            <div className="mt-4 grid gap-2 sm:grid-cols-2">
+              <Link to="/autostrahuvannya" className="rounded-lg border border-border px-4 py-3 text-sm font-medium transition-colors hover:border-primary hover:text-primary">
+                Автоцивілка (ОСЦПВ) →
+              </Link>
+              <Link to="/zelena-karta" className="rounded-lg border border-border px-4 py-3 text-sm font-medium transition-colors hover:border-primary hover:text-primary">
+                Зелена карта →
+              </Link>
+              <Link to="/turystychne-strahuvannya" className="rounded-lg border border-border px-4 py-3 text-sm font-medium transition-colors hover:border-primary hover:text-primary">
+                Туристичне страхування →
+              </Link>
+              <Link to="/sportyvne-strahuvannya" className="rounded-lg border border-border px-4 py-3 text-sm font-medium transition-colors hover:border-primary hover:text-primary">
+                Спортивне страхування →
+              </Link>
+            </div>
           </div>
 
           <div className="mt-10 flex flex-wrap gap-3">
