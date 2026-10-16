@@ -46,6 +46,13 @@ export function SiteHeader() {
             {settings.phone_primary}
           </a>
           <a
+            href={`tel:${settings.phone_secondary.replace(/[^+\d]/g, "")}`}
+            className="flex items-center gap-1.5 rounded-lg px-2 py-2 text-sm font-semibold hover:bg-secondary"
+          >
+            <Phone className="size-4 text-primary" />
+            {settings.phone_secondary}
+          </a>
+          <a
             href={settings.telegram_url}
             target="_blank"
             rel="noreferrer"
@@ -54,9 +61,6 @@ export function SiteHeader() {
           >
             <Send className="size-4" />
           </a>
-          <Button asChild>
-            <a href="/#products">Оформити страховку</a>
-          </Button>
         </div>
 
         <button
