@@ -119,9 +119,15 @@ function BlogPostPage() {
           <div className="mt-6 space-y-4 text-base leading-relaxed text-foreground/90">
             {(() => {
               const linked = new Set<string>();
-              return paragraphs.slice(1).map((line, i) => (
-                <p key={i}>{linkifyParagraph(line, linked)}</p>
-              ));
+              return paragraphs.slice(1).map((line, i) =>
+                line.startsWith("## ") ? (
+                  <h2 key={i} className="pt-4 text-xl font-bold text-foreground md:text-2xl">
+                    {line.slice(3)}
+                  </h2>
+                ) : (
+                  <p key={i}>{linkifyParagraph(line, linked)}</p>
+                ),
+              );
             })()}
           </div>
 
