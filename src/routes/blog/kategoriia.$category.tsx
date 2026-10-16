@@ -59,7 +59,8 @@ function CategoryPage() {
         <div className="container-page">
           <BlogCategoryNav active={cat.slug} />
           <BlogList posts={posts} />
-          <div className="mt-12 max-w-3xl space-y-4 text-base leading-relaxed text-foreground/90">
+          {/* Опис категорії: та сама ширина колонки, що й вступ у шапці, на всіх категоріях */}
+          <div className="mx-auto mt-12 max-w-2xl space-y-5 text-center text-base leading-relaxed text-foreground/90">
             <p>{cat.intro[1]}</p>
             <Button asChild>
               <Link to={cat.productTo}>{cat.productLabel}</Link>

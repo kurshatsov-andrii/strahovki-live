@@ -2,10 +2,10 @@ export const site = {
   name: "Страховки",
   phonePrimary: "+38 (097) 252-05-51",
   phoneSecondary: "+38 (066) 468-81-51",
-  email: "info@strahovki.example",
+  email: "info@strahovki.kh.ua",
   telegramUrl: "https://t.me/Andres_K",
   viberUrl: "viber://add?number=380664688151",
-  address: "м. Харків, Україна",
+  address: "Харків, вул. Власенка, 24",
   workingHours: "Щодня 08:00–21:00",
   socials: {
     facebook: "https://www.facebook.com/",
