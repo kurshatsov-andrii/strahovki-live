@@ -1,7 +1,6 @@
 import { Link } from "@tanstack/react-router";
 import { Menu, Phone, Send, X } from "lucide-react";
 import { useState } from "react";
-import { Button } from "@/components/ui/button";
 import { navLinks, site as staticSite } from "@/content/site";
 import { useSiteSettings } from "@/hooks/use-site-settings";
 import logoAsset from "@/assets/logo-strahovki.jpg.asset.json";
