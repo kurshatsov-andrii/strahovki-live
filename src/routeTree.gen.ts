@@ -23,6 +23,7 @@ import { Route as ZelenaKartaRouteImport } from './routes/zelena-karta'
 import { Route as AuthenticatedAdminRouteImport } from './routes/_authenticated/admin'
 import { Route as BlogIndexRouteImport } from './routes/blog/index'
 import { Route as BlogSlugRouteImport } from './routes/blog/$slug'
+import { Route as BlogKategoriiaCategoryRouteImport } from './routes/blog/kategoriia.$category'
 import { Route as ApiPublicBlogSyncRouteImport } from './routes/api/public/blog/sync'
 import { Route as ApiPublicBlogImageIdRouteImport } from './routes/api/public/blog/image/$id'
 
@@ -95,6 +96,11 @@ const BlogSlugRoute = BlogSlugRouteImport.update({
   path: '/blog/$slug',
   getParentRoute: () => rootRouteImport,
 } as any)
+const BlogKategoriiaCategoryRoute = BlogKategoriiaCategoryRouteImport.update({
+  id: '/blog/kategoriia/$category',
+  path: '/blog/kategoriia/$category',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const ApiPublicBlogSyncRoute = ApiPublicBlogSyncRouteImport.update({
   id: '/api/public/blog/sync',
   path: '/api/public/blog/sync',
@@ -120,6 +126,7 @@ export interface FileRoutesByFullPath {
   '/admin': typeof AuthenticatedAdminRoute
   '/blog/$slug': typeof BlogSlugRoute
   '/blog/': typeof BlogIndexRoute
+  '/blog/kategoriia/$category': typeof BlogKategoriiaCategoryRoute
   '/api/public/blog/sync': typeof ApiPublicBlogSyncRoute
   '/api/public/blog/image/$id': typeof ApiPublicBlogImageIdRoute
 }
@@ -137,6 +144,7 @@ export interface FileRoutesByTo {
   '/admin': typeof AuthenticatedAdminRoute
   '/blog/$slug': typeof BlogSlugRoute
   '/blog': typeof BlogIndexRoute
+  '/blog/kategoriia/$category': typeof BlogKategoriiaCategoryRoute
   '/api/public/blog/sync': typeof ApiPublicBlogSyncRoute
   '/api/public/blog/image/$id': typeof ApiPublicBlogImageIdRoute
 }
@@ -156,6 +164,7 @@ export interface FileRoutesById {
   '/_authenticated/admin': typeof AuthenticatedAdminRoute
   '/blog/$slug': typeof BlogSlugRoute
   '/blog/': typeof BlogIndexRoute
+  '/blog/kategoriia/$category': typeof BlogKategoriiaCategoryRoute
   '/api/public/blog/sync': typeof ApiPublicBlogSyncRoute
   '/api/public/blog/image/$id': typeof ApiPublicBlogImageIdRoute
 }
@@ -175,6 +184,7 @@ export interface FileRouteTypes {
     | '/admin'
     | '/blog/$slug'
     | '/blog/'
+    | '/blog/kategoriia/$category'
     | '/api/public/blog/sync'
     | '/api/public/blog/image/$id'
   fileRoutesByTo: FileRoutesByTo
@@ -192,6 +202,7 @@ export interface FileRouteTypes {
     | '/admin'
     | '/blog/$slug'
     | '/blog'
+    | '/blog/kategoriia/$category'
     | '/api/public/blog/sync'
     | '/api/public/blog/image/$id'
   id:
@@ -210,6 +221,7 @@ export interface FileRouteTypes {
     | '/_authenticated/admin'
     | '/blog/$slug'
     | '/blog/'
+    | '/blog/kategoriia/$category'
     | '/api/public/blog/sync'
     | '/api/public/blog/image/$id'
   fileRoutesById: FileRoutesById
@@ -228,6 +240,7 @@ export interface RootRouteChildren {
   ZelenaKartaRoute: typeof ZelenaKartaRoute
   BlogSlugRoute: typeof BlogSlugRoute
   BlogIndexRoute: typeof BlogIndexRoute
+  BlogKategoriiaCategoryRoute: typeof BlogKategoriiaCategoryRoute
   ApiPublicBlogSyncRoute: typeof ApiPublicBlogSyncRoute
   ApiPublicBlogImageIdRoute: typeof ApiPublicBlogImageIdRoute
 }
@@ -332,6 +345,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof BlogSlugRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/blog/kategoriia/$category': {
+      id: '/blog/kategoriia/$category'
+      path: '/blog/kategoriia/$category'
+      fullPath: '/blog/kategoriia/$category'
+      preLoaderRoute: typeof BlogKategoriiaCategoryRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/api/public/blog/sync': {
       id: '/api/public/blog/sync'
       path: '/api/public/blog/sync'
@@ -374,6 +394,7 @@ const rootRouteChildren: RootRouteChildren = {
   ZelenaKartaRoute: ZelenaKartaRoute,
   BlogSlugRoute: BlogSlugRoute,
   BlogIndexRoute: BlogIndexRoute,
+  BlogKategoriiaCategoryRoute: BlogKategoriiaCategoryRoute,
   ApiPublicBlogSyncRoute: ApiPublicBlogSyncRoute,
   ApiPublicBlogImageIdRoute: ApiPublicBlogImageIdRoute,
 }
