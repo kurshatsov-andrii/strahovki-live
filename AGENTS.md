@@ -8,3 +8,5 @@
 > Commits you push to the connected branch sync back to Lovable and show up in
 > the editor, so keep the branch in a working state.
 <!-- LOVABLE:END -->
+
+- Old strahovki.kh.ua URLs are 301-redirected by a request middleware using src/lib/legacy-redirects.ts — preserves Google rankings after the domain move.
