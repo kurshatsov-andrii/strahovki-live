@@ -1,7 +1,6 @@
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import {
   Outlet,
-  Link,
   createRootRouteWithContext,
   useRouter,
   HeadContent,
@@ -15,6 +14,7 @@ import { reportLovableError } from "../lib/lovable-error-reporting";
 import { SiteHeader } from "@/components/layout/site-header";
 import { SiteFooter } from "@/components/layout/site-footer";
 import { Toaster } from "@/components/ui/sonner";
+import { NotFoundPage } from "@/components/sections/not-found-page";
 import { PlerdySpaTracker } from "@/components/analytics/plerdy-spa-tracker";
 
 function NotFoundComponent() {
