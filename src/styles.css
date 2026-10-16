@@ -101,6 +101,7 @@
   --sidebar-ring: oklch(0.55 0.1 158);
 
   --gradient-brand: linear-gradient(135deg, oklch(0.52 0.1 158), oklch(0.68 0.13 152));
+  --gradient-brand-bright: linear-gradient(135deg, oklch(0.86 0.12 152), oklch(0.96 0.05 150));
   --gradient-navy: linear-gradient(150deg, oklch(0.28 0.05 160), oklch(0.42 0.08 158) 55%, oklch(0.55 0.1 155));
   --shadow-soft: 0 1px 2px oklch(0.3 0.06 160 / 0.05), 0 12px 30px -18px oklch(0.3 0.06 160 / 0.28);
   --shadow-lift: 0 2px 6px oklch(0.3 0.06 160 / 0.06), 0 28px 60px -30px oklch(0.3 0.06 160 / 0.4);
@@ -157,6 +158,10 @@
 
 @utility bg-brand-gradient {
   background-image: var(--gradient-brand);
+}
+
+@utility bg-brand-bright-gradient {
+  background-image: var(--gradient-brand-bright);
 }
 
 @utility bg-navy-gradient {

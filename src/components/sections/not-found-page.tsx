@@ -75,9 +75,9 @@ export function NotFoundPage() {
           <div className="relative hidden items-center justify-center lg:flex">
             <span
               aria-hidden
-              className="bg-brand-gradient absolute size-64 rounded-full opacity-20 blur-3xl"
+              className="bg-brand-bright-gradient absolute size-64 rounded-full opacity-25 blur-3xl"
             />
-            <span className="bg-brand-gradient relative bg-clip-text text-[9rem] font-extrabold leading-none text-transparent lg:text-[11rem]">
+            <span className="bg-brand-bright-gradient relative bg-clip-text text-[9rem] font-extrabold leading-none text-transparent lg:text-[11rem]">
               404
             </span>
           </div>
@@ -87,7 +87,7 @@ export function NotFoundPage() {
       <section className="py-16 lg:py-20">
         <div className="container-page">
           <div className="mx-auto max-w-2xl text-center">
-            <span className="text-xs font-semibold uppercase tracking-[0.18em] text-accent">
+            <span className="text-xs font-semibold uppercase tracking-[0.18em] text-primary">
               Оберіть страховий продукт
             </span>
             <h2 className="mt-3 text-3xl font-extrabold sm:text-4xl">
