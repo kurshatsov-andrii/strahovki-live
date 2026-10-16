@@ -19,17 +19,19 @@ const CURRENT_PATHS = new Set([
 
 const RULES: Array<[RegExp, string]> = [
   [/green-?card|zelen[aey]?-?kart|zelenaya-karta/, "/zelena-karta"],
-  [/sport/, "/sportyvne-strahuvannya"],
+  [/sport|zmagan|sorevnovan|travm/, "/sportyvne-strahuvannya"],
   [
     /auto|avto|oscpv|osago|dtp|europrotocol|dcv|kasko|regress|pilha|polic|docs-for-auto|inozem|prichep|electrocar/,
     "/autostrahuvannya",
   ],
   [
-    /tour|turist|travel|kordon|yevrop|europe|etias|strahovka-v-|med|covid|koronavirus|gory|schengen|visa|viza/,
+    /tour|turist|travel|kordon|yevrop|europe|etias|strahovka-v-|med|covid|koronavirus|gory|schengen|visa|viza|vizy|granic|turkey|abroad|vyezd|viezd|poihat|otdy|pohod|puteshest|turyst/,
     "/turystychne-strahuvannya",
   ],
   [/testimonials|kontakt|contact|otzyv|vidguk/, "/contacts"],
   [/blog/, "/blog"],
+  [/offer/, "/offer"],
+  [/privacy|policy/, "/privacy"],
 ];
 
 export function getLegacyRedirect(pathname: string): string | null {

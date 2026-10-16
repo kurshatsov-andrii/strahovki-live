@@ -2,6 +2,7 @@ import { createStart, createCsrfMiddleware, createMiddleware } from "@tanstack/r
 
 
 import { renderErrorPage } from "./lib/error-page";
+import { getLegacyRedirect } from "./lib/legacy-redirects";
 import { attachSupabaseAuth } from "@/integrations/supabase/auth-attacher";
 
 const errorMiddleware = createMiddleware().server(async ({ next }) => {
@@ -26,7 +27,22 @@ const csrfMiddleware = createCsrfMiddleware({
   filter: (ctx) => ctx.handlerType === "serverFn",
 });
 
+// Old WordPress URLs of strahovki.kh.ua → permanent redirect to matching new page.
+const legacyRedirectMiddleware = createMiddleware().server(async ({ next, request }) => {
+  if (request.method === "GET" || request.method === "HEAD") {
+    const url = new URL(request.url);
+    const target = getLegacyRedirect(url.pathname);
+    if (target && target !== url.pathname) {
+      return new Response(null, {
+        status: 301,
+        headers: { location: new URL(target, url.origin).toString() },
+      }) as never;
+    }
+  }
+  return next();
+});
+
 export const startInstance = createStart(() => ({
   functionMiddleware: [attachSupabaseAuth],
-  requestMiddleware: [errorMiddleware, csrfMiddleware],
+  requestMiddleware: [legacyRedirectMiddleware, errorMiddleware, csrfMiddleware],
 }));
