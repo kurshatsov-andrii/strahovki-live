@@ -54,7 +54,7 @@ function CategoryPage() {
 
   return (
     <>
-      <PageHero eyebrow={`Блог · ${cat.name}`} title={cat.h1} subtitle={cat.intro[0]} />
+      <PageHero eyebrow={`Блог · ${cat.name}`} title={cat.h1} subtitle={cat.intro[0] ?? ""} />
       <section className="py-16 md:py-20">
         <div className="container-page">
           <BlogCategoryNav active={cat.slug} />
