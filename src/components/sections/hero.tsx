@@ -19,6 +19,7 @@ export function HomeHero({
   secondary: { label: string; to: string };
 }) {
   const primaryIsHash = primary.to.startsWith("#");
+  const secondaryIsHash = secondary.to.startsWith("#");
 
   return (
     <section className="bg-navy-gradient relative overflow-hidden">
@@ -33,15 +34,21 @@ export function HomeHero({
           </h1>
           <p className="mt-5 max-w-xl text-base text-navy-foreground/75 sm:text-lg">{subtitle}</p>
           <div className="mt-9 flex flex-wrap gap-3">
-            <Button asChild size="lg">
-              {primaryIsHash ? (
+            {primaryIsHash ? (
+              <Button asChild size="lg">
                 <a href={primary.to}>{primary.label}</a>
-              ) : (
+              </Button>
+            ) : (
+              <Button asChild size="lg">
                 <Link to={primary.to}>{primary.label}</Link>
-              )}
-            </Button>
+              </Button>
+            )}
             <Button asChild size="lg" variant="outline" className="border-navy-foreground/25 bg-transparent text-navy-foreground hover:bg-navy-foreground/10 hover:text-navy-foreground">
-              <Link to={secondary.to}>{secondary.label}</Link>
+              {secondaryIsHash ? (
+                <a href={secondary.to}>{secondary.label}</a>
+              ) : (
+                <Link to={secondary.to}>{secondary.label}</Link>
+              )}
             </Button>
           </div>
           <div className="mt-8 flex flex-wrap items-center gap-x-6 gap-y-2">

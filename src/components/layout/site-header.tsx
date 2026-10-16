@@ -92,6 +92,12 @@ export function SiteHeader() {
             >
               {settings.phone_primary}
             </a>
+            <a
+              href={`tel:${settings.phone_secondary.replace(/[^+\d]/g, "")}`}
+              className="rounded-lg px-3 py-3 text-sm font-semibold"
+            >
+              {settings.phone_secondary}
+            </a>
           </nav>
         </div>
       )}
