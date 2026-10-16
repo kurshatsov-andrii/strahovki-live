@@ -14,9 +14,9 @@ export const Route = createFileRoute("/contacts")({
       { name: "description", content: description },
       { property: "og:title", content: title },
       { property: "og:description", content: description },
-      { property: "og:url", content: "https://strahovki.live/contacts" },
+      { property: "og:url", content: "https://strahovki.kh.ua/contacts" },
     ],
-    links: [{ rel: "canonical", href: "https://strahovki.live/contacts" }],
+    links: [{ rel: "canonical", href: "https://strahovki.kh.ua/contacts" }],
   }),
   component: ContactsPage,
 });

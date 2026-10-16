@@ -27,11 +27,11 @@ export const Route = createFileRoute("/")({
       { name: "description", content: description },
       { property: "og:title", content: title },
       { property: "og:description", content: description },
-      { property: "og:url", content: "https://strahovki.live/" },
+      { property: "og:url", content: "https://strahovki.kh.ua/" },
       { property: "og:image", content: ogImage },
       { name: "twitter:image", content: ogImage },
     ],
-    links: [{ rel: "canonical", href: "https://strahovki.live/" }],
+    links: [{ rel: "canonical", href: "https://strahovki.kh.ua/" }],
     scripts: [
       {
         type: "application/ld+json",
@@ -39,7 +39,7 @@ export const Route = createFileRoute("/")({
           "@context": "https://schema.org",
           "@type": "WebSite",
           name: "Страховки",
-          url: "https://strahovki.live",
+          url: "https://strahovki.kh.ua",
         }),
       },
     ],

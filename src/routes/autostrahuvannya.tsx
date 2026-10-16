@@ -13,9 +13,9 @@ export const Route = createFileRoute("/autostrahuvannya")({
       { name: "description", content: description },
       { property: "og:title", content: title },
       { property: "og:description", content: description },
-      { property: "og:url", content: "https://strahovki.live/autostrahuvannya" },
+      { property: "og:url", content: "https://strahovki.kh.ua/autostrahuvannya" },
     ],
-    links: [{ rel: "canonical", href: "https://strahovki.live/autostrahuvannya" }],
+    links: [{ rel: "canonical", href: "https://strahovki.kh.ua/autostrahuvannya" }],
     scripts: [
       {
         type: "application/ld+json",
@@ -24,7 +24,7 @@ export const Route = createFileRoute("/autostrahuvannya")({
           "@type": "Service",
           name: "Автоцивілка (ОСЦПВ)",
           serviceType: "Автоцивілка (ОСЦПВ)",
-          url: "https://strahovki.live/autostrahuvannya",
+          url: "https://strahovki.kh.ua/autostrahuvannya",
           areaServed: "UA",
           provider: { "@type": "LocalBusiness", name: "Страховки" },
         }),

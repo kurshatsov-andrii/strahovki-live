@@ -13,9 +13,9 @@ export const Route = createFileRoute("/turystychne-strahuvannya")({
       { name: "description", content: description },
       { property: "og:title", content: title },
       { property: "og:description", content: description },
-      { property: "og:url", content: "https://strahovki.live/turystychne-strahuvannya" },
+      { property: "og:url", content: "https://strahovki.kh.ua/turystychne-strahuvannya" },
     ],
-    links: [{ rel: "canonical", href: "https://strahovki.live/turystychne-strahuvannya" }],
+    links: [{ rel: "canonical", href: "https://strahovki.kh.ua/turystychne-strahuvannya" }],
     scripts: [
       {
         type: "application/ld+json",
@@ -24,7 +24,7 @@ export const Route = createFileRoute("/turystychne-strahuvannya")({
           "@type": "Service",
           name: "Туристичне страхування",
           serviceType: "Туристичне страхування",
-          url: "https://strahovki.live/turystychne-strahuvannya",
+          url: "https://strahovki.kh.ua/turystychne-strahuvannya",
           areaServed: "UA",
           provider: { "@type": "LocalBusiness", name: "Страховки" },
         }),

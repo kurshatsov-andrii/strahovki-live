@@ -15,4 +15,4 @@ Allow: /
 Disallow: /auth
 Disallow: /admin
 
-Sitemap: https://strahovki.live/sitemap.xml
+Sitemap: https://strahovki.kh.ua/sitemap.xml

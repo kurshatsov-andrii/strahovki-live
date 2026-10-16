@@ -14,9 +14,9 @@ export const Route = createFileRoute("/offer")({
       { name: "description", content: description },
       { property: "og:title", content: title },
       { property: "og:description", content: description },
-      { property: "og:url", content: "https://strahovki.live/offer" },
+      { property: "og:url", content: "https://strahovki.kh.ua/offer" },
     ],
-    links: [{ rel: "canonical", href: "https://strahovki.live/offer" }],
+    links: [{ rel: "canonical", href: "https://strahovki.kh.ua/offer" }],
   }),
   component: OfferPage,
 });

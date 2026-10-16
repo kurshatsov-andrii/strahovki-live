@@ -13,9 +13,9 @@ export const Route = createFileRoute("/zelena-karta")({
       { name: "description", content: description },
       { property: "og:title", content: title },
       { property: "og:description", content: description },
-      { property: "og:url", content: "https://strahovki.live/zelena-karta" },
+      { property: "og:url", content: "https://strahovki.kh.ua/zelena-karta" },
     ],
-    links: [{ rel: "canonical", href: "https://strahovki.live/zelena-karta" }],
+    links: [{ rel: "canonical", href: "https://strahovki.kh.ua/zelena-karta" }],
     scripts: [
       {
         type: "application/ld+json",
@@ -24,7 +24,7 @@ export const Route = createFileRoute("/zelena-karta")({
           "@type": "Service",
           name: "Зелена карта",
           serviceType: "Зелена карта",
-          url: "https://strahovki.live/zelena-karta",
+          url: "https://strahovki.kh.ua/zelena-karta",
           areaServed: "UA",
           provider: { "@type": "LocalBusiness", name: "Страховки" },
         }),

@@ -41,11 +41,11 @@ export const Route = createFileRoute("/blog/$slug")({
     return post;
   },
   head: ({ params, loaderData }) => {
-    const url = `https://strahovki.live/blog/${params.slug}`;
+    const url = `https://strahovki.kh.ua/blog/${params.slug}`;
     const title = loaderData ? `${loaderData.title} | Страховки` : "Стаття | Страховки";
     const description = loaderData?.description ?? "Стаття про страхування від консультанта Страховки.";
     const rawImage = loaderData?.image_url ?? null;
-    const image = rawImage?.startsWith("/") ? `https://strahovki.live${rawImage}` : rawImage;
+    const image = rawImage?.startsWith("/") ? `https://strahovki.kh.ua${rawImage}` : rawImage;
 
     return {
       meta: [
