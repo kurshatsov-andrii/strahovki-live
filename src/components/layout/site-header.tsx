@@ -11,10 +11,10 @@ export function SiteHeader() {
 
   return (
     <header className="sticky top-0 z-50 border-b border-border/60 bg-background/85 backdrop-blur-lg">
-      <div className="container-page flex h-16 items-center justify-between gap-3">
+      <div className="container-page flex h-16 items-center justify-between gap-2">
         <Link
           to="/"
-          className="flex shrink-0 items-center gap-2 whitespace-nowrap text-[15px] font-extrabold tracking-tight"
+          className="flex shrink-0 items-center gap-1.5 whitespace-nowrap text-[14px] font-extrabold tracking-tight"
         >
           <img
             src={logoAsset.url}
@@ -23,30 +23,30 @@ export function SiteHeader() {
             height={32}
             className="size-8 shrink-0 rounded-lg object-cover"
           />
-          <span className="hidden lg:inline">{staticSite.name}</span>
+          <span className="hidden min-[1180px]:inline">{staticSite.name}</span>
         </Link>
 
-        <nav className="hidden items-center gap-0.5 lg:flex">
+        <nav className="hidden items-center gap-0 min-[1180px]:flex">
           {navLinks.map((link) => (
             <Link
               key={link.to}
               to={link.to}
               activeProps={{ className: "bg-secondary text-foreground" }}
-              className="whitespace-nowrap rounded-lg px-2 py-1.5 text-[13px] font-medium text-muted-foreground transition-colors hover:bg-secondary hover:text-foreground"
+              className="whitespace-nowrap rounded-lg px-1.5 py-1.5 text-[13px] font-medium text-muted-foreground transition-colors hover:bg-secondary hover:text-foreground"
             >
               {link.label}
             </Link>
           ))}
         </nav>
 
-        <div className="hidden items-center gap-1 lg:flex">
-          <nav className="flex items-center gap-0.5 border-r border-border/60 pr-1.5">
+        <div className="hidden items-center gap-1 min-[1180px]:flex">
+          <nav className="flex items-center gap-0 border-r border-border/60 pr-1">
             {secondaryNavLinks.map((link) => (
               <Link
                 key={link.to}
                 to={link.to}
                 activeProps={{ className: "bg-secondary text-foreground" }}
-                className="whitespace-nowrap rounded-lg px-1.5 py-1.5 text-[13px] font-medium text-muted-foreground transition-colors hover:bg-secondary hover:text-foreground"
+                className="whitespace-nowrap rounded-lg px-1 py-1.5 text-[13px] font-medium text-muted-foreground transition-colors hover:bg-secondary hover:text-foreground"
               >
                 {link.label}
               </Link>
@@ -54,14 +54,14 @@ export function SiteHeader() {
           </nav>
           <a
             href={`tel:${settings.phone_primary.replace(/[^+\d]/g, "")}`}
-            className="flex items-center gap-1 whitespace-nowrap rounded-lg px-1 py-1.5 text-[13px] font-semibold hover:bg-secondary"
+            className="flex items-center gap-1 whitespace-nowrap rounded-lg px-0.5 py-1.5 text-[13px] font-semibold hover:bg-secondary"
           >
             <Phone className="size-3.5 shrink-0 text-primary" />
             {settings.phone_primary}
           </a>
           <a
             href={`tel:${settings.phone_secondary.replace(/[^+\d]/g, "")}`}
-            className="flex items-center gap-1 whitespace-nowrap rounded-lg px-1 py-1.5 text-[13px] font-semibold hover:bg-secondary"
+            className="flex items-center gap-1 whitespace-nowrap rounded-lg px-0.5 py-1.5 text-[13px] font-semibold hover:bg-secondary"
           >
             <Phone className="size-3.5 shrink-0 text-primary" />
             {settings.phone_secondary}
