@@ -45,9 +45,11 @@ export const Route = createFileRoute("/_authenticated/admin")({
   head: () => ({
     meta: [
       { title: "Адмінпанель — Страховки" },
-      { name: "description", content: "Керування заявками, тарифами та налаштуваннями сайту." },
+      { name: "description", content: "Адмінпанель Страховки: керування заявками клієнтів, страховими тарифами та контактами сайту. Доступ лише для власника." },
       { property: "og:title", content: "Адмінпанель — Страховки" },
-      { property: "og:description", content: "Керування заявками, тарифами та налаштуваннями." },
+      { property: "og:description", content: "Адмінпанель Страховки: керування заявками клієнтів, страховими тарифами та контактами сайту. Доступ лише для власника." },
+      { name: "twitter:title", content: "Адмінпанель — Страховки" },
+      { name: "twitter:description", content: "Адмінпанель Страховки: керування заявками клієнтів, страховими тарифами та контактами сайту. Доступ лише для власника." },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
       { name: "robots", content: "noindex" },

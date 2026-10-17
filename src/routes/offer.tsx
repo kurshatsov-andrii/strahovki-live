@@ -3,9 +3,9 @@ import { PageHero } from "@/components/sections/hero";
 import { LegalContent } from "@/components/sections/legal-content";
 import { offerAgreement } from "@/content/legal";
 
-const title = "Договір оферти — Страховки";
+const title = "Договір оферти — умови оформлення страхування онлайн";
 const description =
-  "Публічний договір про надання послуг у сфері страхування ФОП Куршацов А.І. — умови, оплата та реквізити.";
+  "Публічна оферта Страховки: умови оформлення страхових полісів онлайн, оплата, права та обов'язки сторін. Ознайомтеся перед поданням заявки.";
 
 export const Route = createFileRoute("/offer")({
   head: () => ({
@@ -14,6 +14,8 @@ export const Route = createFileRoute("/offer")({
       { name: "description", content: description },
       { property: "og:title", content: title },
       { property: "og:description", content: description },
+      { name: "twitter:title", content: title },
+      { name: "twitter:description", content: description },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
       { property: "og:url", content: "https://strahovki.kh.ua/offer" },

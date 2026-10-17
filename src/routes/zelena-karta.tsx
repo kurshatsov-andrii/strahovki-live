@@ -2,9 +2,9 @@ import { createFileRoute } from "@tanstack/react-router";
 import { ProductPage } from "@/components/templates/product-page";
 import { products } from "@/content/site";
 
-const title = "Зелена карта онлайн — страхування авто для виїзду за кордон";
+const title = "Зелена карта на авто онлайн — ціна та оформлення";
 const description =
-  "Оформіть зелену карту онлайн для поїздки за кордон власним автомобілем. Розрахунок вартості за кілька секунд.";
+  "Оформіть зелену карту на авто для виїзду за кордон. Розрахуйте ціну поліса на строк від 15 днів до року. Перевірка в МТСБУ та допомога консультанта.";
 
 export const Route = createFileRoute("/zelena-karta")({
   head: () => ({
@@ -13,6 +13,8 @@ export const Route = createFileRoute("/zelena-karta")({
       { name: "description", content: description },
       { property: "og:title", content: title },
       { property: "og:description", content: description },
+      { name: "twitter:title", content: title },
+      { name: "twitter:description", content: description },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
       { property: "og:url", content: "https://strahovki.kh.ua/zelena-karta" },

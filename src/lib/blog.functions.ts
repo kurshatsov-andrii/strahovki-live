@@ -1,5 +1,6 @@
 import { createServerFn } from "@tanstack/react-start";
 import { z } from "zod";
+import { buildBlogMetadata } from "@/lib/seo-metadata";
 
 export type BlogPost = {
   slug: string;
@@ -19,9 +20,14 @@ export const listBlogPosts = createServerFn({ method: "GET" }).handler(async ():
 
 export const getBlogPost = createServerFn({ method: "GET" })
   .inputValidator((input: unknown) => z.object({ slug: z.string().min(1).max(200) }).parse(input))
-  .handler(async ({ data }): Promise<BlogPost | null> => {
-    const { fetchPost } = await import("@/lib/blog.server");
-    return fetchPost(data.slug);
+  .handler(async ({ data }): Promise<(BlogPost & { seo: { title: string; description: string } }) | null> => {
+    const { fetchPost, fetchPosts } = await import("@/lib/blog.server");
+    const post = await fetchPost(data.slug);
+    if (!post) return null;
+    const posts = await fetchPosts();
+    const seo = buildBlogMetadata([...posts.filter((item) => item.slug !== post.slug), post]).get(post.slug);
+    if (!seo) throw new Error("Article metadata unavailable");
+    return { ...post, seo };
   });
 
 export const syncBlogPosts = createServerFn({ method: "POST" }).handler(async () => {

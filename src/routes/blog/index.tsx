@@ -4,9 +4,9 @@ import { ContactFormSection } from "@/components/sections/contact";
 import { BlogCategoryNav, BlogList } from "@/components/sections/blog-list";
 import { listBlogPosts } from "@/lib/blog.functions";
 
-const title = "Блог про страхування — поради та новини | Страховки";
+const title = "Блог про страхування — тарифи, правила та поради";
 const description =
-  "Корисні статті про автоцивілку, зелену карту, туристичне та спортивне страхування: тарифи, правила, поради від страхового консультанта.";
+  "Статті про автоцивілку, зелену карту, медичну страховку за кордон і спортивне страхування. Пояснення правил, виплат, документів та вибору поліса.";
 
 export const Route = createFileRoute("/blog/")({
   loader: () => listBlogPosts(),
@@ -16,6 +16,8 @@ export const Route = createFileRoute("/blog/")({
       { name: "description", content: description },
       { property: "og:title", content: title },
       { property: "og:description", content: description },
+      { name: "twitter:title", content: title },
+      { name: "twitter:description", content: description },
       { property: "og:type", content: "website" },
       { property: "og:url", content: "https://strahovki.kh.ua/blog" },
       { name: "twitter:card", content: "summary_large_image" },

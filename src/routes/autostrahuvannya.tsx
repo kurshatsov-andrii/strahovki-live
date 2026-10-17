@@ -2,9 +2,9 @@ import { createFileRoute } from "@tanstack/react-router";
 import { ProductPage } from "@/components/templates/product-page";
 import { products } from "@/content/site";
 
-const title = "Автоцивілка онлайн — розрахувати та купити поліс ОСЦПВ";
+const title = "Автоцивілка онлайн — ціна та розрахунок ОСЦПВ";
 const description =
-  "Розрахуйте вартість автоцивілки та оформіть поліс ОСЦПВ онлайн за кілька хвилин. Електронний поліс на email і в Telegram.";
+  "Розрахуйте ціну автоцивілки та оформіть ОСЦПВ онлайн. Поліси для українських та іноземних номерів, пільгові тарифи. Отримайте поліс на email або в Telegram.";
 
 export const Route = createFileRoute("/autostrahuvannya")({
   head: () => ({
@@ -13,6 +13,8 @@ export const Route = createFileRoute("/autostrahuvannya")({
       { name: "description", content: description },
       { property: "og:title", content: title },
       { property: "og:description", content: description },
+      { name: "twitter:title", content: title },
+      { name: "twitter:description", content: description },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
       { property: "og:url", content: "https://strahovki.kh.ua/autostrahuvannya" },

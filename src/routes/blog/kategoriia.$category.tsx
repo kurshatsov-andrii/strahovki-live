@@ -23,6 +23,8 @@ export const Route = createFileRoute("/blog/kategoriia/$category")({
         { name: "description", content: cat.description },
         { property: "og:title", content: cat.title },
         { property: "og:description", content: cat.description },
+        { name: "twitter:title", content: cat.title },
+        { name: "twitter:description", content: cat.description },
         { property: "og:type", content: "website" },
         { property: "og:url", content: url },
         { name: "twitter:card", content: "summary_large_image" },
@@ -50,7 +52,8 @@ export const Route = createFileRoute("/blog/kategoriia/$category")({
 function CategoryPage() {
   const posts = Route.useLoaderData();
   const { category } = Route.useParams();
-  const cat = getCategory(category)!;
+  const cat = getCategory(category);
+  if (!cat) return null;
 
   return (
     <>

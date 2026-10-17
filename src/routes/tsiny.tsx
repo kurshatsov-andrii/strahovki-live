@@ -3,9 +3,9 @@ import { PageHero } from "@/components/sections/hero";
 import { ContactFormSection } from "@/components/sections/contact";
 import { getIcon } from "@/lib/icon-map";
 
-const title = "Ціни на страхування 2026 — автоцивілка, зелена карта, туристичне, спортивне";
+const title = "Ціни на страхування — автоцивілка, зелена карта та подорожі";
 const description =
-  "Актуальні ціни на страховки онлайн: автоцивілка від 2045 грн на рік, зелена карта від 1050 грн на 15 днів, туристичне страхування від 293 грн за тиждень, спортивне страхування від 295 грн. Розрахуйте точну вартість у калькуляторі.";
+  "Порівняйте ціни на автоцивілку, зелену карту, туристичне й спортивне страхування. Початкові тарифи та калькулятор для розрахунку вартості вашого поліса.";
 
 
 export const Route = createFileRoute("/tsiny")({
@@ -15,6 +15,8 @@ export const Route = createFileRoute("/tsiny")({
       { name: "description", content: description },
       { property: "og:title", content: title },
       { property: "og:description", content: description },
+      { name: "twitter:title", content: title },
+      { name: "twitter:description", content: description },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
       { property: "og:url", content: "https://strahovki.kh.ua/tsiny" },

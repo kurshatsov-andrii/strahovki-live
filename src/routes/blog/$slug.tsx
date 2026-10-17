@@ -42,8 +42,8 @@ export const Route = createFileRoute("/blog/$slug")({
   },
   head: ({ params, loaderData }) => {
     const url = `https://strahovki.kh.ua/blog/${params.slug}`;
-    const title = loaderData ? `${loaderData.title} | Страховки` : "Стаття | Страховки";
-    const description = loaderData?.description ?? "Стаття про страхування від консультанта Страховки.";
+    const title = loaderData?.seo.title ?? "Стаття недоступна — Страховки";
+    const description = loaderData?.seo.description ?? "Матеріал про страхування недоступний. Перейдіть до блогу Страховки, щоб знайти статті про поліси, документи та страхові виплати.";
     const rawImage = loaderData?.image_url ?? null;
     const image = rawImage?.startsWith("/") ? `https://strahovki.kh.ua${rawImage}` : rawImage;
 
@@ -53,6 +53,9 @@ export const Route = createFileRoute("/blog/$slug")({
         { name: "description", content: description },
         { property: "og:title", content: title },
         { property: "og:description", content: description },
+        { name: "twitter:title", content: title },
+        { name: "twitter:description", content: description },
+        ...(!loaderData ? [{ name: "robots", content: "noindex" }] : []),
         { property: "og:type", content: "article" },
         { property: "og:url", content: url },
         { name: "twitter:card", content: "summary_large_image" },
@@ -72,7 +75,7 @@ export const Route = createFileRoute("/blog/$slug")({
                 "@context": "https://schema.org",
                 "@type": "Article",
                 headline: loaderData.title,
-                description: loaderData.description,
+                description,
                 datePublished: loaderData.published_at,
                 image: loaderData.image_url ?? undefined,
                 author: { "@type": "Person", name: "Куршацов Андрій Іванович" },

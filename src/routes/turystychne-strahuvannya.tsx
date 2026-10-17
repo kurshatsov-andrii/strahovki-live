@@ -2,9 +2,9 @@ import { createFileRoute } from "@tanstack/react-router";
 import { ProductPage } from "@/components/templates/product-page";
 import { products } from "@/content/site";
 
-const title = "Туристичне страхування онлайн — медична страховка для поїздок";
+const title = "Туристичне страхування онлайн — страховка за кордон";
 const description =
-  "Оформіть туристичну медичну страховку для виїзду за кордон. Підходить для шенгенської візи.";
+  "Медична страховка для виїзду за кордон: Європа або весь світ, покриття 30 000 євро. Розрахунок на 7–90 днів та оформлення онлайн з консультантом.";
 
 export const Route = createFileRoute("/turystychne-strahuvannya")({
   head: () => ({
@@ -13,6 +13,8 @@ export const Route = createFileRoute("/turystychne-strahuvannya")({
       { name: "description", content: description },
       { property: "og:title", content: title },
       { property: "og:description", content: description },
+      { name: "twitter:title", content: title },
+      { name: "twitter:description", content: description },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
       { property: "og:url", content: "https://strahovki.kh.ua/turystychne-strahuvannya" },

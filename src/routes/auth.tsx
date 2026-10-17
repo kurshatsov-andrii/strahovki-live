@@ -6,8 +6,9 @@ import { toast } from "sonner";
 import { Loader2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
-const title = "Вхід в адмінпанель — Страховки";
-const description = "Авторизація для менеджерів сайту Страховки.";
+const title = "Вхід власника сайту — адмінпанель Страховки";
+const description =
+  "Сторінка входу власника сайту Страховки через Google. Авторизація для доступу до заявок клієнтів, тарифів та налаштувань.";
 
 export const Route = createFileRoute("/auth")({
   head: () => ({
@@ -16,6 +17,8 @@ export const Route = createFileRoute("/auth")({
       { name: "description", content: description },
       { property: "og:title", content: title },
       { property: "og:description", content: description },
+      { name: "twitter:title", content: title },
+      { name: "twitter:description", content: description },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
       { name: "robots", content: "noindex, nofollow" },
