@@ -27,7 +27,7 @@ export function SiteHeader() {
         </Link>
 
         <nav className="hidden items-center gap-0 min-[1180px]:flex">
-          {navLinks.map((link) => (
+          {[...navLinks, ...secondaryNavLinks].map((link) => (
             <Link
               key={link.to}
               to={link.to}
@@ -39,20 +39,9 @@ export function SiteHeader() {
           ))}
         </nav>
 
-        <div className="hidden items-center gap-1 min-[1180px]:flex">
-          <nav className="flex items-center gap-0 border-r border-border/60 pr-1">
-            {secondaryNavLinks.map((link) => (
-              <Link
-                key={link.to}
-                to={link.to}
-                activeProps={{ className: "bg-secondary text-foreground" }}
-                className="whitespace-nowrap rounded-lg px-1 py-1.5 text-[13px] font-medium text-muted-foreground transition-colors hover:bg-secondary hover:text-foreground"
-              >
-                {link.label}
-              </Link>
-            ))}
-          </nav>
+        <div className="hidden items-center gap-1 border-l border-border/60 pl-2 min-[1180px]:flex">
           <a
+
             href={`tel:${settings.phone_primary.replace(/[^+\d]/g, "")}`}
             className="flex items-center gap-1 whitespace-nowrap rounded-lg px-0.5 py-1.5 text-[13px] font-semibold hover:bg-secondary"
           >
