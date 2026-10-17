@@ -3,6 +3,7 @@ import { readFileSync, readdirSync } from "node:fs";
 import { join } from "node:path";
 import { buildBlogMetadata } from "./seo-metadata";
 import { BLOG_CATEGORIES } from "./blog-categories";
+import { BLOG_SEO } from "../content/blog-seo";
 
 function routeMetadata() {
   const entries: { title: string; description: string }[] = [];
@@ -22,6 +23,12 @@ function routeMetadata() {
 }
 
 describe("SEO metadata requirements", () => {
+  it("keeps editorial article titles within 60 characters", () => {
+    for (const item of Object.values(BLOG_SEO)) expect(item.title.length, item.title).toBeLessThanOrEqual(60);
+  });
+  it("keeps editorial article descriptions within 160 characters", () => {
+    for (const item of Object.values(BLOG_SEO)) expect(item.description.length, item.title).toBeLessThanOrEqual(160);
+  });
   it("limits every static page title to 60 characters", () => {
     const items = routeMetadata();
     expect(items.length).toBe(19);
@@ -50,5 +57,18 @@ describe("SEO metadata requirements", () => {
   });
   it("disambiguates identical article descriptions", () => {
     expect(new Set([...buildBlogMetadata(posts).values()].map((item) => item.description)).size).toBe(3);
+  });
+  it("uses a complete description sentence rather than cutting the next sentence", () => {
+    const item = buildBlogMetadata([{ slug: "sentence-test", title: "Автоцивілка", description: "Як перевірити автоцивілку онлайн? " + "Наступне дуже довге речення ".repeat(10) + ".", content: "" }]).get("sentence-test");
+    expect(item?.description).toBe("Як перевірити автоцивілку онлайн?");
+  });
+  it("replaces an oversized title with a complete topic title, without ellipsis", () => {
+    const item = buildBlogMetadata([{ slug: "long-title", title: "Автоцивілка: " + "документи та правила оформлення ".repeat(10), description: "", content: "" }]).get("long-title");
+    expect(item?.title).toBe("Автоцивілка: умови страхування та поради");
+  });
+  it("does not turn an oversized sentence or word into a sentence fragment", () => {
+    const item = buildBlogMetadata([{ slug: "long-word", title: "Спортивне страхування " + "а".repeat(200), description: "б".repeat(300), content: "" }]).get("long-word");
+    expect(item?.description).toBe("Спортивне страхування: корисна інформація про поліс та відповіді на запитання.");
+    expect(item?.title).not.toContain("…");
   });
 });
