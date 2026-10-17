@@ -11,39 +11,42 @@ export function SiteHeader() {
 
   return (
     <header className="sticky top-0 z-50 border-b border-border/60 bg-background/85 backdrop-blur-lg">
-      <div className="container-page flex h-20 items-center justify-between gap-4">
-        <Link to="/" className="flex items-center gap-2.5 text-lg font-extrabold tracking-tight">
+      <div className="container-page flex h-16 items-center justify-between gap-3">
+        <Link
+          to="/"
+          className="flex shrink-0 items-center gap-2 whitespace-nowrap text-[15px] font-extrabold tracking-tight"
+        >
           <img
             src={logoAsset.url}
             alt="Логотип Страховки"
-            width={40}
-            height={40}
-            className="size-10 rounded-xl object-cover"
+            width={32}
+            height={32}
+            className="size-8 shrink-0 rounded-lg object-cover"
           />
-          <span className="hidden 2xl:inline">{staticSite.name}</span>
+          <span className="hidden lg:inline">{staticSite.name}</span>
         </Link>
 
-        <nav className="hidden items-center gap-1 lg:flex">
+        <nav className="hidden items-center gap-0.5 lg:flex">
           {navLinks.map((link) => (
             <Link
               key={link.to}
               to={link.to}
               activeProps={{ className: "bg-secondary text-foreground" }}
-              className="rounded-lg px-3 py-2 text-sm font-medium text-muted-foreground transition-colors hover:bg-secondary hover:text-foreground"
+              className="whitespace-nowrap rounded-lg px-2 py-1.5 text-[13px] font-medium text-muted-foreground transition-colors hover:bg-secondary hover:text-foreground"
             >
               {link.label}
             </Link>
           ))}
         </nav>
 
-        <div className="hidden items-center gap-2 lg:flex">
-          <nav className="flex items-center gap-1 border-r border-border/60 pr-2">
+        <div className="hidden items-center gap-1 lg:flex">
+          <nav className="flex items-center gap-0.5 border-r border-border/60 pr-1.5">
             {secondaryNavLinks.map((link) => (
               <Link
                 key={link.to}
                 to={link.to}
                 activeProps={{ className: "bg-secondary text-foreground" }}
-                className="rounded-lg px-2.5 py-2 text-sm font-medium text-muted-foreground transition-colors hover:bg-secondary hover:text-foreground"
+                className="whitespace-nowrap rounded-lg px-1.5 py-1.5 text-[13px] font-medium text-muted-foreground transition-colors hover:bg-secondary hover:text-foreground"
               >
                 {link.label}
               </Link>
@@ -51,16 +54,16 @@ export function SiteHeader() {
           </nav>
           <a
             href={`tel:${settings.phone_primary.replace(/[^+\d]/g, "")}`}
-            className="flex items-center gap-1.5 rounded-lg px-2 py-2 text-sm font-semibold hover:bg-secondary"
+            className="flex items-center gap-1 whitespace-nowrap rounded-lg px-1 py-1.5 text-[13px] font-semibold hover:bg-secondary"
           >
-            <Phone className="size-4 text-primary" />
+            <Phone className="size-3.5 shrink-0 text-primary" />
             {settings.phone_primary}
           </a>
           <a
             href={`tel:${settings.phone_secondary.replace(/[^+\d]/g, "")}`}
-            className="flex items-center gap-1.5 rounded-lg px-2 py-2 text-sm font-semibold hover:bg-secondary"
+            className="flex items-center gap-1 whitespace-nowrap rounded-lg px-1 py-1.5 text-[13px] font-semibold hover:bg-secondary"
           >
-            <Phone className="size-4 text-primary" />
+            <Phone className="size-3.5 shrink-0 text-primary" />
             {settings.phone_secondary}
           </a>
           <a
@@ -68,7 +71,7 @@ export function SiteHeader() {
             target="_blank"
             rel="noreferrer"
             aria-label="Telegram"
-            className="flex size-9 items-center justify-center rounded-lg text-muted-foreground hover:bg-secondary hover:text-foreground"
+            className="flex size-8 shrink-0 items-center justify-center rounded-lg text-muted-foreground hover:bg-secondary hover:text-foreground"
           >
             <Send className="size-4" />
           </a>
