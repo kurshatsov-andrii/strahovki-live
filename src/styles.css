@@ -175,3 +175,26 @@
 @utility shadow-lift {
   box-shadow: var(--shadow-lift);
 }
+
+@keyframes header-nudge {
+  0%,
+  100% {
+    opacity: 0.55;
+    transform: translateX(0);
+  }
+  50% {
+    opacity: 1;
+    transform: translateX(3px);
+  }
+}
+
+.header-nudge {
+  animation: header-nudge 1.8s ease-in-out infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .header-nudge {
+    animation: none;
+    opacity: 1;
+  }
+}
