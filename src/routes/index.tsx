@@ -13,9 +13,9 @@ import { CalculatorWithProductSwitch } from "@/components/calculator/calculator-
 import { ConsultantSection } from "@/components/sections/consultant";
 
 
-const title = "Страховки — онлайн страхування авто, зелена карта, туризм і спорт";
+const title = "Страхування онлайн — автоцивілка та зелена карта | Страховки";
 const description =
-  "Оформіть автоцивілку, зелену карту, туристичне чи спортивне страхування онлайн за кілька хвилин. Реальні тарифи та електронний поліс.";
+  "Оформіть автоцивілку, зелену карту, туристичне чи спортивне страхування онлайн. Розрахунок вартості та допомога страхового консультанта.";
 
 const ogImage =
   "https://pub-bb2e103a32db4e198524a2e9ed8f35b4.r2.dev/32880bab4f44acd4c53e8e0f0eab6792/id-preview-fd8b47f1--7369b7ec-2c91-4e60-b2e1-8d008945eb01.lovable.app-1786536089778.png";
@@ -27,6 +27,8 @@ export const Route = createFileRoute("/")({
       { name: "description", content: description },
       { property: "og:title", content: title },
       { property: "og:description", content: description },
+      { name: "twitter:title", content: title },
+      { name: "twitter:description", content: description },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
       { property: "og:url", content: "https://strahovki.kh.ua/" },

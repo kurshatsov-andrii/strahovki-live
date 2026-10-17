@@ -3,9 +3,9 @@ import { PageHero } from "@/components/sections/hero";
 import { TestimonialsSection } from "@/components/sections/sections";
 import { ContactFormSection } from "@/components/sections/contact";
 
-const title = "Відгуки клієнтів — Страховки, Куршацов Андрій";
+const title = "Відгуки про страхування онлайн — клієнти Страховки";
 const description =
-  "Реальні відгуки клієнтів про оформлення автоцивілки, зеленої карти, туристичного та спортивного страхування онлайн. Оцінки з Google.";
+  "Відгуки клієнтів у Google про автоцивілку, зелену карту, туристичне й спортивне страхування. Дізнайтеся про досвід оформлення полісів на сайті Страховки.";
 
 export const Route = createFileRoute("/vidhuky")({
   head: () => ({
@@ -14,6 +14,8 @@ export const Route = createFileRoute("/vidhuky")({
       { name: "description", content: description },
       { property: "og:title", content: title },
       { property: "og:description", content: description },
+      { name: "twitter:title", content: title },
+      { name: "twitter:description", content: description },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
       { property: "og:url", content: "https://strahovki.kh.ua/vidhuky" },

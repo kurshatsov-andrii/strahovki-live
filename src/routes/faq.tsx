@@ -6,8 +6,9 @@ import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/
 import { Button } from "@/components/ui/button";
 import { faqGroups } from "@/content/faq";
 
-const title = "Питання та відповіді про страхування (FAQ) — Страховки";
-const description = "Відповіді про автоцивілку, зелену карту, туристичне та спортивне страхування: ціна, документи, строки, покриття, оформлення онлайн і перевірка поліса.";
+const title = "Питання та відповіді про страхування — FAQ | Страховки";
+const description =
+  "Відповіді про ОСЦПВ, зелену карту, туристичне та спортивне страхування: документи, ціни, строки, покриття, оформлення онлайн та перевірка поліса.";
 
 export const Route = createFileRoute("/faq")({
   head: () => ({
@@ -16,6 +17,8 @@ export const Route = createFileRoute("/faq")({
       { name: "description", content: description },
       { property: "og:title", content: title },
       { property: "og:description", content: description },
+      { name: "twitter:title", content: title },
+      { name: "twitter:description", content: description },
       { property: "og:type", content: "website" },
       { property: "og:url", content: "https://strahovki.kh.ua/faq" },
       { name: "twitter:card", content: "summary_large_image" },

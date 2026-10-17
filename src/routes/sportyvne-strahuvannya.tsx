@@ -2,9 +2,9 @@ import { createFileRoute } from "@tanstack/react-router";
 import { ProductPage } from "@/components/templates/product-page";
 import { products } from "@/content/site";
 
-const title = "Спортивне страхування онлайн — страховка від травм";
+const title = "Спортивне страхування — страховка для тренувань і змагань";
 const description =
-  "Застрахуйте себе або команду від спортивних травм. Індивідуальні та командні тарифи.";
+  "Спортивна страховка для аматорів, дітей і команд. Страхова сума 35 000 грн, строк від 1 місяця до року. Розрахуйте вартість та залиште заявку онлайн.";
 
 export const Route = createFileRoute("/sportyvne-strahuvannya")({
   head: () => ({
@@ -13,6 +13,8 @@ export const Route = createFileRoute("/sportyvne-strahuvannya")({
       { name: "description", content: description },
       { property: "og:title", content: title },
       { property: "og:description", content: description },
+      { name: "twitter:title", content: title },
+      { name: "twitter:description", content: description },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
       { property: "og:url", content: "https://strahovki.kh.ua/sportyvne-strahuvannya" },

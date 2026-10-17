@@ -6,9 +6,9 @@ import { CertificatesSection } from "@/components/sections/certificates";
 import { ContactFormSection } from "@/components/sections/contact";
 import { home } from "@/content/site";
 
-const title = "Про мене — Куршацов Андрій, страховий консультант у Харкові";
+const title = "Куршацов Андрій Іванович — страховий консультант";
 const description =
-  "Куршацов Андрій Іванович — страховий консультант у Харкові. Автоцивілка, зелена карта, туристичне та спортивне страхування онлайн. Персональний супровід кожного клієнта.";
+  "Куршацов Андрій Іванович, страховий консультант у Харкові. Сертифікати страхових компаній, допомога з вибором поліса та супровід після оформлення.";
 
 export const Route = createFileRoute("/pro-mene")({
   head: () => ({
@@ -17,6 +17,8 @@ export const Route = createFileRoute("/pro-mene")({
       { name: "description", content: description },
       { property: "og:title", content: title },
       { property: "og:description", content: description },
+      { name: "twitter:title", content: title },
+      { name: "twitter:description", content: description },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
       { property: "og:url", content: "https://strahovki.kh.ua/pro-mene" },

@@ -3,9 +3,9 @@ import { PageHero } from "@/components/sections/hero";
 import { ContactFormSection } from "@/components/sections/contact";
 import { ConsultantSection } from "@/components/sections/consultant";
 
-const title = "Контакти — Страховки";
+const title = "Страхування в Харкові — контакти консультанта | Страховки";
 const description =
-  "Телефон, email, Telegram, Viber та адреса офісу. Залиште заявку — відповімо протягом кількох хвилин.";
+  "Контакти страхового консультанта в Харкові: телефони, Viber, Telegram, email та адреса офісу. Зверніться щодо оформлення поліса або умов страхування.";
 
 export const Route = createFileRoute("/contacts")({
   head: () => ({
@@ -14,6 +14,8 @@ export const Route = createFileRoute("/contacts")({
       { name: "description", content: description },
       { property: "og:title", content: title },
       { property: "og:description", content: description },
+      { name: "twitter:title", content: title },
+      { name: "twitter:description", content: description },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
       { property: "og:url", content: "https://strahovki.kh.ua/contacts" },

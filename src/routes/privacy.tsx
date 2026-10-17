@@ -3,9 +3,9 @@ import { PageHero } from "@/components/sections/hero";
 import { LegalContent } from "@/components/sections/legal-content";
 import { privacyPolicy } from "@/content/legal";
 
-const title = "Політика конфіденційності — Страховки";
+const title = "Політика конфіденційності та захист даних — Страховки";
 const description =
-  "Як сайт Страховки збирає, використовує та захищає персональні дані користувачів, cookie-файли та розсилки.";
+  "Як Страховки обробляє персональні дані під час оформлення заявок: мета збору, захист інформації, cookie та права користувачів.";
 
 export const Route = createFileRoute("/privacy")({
   head: () => ({
@@ -14,6 +14,8 @@ export const Route = createFileRoute("/privacy")({
       { name: "description", content: description },
       { property: "og:title", content: title },
       { property: "og:description", content: description },
+      { name: "twitter:title", content: title },
+      { name: "twitter:description", content: description },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
       { property: "og:url", content: "https://strahovki.kh.ua/privacy" },
