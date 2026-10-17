@@ -81,14 +81,14 @@ export function SiteHeader() {
           type="button"
           onClick={() => setOpen((v) => !v)}
           aria-label="Меню"
-          className="flex size-10 items-center justify-center rounded-lg border border-border lg:hidden"
+          className="flex size-10 items-center justify-center rounded-lg border border-border min-[1180px]:hidden"
         >
           {open ? <X className="size-5" /> : <Menu className="size-5" />}
         </button>
       </div>
 
       {open && (
-        <div className="border-t border-border bg-background lg:hidden">
+        <div className="border-t border-border bg-background min-[1180px]:hidden">
           <nav className="container-page flex flex-col gap-1 py-4">
             {navLinks.map((link) => (
               <Link
