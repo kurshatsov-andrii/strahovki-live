@@ -14,6 +14,7 @@ import { Route as AuthenticatedRouteRouteImport } from './routes/_authenticated/
 import { Route as AuthRouteImport } from './routes/auth'
 import { Route as AutostrahuvannyaRouteImport } from './routes/autostrahuvannya'
 import { Route as ContactsRouteImport } from './routes/contacts'
+import { Route as FaqRouteImport } from './routes/faq'
 import { Route as OfferRouteImport } from './routes/offer'
 import { Route as PrivacyRouteImport } from './routes/privacy'
 import { Route as ProMeneRouteImport } from './routes/pro-mene'
@@ -52,6 +53,11 @@ const AutostrahuvannyaRoute = AutostrahuvannyaRouteImport.update({
 const ContactsRoute = ContactsRouteImport.update({
   id: '/contacts',
   path: '/contacts',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const FaqRoute = FaqRouteImport.update({
+  id: '/faq',
+  path: '/faq',
   getParentRoute: () => rootRouteImport,
 } as any)
 const OfferRoute = OfferRouteImport.update({
@@ -135,6 +141,7 @@ export interface FileRoutesByFullPath {
   '/auth': typeof AuthRoute
   '/autostrahuvannya': typeof AutostrahuvannyaRoute
   '/contacts': typeof ContactsRoute
+  '/faq': typeof FaqRoute
   '/offer': typeof OfferRoute
   '/privacy': typeof PrivacyRoute
   '/pro-mene': typeof ProMeneRoute
@@ -156,6 +163,7 @@ export interface FileRoutesByTo {
   '/auth': typeof AuthRoute
   '/autostrahuvannya': typeof AutostrahuvannyaRoute
   '/contacts': typeof ContactsRoute
+  '/faq': typeof FaqRoute
   '/offer': typeof OfferRoute
   '/privacy': typeof PrivacyRoute
   '/pro-mene': typeof ProMeneRoute
@@ -179,6 +187,7 @@ export interface FileRoutesById {
   '/auth': typeof AuthRoute
   '/autostrahuvannya': typeof AutostrahuvannyaRoute
   '/contacts': typeof ContactsRoute
+  '/faq': typeof FaqRoute
   '/offer': typeof OfferRoute
   '/privacy': typeof PrivacyRoute
   '/pro-mene': typeof ProMeneRoute
@@ -202,6 +211,7 @@ export interface FileRouteTypes {
     | '/auth'
     | '/autostrahuvannya'
     | '/contacts'
+    | '/faq'
     | '/offer'
     | '/privacy'
     | '/pro-mene'
@@ -223,6 +233,7 @@ export interface FileRouteTypes {
     | '/auth'
     | '/autostrahuvannya'
     | '/contacts'
+    | '/faq'
     | '/offer'
     | '/privacy'
     | '/pro-mene'
@@ -245,6 +256,7 @@ export interface FileRouteTypes {
     | '/auth'
     | '/autostrahuvannya'
     | '/contacts'
+    | '/faq'
     | '/offer'
     | '/privacy'
     | '/pro-mene'
@@ -268,6 +280,7 @@ export interface RootRouteChildren {
   AuthRoute: typeof AuthRoute
   AutostrahuvannyaRoute: typeof AutostrahuvannyaRoute
   ContactsRoute: typeof ContactsRoute
+  FaqRoute: typeof FaqRoute
   OfferRoute: typeof OfferRoute
   PrivacyRoute: typeof PrivacyRoute
   ProMeneRoute: typeof ProMeneRoute
@@ -319,6 +332,13 @@ declare module '@tanstack/react-router' {
       path: '/contacts'
       fullPath: '/contacts'
       preLoaderRoute: typeof ContactsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/faq': {
+      id: '/faq'
+      path: '/faq'
+      fullPath: '/faq'
+      preLoaderRoute: typeof FaqRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/offer': {
@@ -446,6 +466,7 @@ const rootRouteChildren: RootRouteChildren = {
   AuthRoute: AuthRoute,
   AutostrahuvannyaRoute: AutostrahuvannyaRoute,
   ContactsRoute: ContactsRoute,
+  FaqRoute: FaqRoute,
   OfferRoute: OfferRoute,
   PrivacyRoute: PrivacyRoute,
   ProMeneRoute: ProMeneRoute,
