@@ -2,6 +2,7 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 import { PageHero } from "@/components/sections/hero";
 import { ConsultantSection } from "@/components/sections/consultant";
 import { AdvantagesSection } from "@/components/sections/sections";
+import { CertificatesSection } from "@/components/sections/certificates";
 import { ContactFormSection } from "@/components/sections/contact";
 import { home } from "@/content/site";
 
