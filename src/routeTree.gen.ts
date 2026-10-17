@@ -16,9 +16,12 @@ import { Route as AutostrahuvannyaRouteImport } from './routes/autostrahuvannya'
 import { Route as ContactsRouteImport } from './routes/contacts'
 import { Route as OfferRouteImport } from './routes/offer'
 import { Route as PrivacyRouteImport } from './routes/privacy'
+import { Route as ProMeneRouteImport } from './routes/pro-mene'
 import { Route as SitemapDotxmlRouteImport } from './routes/sitemap[.]xml'
 import { Route as SportyvneStrahuvannyaRouteImport } from './routes/sportyvne-strahuvannya'
+import { Route as TsinyRouteImport } from './routes/tsiny'
 import { Route as TurystychneStrahuvannyaRouteImport } from './routes/turystychne-strahuvannya'
+import { Route as VidhukyRouteImport } from './routes/vidhuky'
 import { Route as ZelenaKartaRouteImport } from './routes/zelena-karta'
 import { Route as AuthenticatedAdminRouteImport } from './routes/_authenticated/admin'
 import { Route as BlogIndexRouteImport } from './routes/blog/index'
@@ -61,6 +64,11 @@ const PrivacyRoute = PrivacyRouteImport.update({
   path: '/privacy',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ProMeneRoute = ProMeneRouteImport.update({
+  id: '/pro-mene',
+  path: '/pro-mene',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const SitemapDotxmlRoute = SitemapDotxmlRouteImport.update({
   id: '/sitemap.xml',
   path: '/sitemap.xml',
@@ -71,9 +79,19 @@ const SportyvneStrahuvannyaRoute = SportyvneStrahuvannyaRouteImport.update({
   path: '/sportyvne-strahuvannya',
   getParentRoute: () => rootRouteImport,
 } as any)
+const TsinyRoute = TsinyRouteImport.update({
+  id: '/tsiny',
+  path: '/tsiny',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const TurystychneStrahuvannyaRoute = TurystychneStrahuvannyaRouteImport.update({
   id: '/turystychne-strahuvannya',
   path: '/turystychne-strahuvannya',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const VidhukyRoute = VidhukyRouteImport.update({
+  id: '/vidhuky',
+  path: '/vidhuky',
   getParentRoute: () => rootRouteImport,
 } as any)
 const ZelenaKartaRoute = ZelenaKartaRouteImport.update({
@@ -119,9 +137,12 @@ export interface FileRoutesByFullPath {
   '/contacts': typeof ContactsRoute
   '/offer': typeof OfferRoute
   '/privacy': typeof PrivacyRoute
+  '/pro-mene': typeof ProMeneRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/sportyvne-strahuvannya': typeof SportyvneStrahuvannyaRoute
+  '/tsiny': typeof TsinyRoute
   '/turystychne-strahuvannya': typeof TurystychneStrahuvannyaRoute
+  '/vidhuky': typeof VidhukyRoute
   '/zelena-karta': typeof ZelenaKartaRoute
   '/admin': typeof AuthenticatedAdminRoute
   '/blog/$slug': typeof BlogSlugRoute
@@ -137,9 +158,12 @@ export interface FileRoutesByTo {
   '/contacts': typeof ContactsRoute
   '/offer': typeof OfferRoute
   '/privacy': typeof PrivacyRoute
+  '/pro-mene': typeof ProMeneRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/sportyvne-strahuvannya': typeof SportyvneStrahuvannyaRoute
+  '/tsiny': typeof TsinyRoute
   '/turystychne-strahuvannya': typeof TurystychneStrahuvannyaRoute
+  '/vidhuky': typeof VidhukyRoute
   '/zelena-karta': typeof ZelenaKartaRoute
   '/admin': typeof AuthenticatedAdminRoute
   '/blog/$slug': typeof BlogSlugRoute
@@ -157,9 +181,12 @@ export interface FileRoutesById {
   '/contacts': typeof ContactsRoute
   '/offer': typeof OfferRoute
   '/privacy': typeof PrivacyRoute
+  '/pro-mene': typeof ProMeneRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/sportyvne-strahuvannya': typeof SportyvneStrahuvannyaRoute
+  '/tsiny': typeof TsinyRoute
   '/turystychne-strahuvannya': typeof TurystychneStrahuvannyaRoute
+  '/vidhuky': typeof VidhukyRoute
   '/zelena-karta': typeof ZelenaKartaRoute
   '/_authenticated/admin': typeof AuthenticatedAdminRoute
   '/blog/$slug': typeof BlogSlugRoute
@@ -177,9 +204,12 @@ export interface FileRouteTypes {
     | '/contacts'
     | '/offer'
     | '/privacy'
+    | '/pro-mene'
     | '/sitemap.xml'
     | '/sportyvne-strahuvannya'
+    | '/tsiny'
     | '/turystychne-strahuvannya'
+    | '/vidhuky'
     | '/zelena-karta'
     | '/admin'
     | '/blog/$slug'
@@ -195,9 +225,12 @@ export interface FileRouteTypes {
     | '/contacts'
     | '/offer'
     | '/privacy'
+    | '/pro-mene'
     | '/sitemap.xml'
     | '/sportyvne-strahuvannya'
+    | '/tsiny'
     | '/turystychne-strahuvannya'
+    | '/vidhuky'
     | '/zelena-karta'
     | '/admin'
     | '/blog/$slug'
@@ -214,9 +247,12 @@ export interface FileRouteTypes {
     | '/contacts'
     | '/offer'
     | '/privacy'
+    | '/pro-mene'
     | '/sitemap.xml'
     | '/sportyvne-strahuvannya'
+    | '/tsiny'
     | '/turystychne-strahuvannya'
+    | '/vidhuky'
     | '/zelena-karta'
     | '/_authenticated/admin'
     | '/blog/$slug'
@@ -234,9 +270,12 @@ export interface RootRouteChildren {
   ContactsRoute: typeof ContactsRoute
   OfferRoute: typeof OfferRoute
   PrivacyRoute: typeof PrivacyRoute
+  ProMeneRoute: typeof ProMeneRoute
   SitemapDotxmlRoute: typeof SitemapDotxmlRoute
   SportyvneStrahuvannyaRoute: typeof SportyvneStrahuvannyaRoute
+  TsinyRoute: typeof TsinyRoute
   TurystychneStrahuvannyaRoute: typeof TurystychneStrahuvannyaRoute
+  VidhukyRoute: typeof VidhukyRoute
   ZelenaKartaRoute: typeof ZelenaKartaRoute
   BlogSlugRoute: typeof BlogSlugRoute
   BlogIndexRoute: typeof BlogIndexRoute
@@ -296,6 +335,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof PrivacyRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/pro-mene': {
+      id: '/pro-mene'
+      path: '/pro-mene'
+      fullPath: '/pro-mene'
+      preLoaderRoute: typeof ProMeneRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/sitemap.xml': {
       id: '/sitemap.xml'
       path: '/sitemap.xml'
@@ -310,11 +356,25 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof SportyvneStrahuvannyaRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/tsiny': {
+      id: '/tsiny'
+      path: '/tsiny'
+      fullPath: '/tsiny'
+      preLoaderRoute: typeof TsinyRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/turystychne-strahuvannya': {
       id: '/turystychne-strahuvannya'
       path: '/turystychne-strahuvannya'
       fullPath: '/turystychne-strahuvannya'
       preLoaderRoute: typeof TurystychneStrahuvannyaRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/vidhuky': {
+      id: '/vidhuky'
+      path: '/vidhuky'
+      fullPath: '/vidhuky'
+      preLoaderRoute: typeof VidhukyRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/zelena-karta': {
@@ -388,9 +448,12 @@ const rootRouteChildren: RootRouteChildren = {
   ContactsRoute: ContactsRoute,
   OfferRoute: OfferRoute,
   PrivacyRoute: PrivacyRoute,
+  ProMeneRoute: ProMeneRoute,
   SitemapDotxmlRoute: SitemapDotxmlRoute,
   SportyvneStrahuvannyaRoute: SportyvneStrahuvannyaRoute,
+  TsinyRoute: TsinyRoute,
   TurystychneStrahuvannyaRoute: TurystychneStrahuvannyaRoute,
+  VidhukyRoute: VidhukyRoute,
   ZelenaKartaRoute: ZelenaKartaRoute,
   BlogSlugRoute: BlogSlugRoute,
   BlogIndexRoute: BlogIndexRoute,

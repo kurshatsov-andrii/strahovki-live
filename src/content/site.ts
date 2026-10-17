@@ -23,6 +23,13 @@ export const navLinks = [
   { to: "/contacts", label: "Контакти" },
 ] as const;
 
+/** Додаткові посилання — у десктопному меню праворуч, біля телефонів. */
+export const secondaryNavLinks = [
+  { to: "/pro-mene", label: "Про мене" },
+  { to: "/vidhuky", label: "Відгуки" },
+  { to: "/tsiny", label: "Ціни" },
+] as const;
+
 export type Advantage = { icon: string; title: string; description: string };
 export type FaqItem = { question: string; answer: string };
 

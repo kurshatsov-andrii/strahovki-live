@@ -25,6 +25,9 @@ export const Route = createFileRoute("/sitemap.xml")({
           { path: "/blog/kategoriia/turystychne-strahuvannya", changefreq: "weekly", priority: "0.7" },
           { path: "/blog/kategoriia/sportyvne-strahuvannya", changefreq: "weekly", priority: "0.7" },
           { path: "/contacts", changefreq: "monthly", priority: "0.6" },
+          { path: "/pro-mene", changefreq: "monthly", priority: "0.7" },
+          { path: "/vidhuky", changefreq: "monthly", priority: "0.7" },
+          { path: "/tsiny", changefreq: "weekly", priority: "0.8" },
           { path: "/privacy", changefreq: "yearly", priority: "0.3" },
           { path: "/offer", changefreq: "yearly", priority: "0.3" },
         ];

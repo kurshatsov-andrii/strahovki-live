@@ -1,7 +1,7 @@
 import { Link } from "@tanstack/react-router";
 import { Menu, Phone, Send, X } from "lucide-react";
 import { useState } from "react";
-import { navLinks, site as staticSite } from "@/content/site";
+import { navLinks, secondaryNavLinks, site as staticSite } from "@/content/site";
 import { useSiteSettings } from "@/hooks/use-site-settings";
 import logoAsset from "@/assets/logo-strahovki.jpg.asset.json";
 
@@ -20,7 +20,7 @@ export function SiteHeader() {
             height={40}
             className="size-10 rounded-xl object-cover"
           />
-          {staticSite.name}
+          <span className="hidden 2xl:inline">{staticSite.name}</span>
         </Link>
 
         <nav className="hidden items-center gap-1 lg:flex">
@@ -37,6 +37,18 @@ export function SiteHeader() {
         </nav>
 
         <div className="hidden items-center gap-2 lg:flex">
+          <nav className="flex items-center gap-1 border-r border-border/60 pr-2">
+            {secondaryNavLinks.map((link) => (
+              <Link
+                key={link.to}
+                to={link.to}
+                activeProps={{ className: "bg-secondary text-foreground" }}
+                className="rounded-lg px-2.5 py-2 text-sm font-medium text-muted-foreground transition-colors hover:bg-secondary hover:text-foreground"
+              >
+                {link.label}
+              </Link>
+            ))}
+          </nav>
           <a
             href={`tel:${settings.phone_primary.replace(/[^+\d]/g, "")}`}
             className="flex items-center gap-1.5 rounded-lg px-2 py-2 text-sm font-semibold hover:bg-secondary"
@@ -76,6 +88,16 @@ export function SiteHeader() {
         <div className="border-t border-border bg-background lg:hidden">
           <nav className="container-page flex flex-col gap-1 py-4">
             {navLinks.map((link) => (
+              <Link
+                key={link.to}
+                to={link.to}
+                onClick={() => setOpen(false)}
+                className="rounded-lg px-3 py-3 text-sm font-medium text-muted-foreground hover:bg-secondary hover:text-foreground"
+              >
+                {link.label}
+              </Link>
+            ))}
+            {secondaryNavLinks.map((link) => (
               <Link
                 key={link.to}
                 to={link.to}
