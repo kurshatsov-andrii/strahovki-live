@@ -22,12 +22,13 @@ export const navLinks = [
   { to: "/blog", label: "Блог" },
 ] as const;
 
-/** Додаткові посилання — продовжують головне меню; «Контакти» і «Про мене» останніми. */
+/** Додаткові посилання — продовжують головне меню; FAQ завжди останнім. */
 export const secondaryNavLinks = [
   { to: "/vidhuky", label: "Відгуки" },
   { to: "/tsiny", label: "Ціни" },
   { to: "/contacts", label: "Контакти" },
   { to: "/pro-mene", label: "Про мене" },
+  { to: "/faq", label: "FAQ" },
 ] as const;
 
 

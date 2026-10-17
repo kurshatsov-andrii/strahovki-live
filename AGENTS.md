@@ -10,3 +10,4 @@
 <!-- LOVABLE:END -->
 
 - Old strahovki.kh.ua URLs are 301-redirected by a request middleware using src/lib/legacy-redirects.ts — preserves Google rankings after the domain move.
+- The standalone FAQ page reuses product FAQ arrays via src/content/faq.ts to keep answers consistent rather than maintain duplicate copy.

@@ -17,6 +17,8 @@ export const Route = createFileRoute("/pro-mene")({
       { name: "description", content: description },
       { property: "og:title", content: title },
       { property: "og:description", content: description },
+      { property: "og:type", content: "website" },
+      { name: "twitter:card", content: "summary_large_image" },
       { property: "og:url", content: "https://strahovki.kh.ua/pro-mene" },
     ],
     links: [{ rel: "canonical", href: "https://strahovki.kh.ua/pro-mene" }],
