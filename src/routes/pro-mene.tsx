@@ -73,6 +73,7 @@ function AboutPage() {
         items={home.advantages.items}
         withStats
       />
+      <CertificatesSection />
       <ContactFormSection
         title="Поставте запитання"
         subtitle="Напишіть, яка страховка вам потрібна, — відповім протягом кількох хвилин у робочий час."
