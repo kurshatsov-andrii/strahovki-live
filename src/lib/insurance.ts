@@ -519,8 +519,32 @@ export const autoTermOptionsForeign = [
   { value: "12", label: "1 рік" },
 ];
 
+/** Строк дії спортивної страховки: від 1 місяця до 1 року. */
+export const SPORT_MONTH_MIN = 1;
+export const SPORT_MONTH_MAX = 12;
+
+function monthLabel(months: number): string {
+  if (months === 1) return "1 місяць";
+  if (months === 12) return "12 місяців (1 рік)";
+  if (months >= 2 && months <= 4) return `${months} місяці`;
+  return `${months} місяців`;
+}
+
+export const sportTermOptions = Array.from({ length: SPORT_MONTH_MAX }, (_, i) => ({
+  value: String(i + 1),
+  label: monthLabel(i + 1),
+}));
+
+/** Кількість місяців строку в межах дозволеного діапазону (1–12). */
+export function sportMonths(value: string | undefined): number {
+  const n = Math.round(Number(value));
+  if (!Number.isFinite(n) || n < SPORT_MONTH_MIN) return SPORT_MONTH_MIN;
+  return Math.min(SPORT_MONTH_MAX, n);
+}
+
 export const AUTO_MIN_DRIVER_AGE = 18;
 export const AUTO_MAX_DRIVER_AGE = 90;
+
 
 export function autoDriverBand(age: number): string {
   return age < 25 ? "young" : "standard";
@@ -620,8 +644,9 @@ export const productConfigs: Record<ProductKey, ProductConfig> = {
     usesDays: false,
     notes: [
       "Страхова сума: 35 000 грн",
-      "Строк дії: 1 рік",
+      "Строк дії: від 1 місяця до 1 року",
       "Аматорський спорт",
+      "Ціна = тариф за 1 місяць × кількість місяців",
     ],
     fields: [
       {
@@ -638,8 +663,14 @@ export const productConfigs: Record<ProductKey, ProductConfig> = {
           { value: "a3", label: "З 51 до 65 років" },
         ],
       },
+      {
+        key: "months",
+        label: "Строк дії",
+        options: sportTermOptions,
+      },
     ],
   },
+
 
 };
 
@@ -717,6 +748,8 @@ export function defaultParams(product: ProductKey): Record<string, string> {
     params["coverage"] = "30000";
     params["franchise"] = "0";
   }
+  if (product === "sport") params["months"] = String(SPORT_MONTH_MAX);
+
   if (config.usesAutoForm) {
     params["vehicle"] = "B1";
     params["plates"] = "ua";
