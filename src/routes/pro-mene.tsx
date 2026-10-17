@@ -2,6 +2,7 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 import { PageHero } from "@/components/sections/hero";
 import { ConsultantSection } from "@/components/sections/consultant";
 import { AdvantagesSection } from "@/components/sections/sections";
+import { CertificatesSection } from "@/components/sections/certificates";
 import { ContactFormSection } from "@/components/sections/contact";
 import { home } from "@/content/site";
 
@@ -72,6 +73,7 @@ function AboutPage() {
         items={home.advantages.items}
         withStats
       />
+      <CertificatesSection />
       <ContactFormSection
         title="Поставте запитання"
         subtitle="Напишіть, яка страховка вам потрібна, — відповім протягом кількох хвилин у робочий час."
