@@ -3,6 +3,7 @@ import { readFileSync, readdirSync } from "node:fs";
 import { join } from "node:path";
 import { buildBlogMetadata } from "./seo-metadata";
 import { BLOG_CATEGORIES } from "./blog-categories";
+import { BLOG_SEO } from "../content/blog-seo";
 
 function routeMetadata() {
   const entries: { title: string; description: string }[] = [];
@@ -22,6 +23,12 @@ function routeMetadata() {
 }
 
 describe("SEO metadata requirements", () => {
+  it("keeps editorial article titles within 60 characters", () => {
+    for (const item of Object.values(BLOG_SEO)) expect(item.title.length, item.title).toBeLessThanOrEqual(60);
+  });
+  it("keeps editorial article descriptions within 160 characters", () => {
+    for (const item of Object.values(BLOG_SEO)) expect(item.description.length, item.title).toBeLessThanOrEqual(160);
+  });
   it("limits every static page title to 60 characters", () => {
     const items = routeMetadata();
     expect(items.length).toBe(19);

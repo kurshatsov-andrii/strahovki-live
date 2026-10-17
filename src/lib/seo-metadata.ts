@@ -1,4 +1,5 @@
 import { categorizePost } from "./blog-categories";
+import { BLOG_SEO } from "../content/blog-seo";
 
 export const SEO_TITLE_MAX = 60;
 export const SEO_DESCRIPTION_MAX = 160;
@@ -29,7 +30,8 @@ export function buildBlogMetadata(posts: SeoPost[]): Map<string, { title: string
   const titles = new Set<string>();
   const descriptions = new Set<string>();
   for (const post of [...posts].sort((a, b) => a.slug.localeCompare(b.slug))) {
-    const sourceTitle = cleanSeoText(post.title);
+    const editorial = BLOG_SEO[post.slug];
+    const sourceTitle = cleanSeoText(editorial?.title ?? post.title);
     const topic = categorizePost(post)?.name ?? "Страхування";
     const fallbackTitle = `${topic}: умови страхування та поради`;
     const completeTitle = sourceTitle && !/[.…]$/.test(sourceTitle) && sourceTitle.length <= SEO_TITLE_MAX
@@ -42,7 +44,7 @@ export function buildBlogMetadata(posts: SeoPost[]): Map<string, { title: string
       title = base + suffix;
     }
     const fallbackDescription = `${topic}: корисна інформація про поліс та відповіді на запитання.`;
-    const sourceDescription = fitSeoText(post.description, SEO_DESCRIPTION_MAX)
+    const sourceDescription = fitSeoText(editorial?.description ?? post.description, SEO_DESCRIPTION_MAX)
       || fitSeoText(post.content, SEO_DESCRIPTION_MAX) || fallbackDescription;
     let description = sourceDescription;
     index = 2;
