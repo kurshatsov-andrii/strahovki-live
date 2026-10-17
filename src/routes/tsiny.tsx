@@ -40,7 +40,7 @@ const priceCards = [
   {
     icon: "Globe2",
     title: "Зелена карта",
-    price: "від 1 050 грн на 15 днів",
+    price: "від 1 050 грн / 15 днів",
     to: "/zelena-karta",
     points: [
       "Термін від 15 днів до 12 місяців",
