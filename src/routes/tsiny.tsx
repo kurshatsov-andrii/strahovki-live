@@ -5,7 +5,7 @@ import { getIcon } from "@/lib/icon-map";
 
 const title = "Ціни на страхування 2026 — автоцивілка, зелена карта, туристичне, спортивне";
 const description =
-  "Актуальні ціни на страховки онлайн: автоцивілка від 2045 грн на рік, зелена карта від 1050 грн, туристичне страхування від 293 грн за тиждень, спортивне страхування від 295 грн. Розрахуйте точну вартість у калькуляторі.";
+  "Актуальні ціни на страховки онлайн: автоцивілка від 2045 грн на рік, зелена карта від 1050 грн на 15 днів, туристичне страхування від 293 грн за тиждень, спортивне страхування від 295 грн. Розрахуйте точну вартість у калькуляторі.";
 
 
 export const Route = createFileRoute("/tsiny")({
@@ -15,6 +15,8 @@ export const Route = createFileRoute("/tsiny")({
       { name: "description", content: description },
       { property: "og:title", content: title },
       { property: "og:description", content: description },
+      { property: "og:type", content: "website" },
+      { name: "twitter:card", content: "summary_large_image" },
       { property: "og:url", content: "https://strahovki.kh.ua/tsiny" },
     ],
     links: [{ rel: "canonical", href: "https://strahovki.kh.ua/tsiny" }],
@@ -38,7 +40,7 @@ const priceCards = [
   {
     icon: "Globe2",
     title: "Зелена карта",
-    price: "від 1 050 грн",
+    price: "від 1 050 грн на 15 днів",
     to: "/zelena-karta",
     points: [
       "Термін від 15 днів до 12 місяців",
