@@ -11,6 +11,7 @@ import { ContactFormSection } from "@/components/sections/contact";
 import { homeFaq, home } from "@/content/site";
 import { CalculatorWithProductSwitch } from "@/components/calculator/calculator-switch";
 import { ConsultantSection } from "@/components/sections/consultant";
+import shareImageAsset from "@/assets/home-share-current.jpg.asset.json";
 
 
 const title = "Страхування онлайн — автоцивілка та зелена карта | Страховки";
@@ -18,7 +19,7 @@ const description =
   "Оформіть автоцивілку, зелену карту, туристичне чи спортивне страхування онлайн. Розрахунок вартості та допомога страхового консультанта.";
 
 const ogImage =
-  "https://pub-bb2e103a32db4e198524a2e9ed8f35b4.r2.dev/32880bab4f44acd4c53e8e0f0eab6792/id-preview-fd8b47f1--7369b7ec-2c91-4e60-b2e1-8d008945eb01.lovable.app-1786536089778.png";
+  new URL(shareImageAsset.url, "https://strahovki.kh.ua").href;
 
 export const Route = createFileRoute("/")({
   head: () => ({
