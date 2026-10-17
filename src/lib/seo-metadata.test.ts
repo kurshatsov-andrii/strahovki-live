@@ -52,7 +52,7 @@ describe("SEO metadata requirements", () => {
     expect(new Set([...buildBlogMetadata(posts).values()].map((item) => item.description)).size).toBe(3);
   });
   it("uses a complete description sentence rather than cutting the next sentence", () => {
-    const item = buildBlogMetadata([{ slug: "sentence-test", title: "Автоцивілка", description: "Як перевірити автоцивілку онлайн? Наступне дуже довге речення ".repeat(10), content: "" }]).get("sentence-test");
+    const item = buildBlogMetadata([{ slug: "sentence-test", title: "Автоцивілка", description: "Як перевірити автоцивілку онлайн? " + "Наступне дуже довге речення ".repeat(10) + ".", content: "" }]).get("sentence-test");
     expect(item?.description).toBe("Як перевірити автоцивілку онлайн?");
   });
   it("replaces an oversized title with a complete topic title, without ellipsis", () => {
