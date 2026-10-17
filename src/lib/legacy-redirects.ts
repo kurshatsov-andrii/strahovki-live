@@ -11,6 +11,7 @@ const CURRENT_PATHS = new Set([
   "/pro-mene",
   "/vidhuky",
   "/tsiny",
+  "/faq",
   "/blog",
   "/privacy",
   "/offer",
