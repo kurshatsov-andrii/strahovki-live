@@ -1,5 +1,5 @@
 import { Link } from "@tanstack/react-router";
-import { Menu, Phone, Send, X } from "lucide-react";
+import { ChevronRight, Menu, Phone, Send, X } from "lucide-react";
 import { useState } from "react";
 import { navLinks, secondaryNavLinks, site as staticSite } from "@/content/site";
 import { useSiteSettings } from "@/hooks/use-site-settings";
@@ -12,10 +12,7 @@ export function SiteHeader() {
   return (
     <header className="sticky top-0 z-50 border-b border-border/60 bg-background/85 backdrop-blur-lg">
       <div className="container-page flex h-16 items-center justify-between gap-2">
-        <Link
-          to="/"
-          className="flex shrink-0 items-center gap-1.5 whitespace-nowrap text-[14px] font-extrabold tracking-tight"
-        >
+        <Link to="/" className="flex shrink-0 items-center gap-1.5 whitespace-nowrap">
           <img
             src={logoAsset.url}
             alt="Логотип Страховки"
@@ -23,7 +20,14 @@ export function SiteHeader() {
             height={32}
             className="size-8 shrink-0 rounded-lg object-cover"
           />
-          <span className="hidden min-[1180px]:inline">{staticSite.name}</span>
+          <span className="flex flex-col leading-none">
+            <span className="text-[14px] font-extrabold tracking-tight">
+              {staticSite.name}
+            </span>
+            <span className="mt-1 text-[10px] font-medium tracking-wide text-muted-foreground min-[1180px]:hidden">
+              Оберіть послугу
+            </span>
+          </span>
         </Link>
 
         <nav className="hidden items-center gap-0 min-[1180px]:flex">
@@ -69,16 +73,31 @@ export function SiteHeader() {
         <button
           type="button"
           onClick={() => setOpen((v) => !v)}
-          aria-label="Меню"
-          className="flex size-10 items-center justify-center rounded-lg border border-border min-[1180px]:hidden"
+          aria-expanded={open}
+          aria-label={open ? "Закрити меню" : "Відкрити меню з переліком послуг"}
+          className="flex shrink-0 items-center gap-1 rounded-lg border border-border bg-secondary/60 py-2 pr-1.5 pl-2.5 text-[13px] font-semibold min-[1180px]:hidden"
         >
-          {open ? <X className="size-5" /> : <Menu className="size-5" />}
+          {open ? (
+            <>
+              <X className="size-4" />
+              <span>Закрити</span>
+            </>
+          ) : (
+            <>
+              <Menu className="size-4 text-primary" />
+              <span>Меню</span>
+              <ChevronRight className="header-nudge size-4 text-primary" aria-hidden="true" />
+            </>
+          )}
         </button>
       </div>
 
       {open && (
         <div className="border-t border-border bg-background min-[1180px]:hidden">
           <nav className="container-page flex flex-col gap-1 py-4">
+            <p className="px-3 pb-1 text-[11px] font-semibold tracking-wide text-muted-foreground uppercase">
+              Оберіть послугу
+            </p>
             {navLinks.map((link) => (
               <Link
                 key={link.to}
