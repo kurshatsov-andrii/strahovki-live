@@ -11,4 +11,4 @@
 
 - Old strahovki.kh.ua URLs are 301-redirected by a request middleware using src/lib/legacy-redirects.ts — preserves Google rankings after the domain move.
 - The standalone FAQ page reuses product FAQ arrays via src/content/faq.ts to keep answers consistent rather than maintain duplicate copy.
-- SEO metadata for articles is derived at read time with src/lib/seo-metadata.ts; resolve collisions against published posts without modifying article content or stored records.
+- SEO metadata for articles is derived at read time with src/lib/seo-metadata.ts using editorial overrides and complete-sentence fallbacks; resolve collisions against published posts without modifying article content or stored records, so length limits never truncate a thought.
