@@ -51,4 +51,17 @@ describe("SEO metadata requirements", () => {
   it("disambiguates identical article descriptions", () => {
     expect(new Set([...buildBlogMetadata(posts).values()].map((item) => item.description)).size).toBe(3);
   });
+  it("uses a complete description sentence rather than cutting the next sentence", () => {
+    const item = buildBlogMetadata([{ slug: "sentence-test", title: "Автоцивілка", description: "Як перевірити автоцивілку онлайн? Наступне дуже довге речення ".repeat(10), content: "" }]).get("sentence-test");
+    expect(item?.description).toBe("Як перевірити автоцивілку онлайн?");
+  });
+  it("replaces an oversized title with a complete topic title, without ellipsis", () => {
+    const item = buildBlogMetadata([{ slug: "long-title", title: "Автоцивілка: " + "документи та правила оформлення ".repeat(10), description: "", content: "" }]).get("long-title");
+    expect(item?.title).toBe("Автоцивілка: умови страхування та поради");
+  });
+  it("does not turn an oversized sentence or word into a sentence fragment", () => {
+    const item = buildBlogMetadata([{ slug: "long-word", title: "Спортивне страхування " + "а".repeat(200), description: "б".repeat(300), content: "" }]).get("long-word");
+    expect(item?.description).toBe("Спортивне страхування: корисна інформація про поліс та відповіді на запитання.");
+    expect(item?.title).not.toContain("…");
+  });
 });
