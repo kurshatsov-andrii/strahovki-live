@@ -20,7 +20,7 @@ export function SiteHeader() {
             height={40}
             className="size-10 rounded-xl object-cover"
           />
-          {staticSite.name}
+          <span className="hidden xl:inline">{staticSite.name}</span>
         </Link>
 
         <nav className="hidden items-center gap-1 lg:flex">
