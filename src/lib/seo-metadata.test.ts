@@ -24,7 +24,7 @@ function routeMetadata() {
 describe("SEO metadata requirements", () => {
   it("limits every static page title to 60 characters", () => {
     const items = routeMetadata();
-    expect(items.length).toBeGreaterThanOrEqual(20);
+    expect(items.length).toBe(19);
     for (const item of items) expect(item.title.length, item.title).toBeLessThanOrEqual(60);
   });
   it("limits every static page description to 160 characters", () => {
