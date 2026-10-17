@@ -20,15 +20,16 @@ export const navLinks = [
   { to: "/turystychne-strahuvannya", label: "Туристичне" },
   { to: "/sportyvne-strahuvannya", label: "Спортивне" },
   { to: "/blog", label: "Блог" },
-  { to: "/contacts", label: "Контакти" },
 ] as const;
 
-/** Додаткові посилання — у десктопному меню праворуч, біля телефонів. */
+/** Додаткові посилання — продовжують головне меню; «Контакти» і «Про мене» останніми. */
 export const secondaryNavLinks = [
-  { to: "/pro-mene", label: "Про мене" },
   { to: "/vidhuky", label: "Відгуки" },
   { to: "/tsiny", label: "Ціни" },
+  { to: "/contacts", label: "Контакти" },
+  { to: "/pro-mene", label: "Про мене" },
 ] as const;
+
 
 export type Advantage = { icon: string; title: string; description: string };
 export type FaqItem = { question: string; answer: string };
