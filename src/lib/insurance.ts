@@ -935,7 +935,9 @@ export function computePrice(
     if (typeof factor === "number" && Number.isFinite(factor)) price *= factor;
   }
   if (perDay) price *= Math.max(1, days);
+  else if (params["months"]) price *= sportMonths(params["months"]);
   return Math.round(price * 100) / 100;
+
 }
 
 export const leadStatuses = [
