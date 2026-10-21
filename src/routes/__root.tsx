@@ -70,6 +70,11 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
         name: "google-site-verification",
         content: "QSrzHKPb2HJV24Dq2oYLzW7pEC9T6FOQKu1mErDqpjI",
       },
+      {
+        name: "google-site-verification",
+        content: "Ejl3wGtUsdvYml1Tgh_G1-YT6jWb0tcgmLud_KnXc_s",
+      },
+
 
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
@@ -133,6 +138,9 @@ function RootShell({ children }: { children: ReactNode }) {
   return (
     <html lang="uk">
       <head>
+        {/* TanStack dedupes meta by name, so the older verification tag is
+            rendered literally to keep both Google accounts verified. */}
+        <meta name="google-site-verification" content="QSrzHKPb2HJV24Dq2oYLzW7pEC9T6FOQKu1mErDqpjI" />
         <HeadContent />
       </head>
       <body>
