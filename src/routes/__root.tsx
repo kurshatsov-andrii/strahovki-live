@@ -138,6 +138,9 @@ function RootShell({ children }: { children: ReactNode }) {
   return (
     <html lang="uk">
       <head>
+        {/* TanStack dedupes meta by name, so the older verification tag is
+            rendered literally to keep both Google accounts verified. */}
+        <meta name="google-site-verification" content="QSrzHKPb2HJV24Dq2oYLzW7pEC9T6FOQKu1mErDqpjI" />
         <HeadContent />
       </head>
       <body>
