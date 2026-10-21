@@ -87,7 +87,7 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
           "@type": "LocalBusiness",
           name: "Страховки — Куршацов Андрій",
           url: "https://strahovki.kh.ua",
-          telephone: ["+380972520551", "+380664688151"],
+          telephone: ["+380664688151", "+380972520551"],
           address: {
             "@type": "PostalAddress",
             addressLocality: "Харків",

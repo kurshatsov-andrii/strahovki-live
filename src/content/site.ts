@@ -1,7 +1,7 @@
 export const site = {
   name: "Страховки",
-  phonePrimary: "+38 (097) 252-05-51",
-  phoneSecondary: "+38 (066) 468-81-51",
+  phonePrimary: "+38 (066) 468-81-51",
+  phoneSecondary: "+38 (097) 252-05-51",
   email: "info@strahovki.kh.ua",
   telegramUrl: "https://t.me/Andres_K",
   viberUrl: "viber://add?number=380664688151",
