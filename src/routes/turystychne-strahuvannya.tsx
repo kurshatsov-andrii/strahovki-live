@@ -1,6 +1,7 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { ProductPage } from "@/components/templates/product-page";
 import { products } from "@/content/site";
+import { breadcrumbScript } from "@/lib/jsonld";
 
 const title = "Туристичне страхування онлайн — страховка за кордон";
 const description =
@@ -30,9 +31,13 @@ export const Route = createFileRoute("/turystychne-strahuvannya")({
           serviceType: "Туристичне страхування",
           url: "https://strahovki.kh.ua/turystychne-strahuvannya",
           areaServed: "UA",
-          provider: { "@type": "LocalBusiness", name: "Страховки" },
+          provider: { "@type": "InsuranceAgency", name: "Страховки" },
         }),
       },
+      breadcrumbScript([
+        { name: "Головна", path: "/" },
+        { name: "Туристичне страхування", path: "/turystychne-strahuvannya" },
+      ]),
     ],
   }),
   component: () => <ProductPage content={products.travel} product="travel" />,

@@ -5,6 +5,7 @@ import { AdvantagesSection } from "@/components/sections/sections";
 import { CertificatesSection } from "@/components/sections/certificates";
 import { ContactFormSection } from "@/components/sections/contact";
 import { home } from "@/content/site";
+import { breadcrumbScript, personScript } from "@/lib/jsonld";
 
 const title = "Куршацов Андрій Іванович — страховий консультант";
 const description =
@@ -24,6 +25,13 @@ export const Route = createFileRoute("/pro-mene")({
       { property: "og:url", content: "https://strahovki.kh.ua/pro-mene" },
     ],
     links: [{ rel: "canonical", href: "https://strahovki.kh.ua/pro-mene" }],
+    scripts: [
+      personScript(),
+      breadcrumbScript([
+        { name: "Головна", path: "/" },
+        { name: "Про мене", path: "/pro-mene" },
+      ]),
+    ],
   }),
   component: AboutPage,
 });

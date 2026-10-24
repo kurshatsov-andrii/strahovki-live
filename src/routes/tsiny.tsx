@@ -2,6 +2,7 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 import { PageHero } from "@/components/sections/hero";
 import { ContactFormSection } from "@/components/sections/contact";
 import { getIcon } from "@/lib/icon-map";
+import { breadcrumbScript } from "@/lib/jsonld";
 
 const title = "Ціни на страхування — автоцивілка, зелена карта та подорожі";
 const description =
@@ -22,6 +23,12 @@ export const Route = createFileRoute("/tsiny")({
       { property: "og:url", content: "https://strahovki.kh.ua/tsiny" },
     ],
     links: [{ rel: "canonical", href: "https://strahovki.kh.ua/tsiny" }],
+    scripts: [
+      breadcrumbScript([
+        { name: "Головна", path: "/" },
+        { name: "Ціни", path: "/tsiny" },
+      ]),
+    ],
   }),
   component: PricesPage,
 });

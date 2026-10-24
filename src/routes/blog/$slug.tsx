@@ -2,6 +2,7 @@ import { createFileRoute, Link, notFound } from "@tanstack/react-router";
 import { getBlogPost } from "@/lib/blog.functions";
 import { Button } from "@/components/ui/button";
 import { ContactFormSection } from "@/components/sections/contact";
+import { breadcrumbScript } from "@/lib/jsonld";
 
 function formatDate(iso: string) {
   const d = new Date(iso);
@@ -73,16 +74,21 @@ export const Route = createFileRoute("/blog/$slug")({
               type: "application/ld+json",
               children: JSON.stringify({
                 "@context": "https://schema.org",
-                "@type": "Article",
+                "@type": "BlogPosting",
                 headline: loaderData.title,
                 description,
                 datePublished: loaderData.published_at,
-                image: loaderData.image_url ?? undefined,
+                image: image ?? undefined,
                 author: { "@type": "Person", name: "Куршацов Андрій Іванович" },
                 publisher: { "@type": "Organization", name: "Страховки" },
                 mainEntityOfPage: url,
               }),
             },
+            breadcrumbScript([
+              { name: "Головна", path: "/" },
+              { name: "Блог", path: "/blog" },
+              { name: loaderData.title, path: `/blog/${params.slug}` },
+            ]),
           ]
         : [],
     };

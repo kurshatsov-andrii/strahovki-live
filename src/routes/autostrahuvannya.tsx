@@ -1,6 +1,7 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { ProductPage } from "@/components/templates/product-page";
 import { products } from "@/content/site";
+import { breadcrumbScript } from "@/lib/jsonld";
 
 const title = "Автоцивілка онлайн — ціна та розрахунок ОСЦПВ";
 const description =
@@ -30,9 +31,13 @@ export const Route = createFileRoute("/autostrahuvannya")({
           serviceType: "Автоцивілка (ОСЦПВ)",
           url: "https://strahovki.kh.ua/autostrahuvannya",
           areaServed: "UA",
-          provider: { "@type": "LocalBusiness", name: "Страховки" },
+          provider: { "@type": "InsuranceAgency", name: "Страховки" },
         }),
       },
+      breadcrumbScript([
+        { name: "Головна", path: "/" },
+        { name: "Автоцивілка (ОСЦПВ)", path: "/autostrahuvannya" },
+      ]),
     ],
   }),
   component: () => <ProductPage content={products.auto} product="auto" />,

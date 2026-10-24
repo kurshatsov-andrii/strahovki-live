@@ -1,6 +1,7 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { ProductPage } from "@/components/templates/product-page";
 import { products } from "@/content/site";
+import { breadcrumbScript } from "@/lib/jsonld";
 
 const title = "Зелена карта на авто онлайн — ціна та оформлення";
 const description =
@@ -30,9 +31,13 @@ export const Route = createFileRoute("/zelena-karta")({
           serviceType: "Зелена карта",
           url: "https://strahovki.kh.ua/zelena-karta",
           areaServed: "UA",
-          provider: { "@type": "LocalBusiness", name: "Страховки" },
+          provider: { "@type": "InsuranceAgency", name: "Страховки" },
         }),
       },
+      breadcrumbScript([
+        { name: "Головна", path: "/" },
+        { name: "Зелена карта", path: "/zelena-karta" },
+      ]),
     ],
   }),
   component: () => <ProductPage content={products.greenCard} product="green_card" />,

@@ -5,6 +5,7 @@ import { ConsultantSection } from "@/components/sections/consultant";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 import { Button } from "@/components/ui/button";
 import { faqGroups } from "@/content/faq";
+import { breadcrumbScript, faqPageScript } from "@/lib/jsonld";
 
 const title = "Питання та відповіді про страхування — FAQ | Страховки";
 const description =
@@ -24,6 +25,13 @@ export const Route = createFileRoute("/faq")({
       { name: "twitter:card", content: "summary_large_image" },
     ],
     links: [{ rel: "canonical", href: "https://strahovki.kh.ua/faq" }],
+    scripts: [
+      faqPageScript(faqGroups),
+      breadcrumbScript([
+        { name: "Головна", path: "/" },
+        { name: "Питання та відповіді", path: "/faq" },
+      ]),
+    ],
   }),
   component: FaqPage,
 });
