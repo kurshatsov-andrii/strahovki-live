@@ -31,7 +31,7 @@ export const Route = createFileRoute("/zelena-karta")({
           serviceType: "Зелена карта",
           url: "https://strahovki.kh.ua/zelena-karta",
           areaServed: "UA",
-          provider: { "@type": "LocalBusiness", name: "Страховки" },
+          provider: { "@type": "InsuranceAgency", name: "Страховки" },
         }),
       },
       breadcrumbScript([

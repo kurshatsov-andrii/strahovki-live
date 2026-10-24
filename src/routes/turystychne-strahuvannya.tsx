@@ -31,7 +31,7 @@ export const Route = createFileRoute("/turystychne-strahuvannya")({
           serviceType: "Туристичне страхування",
           url: "https://strahovki.kh.ua/turystychne-strahuvannya",
           areaServed: "UA",
-          provider: { "@type": "LocalBusiness", name: "Страховки" },
+          provider: { "@type": "InsuranceAgency", name: "Страховки" },
         }),
       },
       breadcrumbScript([
