@@ -2,6 +2,7 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 import { PageHero } from "@/components/sections/hero";
 import { TestimonialsSection } from "@/components/sections/sections";
 import { ContactFormSection } from "@/components/sections/contact";
+import { breadcrumbScript } from "@/lib/jsonld";
 
 const title = "Відгуки про страхування онлайн — клієнти Страховки";
 const description =
@@ -21,6 +22,12 @@ export const Route = createFileRoute("/vidhuky")({
       { property: "og:url", content: "https://strahovki.kh.ua/vidhuky" },
     ],
     links: [{ rel: "canonical", href: "https://strahovki.kh.ua/vidhuky" }],
+    scripts: [
+      breadcrumbScript([
+        { name: "Головна", path: "/" },
+        { name: "Відгуки", path: "/vidhuky" },
+      ]),
+    ],
   }),
   component: ReviewsPage,
 });
