@@ -11,6 +11,7 @@ import { ContactFormSection } from "@/components/sections/contact";
 import { homeFaq, home } from "@/content/site";
 import { CalculatorWithProductSwitch } from "@/components/calculator/calculator-switch";
 import { ConsultantSection } from "@/components/sections/consultant";
+import { organizationScript, personScript } from "@/lib/jsonld";
 import shareImageAsset from "@/assets/home-share-current.jpg.asset.json";
 
 
@@ -47,6 +48,8 @@ export const Route = createFileRoute("/")({
           url: "https://strahovki.kh.ua",
         }),
       },
+      organizationScript(),
+      personScript(),
     ],
   }),
   component: Index,

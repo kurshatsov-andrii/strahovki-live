@@ -3,6 +3,7 @@ import { PageHero } from "@/components/sections/hero";
 import { ContactFormSection } from "@/components/sections/contact";
 import { BlogCategoryNav, BlogList } from "@/components/sections/blog-list";
 import { listBlogPosts } from "@/lib/blog.functions";
+import { breadcrumbScript } from "@/lib/jsonld";
 
 const title = "Блог про страхування — тарифи, правила та поради";
 const description =
@@ -23,6 +24,12 @@ export const Route = createFileRoute("/blog/")({
       { name: "twitter:card", content: "summary_large_image" },
     ],
     links: [{ rel: "canonical", href: "https://strahovki.kh.ua/blog" }],
+    scripts: [
+      breadcrumbScript([
+        { name: "Головна", path: "/" },
+        { name: "Блог", path: "/blog" },
+      ]),
+    ],
   }),
   component: BlogIndex,
 });

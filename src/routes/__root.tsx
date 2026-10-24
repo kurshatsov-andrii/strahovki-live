@@ -84,7 +84,7 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
         type: "application/ld+json",
         children: JSON.stringify({
           "@context": "https://schema.org",
-          "@type": "LocalBusiness",
+          "@type": "InsuranceAgency",
           name: "Страховки — Куршацов Андрій",
           url: "https://strahovki.kh.ua",
           telephone: ["+380664688151", "+380972520551"],
@@ -95,6 +95,11 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
           },
           openingHours: "Mo-Su 08:00-21:00",
           areaServed: "UA",
+          founder: {
+            "@type": "Person",
+            name: "Куршацов Андрій Іванович",
+            jobTitle: "Страховий консультант",
+          },
         }),
       },
       {
