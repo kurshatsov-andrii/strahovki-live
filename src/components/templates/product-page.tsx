@@ -1,3 +1,4 @@
+import type { ReactNode } from "react";
 import { ChevronDown } from "lucide-react";
 import { PageHero } from "@/components/sections/hero";
 import {
@@ -15,9 +16,11 @@ import type { ProductKey } from "@/lib/insurance";
 export function ProductPage({
   content,
   product,
+  extra,
 }: {
   content: ProductPageContent;
   product: ProductKey;
+  extra?: ReactNode;
 }) {
   return (
     <>
@@ -38,6 +41,8 @@ export function ProductPage({
       {(product === "auto" || product === "green_card") && (
         <PolicyCheckSection variant={product} />
       )}
+
+      {extra}
 
       <FaqSection items={content.faq} />
 
