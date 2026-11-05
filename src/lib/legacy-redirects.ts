@@ -53,6 +53,7 @@ export function getLegacyRedirect(pathname: string): string | null {
   if (CURRENT_PATHS.has(path)) return null;
   if (
     path.startsWith("/blog/") ||
+    path.startsWith("/strahuvannya/") ||
     path.startsWith("/api/") ||
     path.startsWith("/admin") ||
     path.startsWith("/assets/") ||

@@ -27,6 +27,7 @@ import { Route as ZelenaKartaRouteImport } from './routes/zelena-karta'
 import { Route as AuthenticatedAdminRouteImport } from './routes/_authenticated/admin'
 import { Route as BlogIndexRouteImport } from './routes/blog/index'
 import { Route as BlogSlugRouteImport } from './routes/blog/$slug'
+import { Route as StrahuvannyaCityRouteImport } from './routes/strahuvannya.$city'
 import { Route as BlogKategoriiaCategoryRouteImport } from './routes/blog/kategoriia.$category'
 import { Route as ApiPublicBlogSyncRouteImport } from './routes/api/public/blog/sync'
 import { Route as ApiPublicBlogImageIdRouteImport } from './routes/api/public/blog/image/$id'
@@ -120,6 +121,11 @@ const BlogSlugRoute = BlogSlugRouteImport.update({
   path: '/blog/$slug',
   getParentRoute: () => rootRouteImport,
 } as any)
+const StrahuvannyaCityRoute = StrahuvannyaCityRouteImport.update({
+  id: '/strahuvannya/$city',
+  path: '/strahuvannya/$city',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const BlogKategoriiaCategoryRoute = BlogKategoriiaCategoryRouteImport.update({
   id: '/blog/kategoriia/$category',
   path: '/blog/kategoriia/$category',
@@ -153,6 +159,7 @@ export interface FileRoutesByFullPath {
   '/zelena-karta': typeof ZelenaKartaRoute
   '/admin': typeof AuthenticatedAdminRoute
   '/blog/$slug': typeof BlogSlugRoute
+  '/strahuvannya/$city': typeof StrahuvannyaCityRoute
   '/blog/': typeof BlogIndexRoute
   '/blog/kategoriia/$category': typeof BlogKategoriiaCategoryRoute
   '/api/public/blog/sync': typeof ApiPublicBlogSyncRoute
@@ -175,6 +182,7 @@ export interface FileRoutesByTo {
   '/zelena-karta': typeof ZelenaKartaRoute
   '/admin': typeof AuthenticatedAdminRoute
   '/blog/$slug': typeof BlogSlugRoute
+  '/strahuvannya/$city': typeof StrahuvannyaCityRoute
   '/blog': typeof BlogIndexRoute
   '/blog/kategoriia/$category': typeof BlogKategoriiaCategoryRoute
   '/api/public/blog/sync': typeof ApiPublicBlogSyncRoute
@@ -199,6 +207,7 @@ export interface FileRoutesById {
   '/zelena-karta': typeof ZelenaKartaRoute
   '/_authenticated/admin': typeof AuthenticatedAdminRoute
   '/blog/$slug': typeof BlogSlugRoute
+  '/strahuvannya/$city': typeof StrahuvannyaCityRoute
   '/blog/': typeof BlogIndexRoute
   '/blog/kategoriia/$category': typeof BlogKategoriiaCategoryRoute
   '/api/public/blog/sync': typeof ApiPublicBlogSyncRoute
@@ -223,6 +232,7 @@ export interface FileRouteTypes {
     | '/zelena-karta'
     | '/admin'
     | '/blog/$slug'
+    | '/strahuvannya/$city'
     | '/blog/'
     | '/blog/kategoriia/$category'
     | '/api/public/blog/sync'
@@ -245,6 +255,7 @@ export interface FileRouteTypes {
     | '/zelena-karta'
     | '/admin'
     | '/blog/$slug'
+    | '/strahuvannya/$city'
     | '/blog'
     | '/blog/kategoriia/$category'
     | '/api/public/blog/sync'
@@ -268,6 +279,7 @@ export interface FileRouteTypes {
     | '/zelena-karta'
     | '/_authenticated/admin'
     | '/blog/$slug'
+    | '/strahuvannya/$city'
     | '/blog/'
     | '/blog/kategoriia/$category'
     | '/api/public/blog/sync'
@@ -291,6 +303,7 @@ export interface RootRouteChildren {
   VidhukyRoute: typeof VidhukyRoute
   ZelenaKartaRoute: typeof ZelenaKartaRoute
   BlogSlugRoute: typeof BlogSlugRoute
+  StrahuvannyaCityRoute: typeof StrahuvannyaCityRoute
   BlogIndexRoute: typeof BlogIndexRoute
   BlogKategoriiaCategoryRoute: typeof BlogKategoriiaCategoryRoute
   ApiPublicBlogSyncRoute: typeof ApiPublicBlogSyncRoute
@@ -425,6 +438,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof BlogSlugRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/strahuvannya/$city': {
+      id: '/strahuvannya/$city'
+      path: '/strahuvannya/$city'
+      fullPath: '/strahuvannya/$city'
+      preLoaderRoute: typeof StrahuvannyaCityRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/blog/kategoriia/$category': {
       id: '/blog/kategoriia/$category'
       path: '/blog/kategoriia/$category'
@@ -477,6 +497,7 @@ const rootRouteChildren: RootRouteChildren = {
   VidhukyRoute: VidhukyRoute,
   ZelenaKartaRoute: ZelenaKartaRoute,
   BlogSlugRoute: BlogSlugRoute,
+  StrahuvannyaCityRoute: StrahuvannyaCityRoute,
   BlogIndexRoute: BlogIndexRoute,
   BlogKategoriiaCategoryRoute: BlogKategoriiaCategoryRoute,
   ApiPublicBlogSyncRoute: ApiPublicBlogSyncRoute,

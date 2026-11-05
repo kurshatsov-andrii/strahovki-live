@@ -1,3 +1,4 @@
+import { cities } from "@/content/cities";
 import { createFileRoute } from "@tanstack/react-router";
 import type {} from "@tanstack/react-start";
 
@@ -32,6 +33,7 @@ export const Route = createFileRoute("/sitemap.xml")({
           { path: "/privacy", changefreq: "yearly", priority: "0.3" },
           { path: "/offer", changefreq: "yearly", priority: "0.3" },
         ];
+        for (const c of cities) entries.push({ path: `/strahuvannya/${c.slug}`, changefreq: "monthly", priority: "0.7" });
 
         try {
           const { fetchPosts } = await import("@/lib/blog.server");
