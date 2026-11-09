@@ -1,3 +1,4 @@
+import { CtaCallSection } from "@/components/sections/cta-call";
 import { createFileRoute, Link, notFound } from "@tanstack/react-router";
 import { getBlogPost } from "@/lib/blog.functions";
 import { Button } from "@/components/ui/button";
@@ -173,6 +174,7 @@ function BlogPostPage() {
         </div>
       </article>
 
+      <CtaCallSection />
       <ContactFormSection
         title="Потрібна консультація?"
         subtitle="Залиште заявку — підберемо оптимальний поліс під вашу ситуацію."

@@ -1,3 +1,4 @@
+import { CtaCallSection } from "@/components/sections/cta-call";
 import { createFileRoute, Link, notFound } from "@tanstack/react-router";
 import { PageHero } from "@/components/sections/hero";
 import { ContactFormSection } from "@/components/sections/contact";
@@ -109,6 +110,7 @@ function CityPage() {
         </div>
       </section>
       <ConsultantSection />
+      <CtaCallSection />
       <ContactFormSection
         title={`Оформити страховку ${city.inCity}`}
         subtitle="Залиште заявку — розрахую вартість і особисто оформлю ваш поліс."

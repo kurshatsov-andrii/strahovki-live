@@ -22,6 +22,7 @@ import {
   DialogHeader,
   DialogTitle,
 } from "@/components/ui/dialog";
+import { MessengerLinks } from "@/components/sections/floating-contact";
 import { getQuotes, submitLead, type Quote } from "@/lib/quotes.functions";
 import {
   ageFromBirthDate,
@@ -579,6 +580,7 @@ export function InsuranceCalculator({
                         страховий консультант зв'яжеться з вами для уточнення вартості.
                       </p>
                     )}
+                    {index === 0 && <MessengerLinks />}
                   </div>
                   <div className="text-right">
                     <div className="text-2xl font-extrabold">

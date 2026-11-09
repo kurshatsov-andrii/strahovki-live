@@ -14,6 +14,7 @@ import { reportLovableError } from "../lib/lovable-error-reporting";
 import { SiteHeader } from "@/components/layout/site-header";
 import { SiteFooter } from "@/components/layout/site-footer";
 import { Toaster } from "@/components/ui/sonner";
+import { FloatingContact } from "@/components/sections/floating-contact";
 import { NotFoundPage } from "@/components/sections/not-found-page";
 import { PlerdySpaTracker } from "@/components/analytics/plerdy-spa-tracker";
 
@@ -170,6 +171,7 @@ function RootComponent() {
         <SiteFooter />
       </div>
       <Toaster />
+      <FloatingContact />
       <PlerdySpaTracker />
     </QueryClientProvider>
   );
