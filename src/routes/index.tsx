@@ -9,6 +9,7 @@ import {
 } from "@/components/sections/sections";
 import { ContactFormSection } from "@/components/sections/contact";
 import { CitiesSection } from "@/components/sections/cities";
+import { CtaCallSection } from "@/components/sections/cta-call";
 import { homeFaq, home } from "@/content/site";
 import { CalculatorWithProductSwitch } from "@/components/calculator/calculator-switch";
 import { ConsultantSection } from "@/components/sections/consultant";
@@ -80,6 +81,7 @@ function Index() {
       <FaqSection items={homeFaq} />
       <TestimonialsSection />
       <CitiesSection />
+      <CtaCallSection />
       <ContactFormSection
         title={home.contactSection.title}
         subtitle={home.contactSection.subtitle}

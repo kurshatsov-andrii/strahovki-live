@@ -10,6 +10,7 @@ import { InsuranceCalculator } from "@/components/calculator/insurance-calculato
 import { ConsultantSection } from "@/components/sections/consultant";
 import { PolicyCheckSection } from "@/components/sections/policy-check";
 import { CoverageSection } from "@/components/sections/coverage-section";
+import { CtaCallSection } from "@/components/sections/cta-call";
 import type { ProductPageContent } from "@/content/site";
 import type { ProductKey } from "@/lib/insurance";
 
@@ -43,6 +44,8 @@ export function ProductPage({
       )}
 
       {extra}
+
+      <CtaCallSection />
 
       <FaqSection items={content.faq} />
 
