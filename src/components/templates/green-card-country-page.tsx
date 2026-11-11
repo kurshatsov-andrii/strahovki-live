@@ -75,7 +75,7 @@ export function GreenCardCountryPage({ country: c }: { country: GreenCardCountry
             <h2 className="pt-4 text-2xl font-bold text-foreground">Зелена карта: ціна для поїздки {c.to}</h2>
             <p>
               Вартість залежить від типу транспортного засобу та терміну дії поліса — від 15 днів до
-              1 року. Ціна для легкового авто — від 1 050 грн за 15 днів. Точну суму покаже
+              1 року. Ціна для легкового авто — від 681 грн за 15 днів. Точну суму покаже
               калькулятор на сторінці зеленої карти.
             </p>
             <h2 className="pt-4 text-2xl font-bold text-foreground">Як оформити зелену карту онлайн</h2>
