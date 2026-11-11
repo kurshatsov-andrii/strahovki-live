@@ -2,6 +2,7 @@ import { createFileRoute } from "@tanstack/react-router";
 import { ProductPage } from "@/components/templates/product-page";
 import { products } from "@/content/site";
 import { breadcrumbScript } from "@/lib/jsonld";
+import { GreenCardCountriesLinks } from "@/components/templates/green-card-country-page";
 
 const title = "Зелена карта на авто онлайн — ціна та оформлення";
 const description =
@@ -40,5 +41,5 @@ export const Route = createFileRoute("/zelena-karta")({
       ]),
     ],
   }),
-  component: () => <ProductPage content={products.greenCard} product="green_card" />,
+  component: () => <ProductPage content={products.greenCard} product="green_card" extra={<GreenCardCountriesLinks />} />,
 });

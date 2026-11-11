@@ -24,6 +24,12 @@ import { Route as TsinyRouteImport } from './routes/tsiny'
 import { Route as TurystychneStrahuvannyaRouteImport } from './routes/turystychne-strahuvannya'
 import { Route as VidhukyRouteImport } from './routes/vidhuky'
 import { Route as ZelenaKartaRouteImport } from './routes/zelena-karta'
+import { Route as ZelenaKartaMoldovaRouteImport } from './routes/zelena-karta-moldova'
+import { Route as ZelenaKartaNimechchynaRouteImport } from './routes/zelena-karta-nimechchyna'
+import { Route as ZelenaKartaPolshchaRouteImport } from './routes/zelena-karta-polshcha'
+import { Route as ZelenaKartaRumuniiaRouteImport } from './routes/zelena-karta-rumuniia'
+import { Route as ZelenaKartaSlovachchynaRouteImport } from './routes/zelena-karta-slovachchyna'
+import { Route as ZelenaKartaUhorshchynaRouteImport } from './routes/zelena-karta-uhorshchyna'
 import { Route as AuthenticatedAdminRouteImport } from './routes/_authenticated/admin'
 import { Route as BlogIndexRouteImport } from './routes/blog/index'
 import { Route as BlogSlugRouteImport } from './routes/blog/$slug'
@@ -106,6 +112,36 @@ const ZelenaKartaRoute = ZelenaKartaRouteImport.update({
   path: '/zelena-karta',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ZelenaKartaMoldovaRoute = ZelenaKartaMoldovaRouteImport.update({
+  id: '/zelena-karta-moldova',
+  path: '/zelena-karta-moldova',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ZelenaKartaNimechchynaRoute = ZelenaKartaNimechchynaRouteImport.update({
+  id: '/zelena-karta-nimechchyna',
+  path: '/zelena-karta-nimechchyna',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ZelenaKartaPolshchaRoute = ZelenaKartaPolshchaRouteImport.update({
+  id: '/zelena-karta-polshcha',
+  path: '/zelena-karta-polshcha',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ZelenaKartaRumuniiaRoute = ZelenaKartaRumuniiaRouteImport.update({
+  id: '/zelena-karta-rumuniia',
+  path: '/zelena-karta-rumuniia',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ZelenaKartaSlovachchynaRoute = ZelenaKartaSlovachchynaRouteImport.update({
+  id: '/zelena-karta-slovachchyna',
+  path: '/zelena-karta-slovachchyna',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ZelenaKartaUhorshchynaRoute = ZelenaKartaUhorshchynaRouteImport.update({
+  id: '/zelena-karta-uhorshchyna',
+  path: '/zelena-karta-uhorshchyna',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const AuthenticatedAdminRoute = AuthenticatedAdminRouteImport.update({
   id: '/admin',
   path: '/admin',
@@ -157,6 +193,12 @@ export interface FileRoutesByFullPath {
   '/turystychne-strahuvannya': typeof TurystychneStrahuvannyaRoute
   '/vidhuky': typeof VidhukyRoute
   '/zelena-karta': typeof ZelenaKartaRoute
+  '/zelena-karta-moldova': typeof ZelenaKartaMoldovaRoute
+  '/zelena-karta-nimechchyna': typeof ZelenaKartaNimechchynaRoute
+  '/zelena-karta-polshcha': typeof ZelenaKartaPolshchaRoute
+  '/zelena-karta-rumuniia': typeof ZelenaKartaRumuniiaRoute
+  '/zelena-karta-slovachchyna': typeof ZelenaKartaSlovachchynaRoute
+  '/zelena-karta-uhorshchyna': typeof ZelenaKartaUhorshchynaRoute
   '/admin': typeof AuthenticatedAdminRoute
   '/blog/$slug': typeof BlogSlugRoute
   '/strahuvannya/$city': typeof StrahuvannyaCityRoute
@@ -180,6 +222,12 @@ export interface FileRoutesByTo {
   '/turystychne-strahuvannya': typeof TurystychneStrahuvannyaRoute
   '/vidhuky': typeof VidhukyRoute
   '/zelena-karta': typeof ZelenaKartaRoute
+  '/zelena-karta-moldova': typeof ZelenaKartaMoldovaRoute
+  '/zelena-karta-nimechchyna': typeof ZelenaKartaNimechchynaRoute
+  '/zelena-karta-polshcha': typeof ZelenaKartaPolshchaRoute
+  '/zelena-karta-rumuniia': typeof ZelenaKartaRumuniiaRoute
+  '/zelena-karta-slovachchyna': typeof ZelenaKartaSlovachchynaRoute
+  '/zelena-karta-uhorshchyna': typeof ZelenaKartaUhorshchynaRoute
   '/admin': typeof AuthenticatedAdminRoute
   '/blog/$slug': typeof BlogSlugRoute
   '/strahuvannya/$city': typeof StrahuvannyaCityRoute
@@ -205,6 +253,12 @@ export interface FileRoutesById {
   '/turystychne-strahuvannya': typeof TurystychneStrahuvannyaRoute
   '/vidhuky': typeof VidhukyRoute
   '/zelena-karta': typeof ZelenaKartaRoute
+  '/zelena-karta-moldova': typeof ZelenaKartaMoldovaRoute
+  '/zelena-karta-nimechchyna': typeof ZelenaKartaNimechchynaRoute
+  '/zelena-karta-polshcha': typeof ZelenaKartaPolshchaRoute
+  '/zelena-karta-rumuniia': typeof ZelenaKartaRumuniiaRoute
+  '/zelena-karta-slovachchyna': typeof ZelenaKartaSlovachchynaRoute
+  '/zelena-karta-uhorshchyna': typeof ZelenaKartaUhorshchynaRoute
   '/_authenticated/admin': typeof AuthenticatedAdminRoute
   '/blog/$slug': typeof BlogSlugRoute
   '/strahuvannya/$city': typeof StrahuvannyaCityRoute
@@ -230,6 +284,12 @@ export interface FileRouteTypes {
     | '/turystychne-strahuvannya'
     | '/vidhuky'
     | '/zelena-karta'
+    | '/zelena-karta-moldova'
+    | '/zelena-karta-nimechchyna'
+    | '/zelena-karta-polshcha'
+    | '/zelena-karta-rumuniia'
+    | '/zelena-karta-slovachchyna'
+    | '/zelena-karta-uhorshchyna'
     | '/admin'
     | '/blog/$slug'
     | '/strahuvannya/$city'
@@ -253,6 +313,12 @@ export interface FileRouteTypes {
     | '/turystychne-strahuvannya'
     | '/vidhuky'
     | '/zelena-karta'
+    | '/zelena-karta-moldova'
+    | '/zelena-karta-nimechchyna'
+    | '/zelena-karta-polshcha'
+    | '/zelena-karta-rumuniia'
+    | '/zelena-karta-slovachchyna'
+    | '/zelena-karta-uhorshchyna'
     | '/admin'
     | '/blog/$slug'
     | '/strahuvannya/$city'
@@ -277,6 +343,12 @@ export interface FileRouteTypes {
     | '/turystychne-strahuvannya'
     | '/vidhuky'
     | '/zelena-karta'
+    | '/zelena-karta-moldova'
+    | '/zelena-karta-nimechchyna'
+    | '/zelena-karta-polshcha'
+    | '/zelena-karta-rumuniia'
+    | '/zelena-karta-slovachchyna'
+    | '/zelena-karta-uhorshchyna'
     | '/_authenticated/admin'
     | '/blog/$slug'
     | '/strahuvannya/$city'
@@ -302,6 +374,12 @@ export interface RootRouteChildren {
   TurystychneStrahuvannyaRoute: typeof TurystychneStrahuvannyaRoute
   VidhukyRoute: typeof VidhukyRoute
   ZelenaKartaRoute: typeof ZelenaKartaRoute
+  ZelenaKartaMoldovaRoute: typeof ZelenaKartaMoldovaRoute
+  ZelenaKartaNimechchynaRoute: typeof ZelenaKartaNimechchynaRoute
+  ZelenaKartaPolshchaRoute: typeof ZelenaKartaPolshchaRoute
+  ZelenaKartaRumuniiaRoute: typeof ZelenaKartaRumuniiaRoute
+  ZelenaKartaSlovachchynaRoute: typeof ZelenaKartaSlovachchynaRoute
+  ZelenaKartaUhorshchynaRoute: typeof ZelenaKartaUhorshchynaRoute
   BlogSlugRoute: typeof BlogSlugRoute
   StrahuvannyaCityRoute: typeof StrahuvannyaCityRoute
   BlogIndexRoute: typeof BlogIndexRoute
@@ -417,6 +495,48 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ZelenaKartaRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/zelena-karta-moldova': {
+      id: '/zelena-karta-moldova'
+      path: '/zelena-karta-moldova'
+      fullPath: '/zelena-karta-moldova'
+      preLoaderRoute: typeof ZelenaKartaMoldovaRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/zelena-karta-nimechchyna': {
+      id: '/zelena-karta-nimechchyna'
+      path: '/zelena-karta-nimechchyna'
+      fullPath: '/zelena-karta-nimechchyna'
+      preLoaderRoute: typeof ZelenaKartaNimechchynaRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/zelena-karta-polshcha': {
+      id: '/zelena-karta-polshcha'
+      path: '/zelena-karta-polshcha'
+      fullPath: '/zelena-karta-polshcha'
+      preLoaderRoute: typeof ZelenaKartaPolshchaRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/zelena-karta-rumuniia': {
+      id: '/zelena-karta-rumuniia'
+      path: '/zelena-karta-rumuniia'
+      fullPath: '/zelena-karta-rumuniia'
+      preLoaderRoute: typeof ZelenaKartaRumuniiaRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/zelena-karta-slovachchyna': {
+      id: '/zelena-karta-slovachchyna'
+      path: '/zelena-karta-slovachchyna'
+      fullPath: '/zelena-karta-slovachchyna'
+      preLoaderRoute: typeof ZelenaKartaSlovachchynaRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/zelena-karta-uhorshchyna': {
+      id: '/zelena-karta-uhorshchyna'
+      path: '/zelena-karta-uhorshchyna'
+      fullPath: '/zelena-karta-uhorshchyna'
+      preLoaderRoute: typeof ZelenaKartaUhorshchynaRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/_authenticated/admin': {
       id: '/_authenticated/admin'
       path: '/admin'
@@ -496,6 +616,12 @@ const rootRouteChildren: RootRouteChildren = {
   TurystychneStrahuvannyaRoute: TurystychneStrahuvannyaRoute,
   VidhukyRoute: VidhukyRoute,
   ZelenaKartaRoute: ZelenaKartaRoute,
+  ZelenaKartaMoldovaRoute: ZelenaKartaMoldovaRoute,
+  ZelenaKartaNimechchynaRoute: ZelenaKartaNimechchynaRoute,
+  ZelenaKartaPolshchaRoute: ZelenaKartaPolshchaRoute,
+  ZelenaKartaRumuniiaRoute: ZelenaKartaRumuniiaRoute,
+  ZelenaKartaSlovachchynaRoute: ZelenaKartaSlovachchynaRoute,
+  ZelenaKartaUhorshchynaRoute: ZelenaKartaUhorshchynaRoute,
   BlogSlugRoute: BlogSlugRoute,
   StrahuvannyaCityRoute: StrahuvannyaCityRoute,
   BlogIndexRoute: BlogIndexRoute,
