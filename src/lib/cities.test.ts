@@ -6,6 +6,7 @@ describe("city pages SEO requirements", () => {
     expect(cities.map((c) => c.slug)).toEqual([
       "kharkiv", "kyiv", "dnipro", "poltava", "uzhhorod", "vinnytsia", "lviv", "sumy",
       "odesa", "rivne", "ternopil", "zaporizhzhia", "lutsk", "kropyvnytskyi", "kherson",
+      "zhytomyr", "ivano-frankivsk", "mykolaiv", "chernivtsi", "chernihiv", "cherkasy", "khmelnytskyi",
     ]);
   });
 
