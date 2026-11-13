@@ -20,6 +20,10 @@ import { Route as PrivacyRouteImport } from './routes/privacy'
 import { Route as ProMeneRouteImport } from './routes/pro-mene'
 import { Route as SitemapDotxmlRouteImport } from './routes/sitemap[.]xml'
 import { Route as SportyvneStrahuvannyaRouteImport } from './routes/sportyvne-strahuvannya'
+import { Route as SportyvneStrahuvannyaDliaBihunivRouteImport } from './routes/sportyvne-strahuvannya-dlia-bihuniv'
+import { Route as SportyvneStrahuvannyaDliaPlavtsivRouteImport } from './routes/sportyvne-strahuvannya-dlia-plavtsiv'
+import { Route as SportyvneStrahuvannyaDliaTriatletivRouteImport } from './routes/sportyvne-strahuvannya-dlia-triatletiv'
+import { Route as SportyvneStrahuvannyaDliaVelosypedystivRouteImport } from './routes/sportyvne-strahuvannya-dlia-velosypedystiv'
 import { Route as TsinyRouteImport } from './routes/tsiny'
 import { Route as TurystychneStrahuvannyaRouteImport } from './routes/turystychne-strahuvannya'
 import { Route as VidhukyRouteImport } from './routes/vidhuky'
@@ -92,6 +96,30 @@ const SportyvneStrahuvannyaRoute = SportyvneStrahuvannyaRouteImport.update({
   path: '/sportyvne-strahuvannya',
   getParentRoute: () => rootRouteImport,
 } as any)
+const SportyvneStrahuvannyaDliaBihunivRoute =
+  SportyvneStrahuvannyaDliaBihunivRouteImport.update({
+    id: '/sportyvne-strahuvannya-dlia-bihuniv',
+    path: '/sportyvne-strahuvannya-dlia-bihuniv',
+    getParentRoute: () => rootRouteImport,
+  } as any)
+const SportyvneStrahuvannyaDliaPlavtsivRoute =
+  SportyvneStrahuvannyaDliaPlavtsivRouteImport.update({
+    id: '/sportyvne-strahuvannya-dlia-plavtsiv',
+    path: '/sportyvne-strahuvannya-dlia-plavtsiv',
+    getParentRoute: () => rootRouteImport,
+  } as any)
+const SportyvneStrahuvannyaDliaTriatletivRoute =
+  SportyvneStrahuvannyaDliaTriatletivRouteImport.update({
+    id: '/sportyvne-strahuvannya-dlia-triatletiv',
+    path: '/sportyvne-strahuvannya-dlia-triatletiv',
+    getParentRoute: () => rootRouteImport,
+  } as any)
+const SportyvneStrahuvannyaDliaVelosypedystivRoute =
+  SportyvneStrahuvannyaDliaVelosypedystivRouteImport.update({
+    id: '/sportyvne-strahuvannya-dlia-velosypedystiv',
+    path: '/sportyvne-strahuvannya-dlia-velosypedystiv',
+    getParentRoute: () => rootRouteImport,
+  } as any)
 const TsinyRoute = TsinyRouteImport.update({
   id: '/tsiny',
   path: '/tsiny',
@@ -189,6 +217,10 @@ export interface FileRoutesByFullPath {
   '/pro-mene': typeof ProMeneRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/sportyvne-strahuvannya': typeof SportyvneStrahuvannyaRoute
+  '/sportyvne-strahuvannya-dlia-bihuniv': typeof SportyvneStrahuvannyaDliaBihunivRoute
+  '/sportyvne-strahuvannya-dlia-plavtsiv': typeof SportyvneStrahuvannyaDliaPlavtsivRoute
+  '/sportyvne-strahuvannya-dlia-triatletiv': typeof SportyvneStrahuvannyaDliaTriatletivRoute
+  '/sportyvne-strahuvannya-dlia-velosypedystiv': typeof SportyvneStrahuvannyaDliaVelosypedystivRoute
   '/tsiny': typeof TsinyRoute
   '/turystychne-strahuvannya': typeof TurystychneStrahuvannyaRoute
   '/vidhuky': typeof VidhukyRoute
@@ -218,6 +250,10 @@ export interface FileRoutesByTo {
   '/pro-mene': typeof ProMeneRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/sportyvne-strahuvannya': typeof SportyvneStrahuvannyaRoute
+  '/sportyvne-strahuvannya-dlia-bihuniv': typeof SportyvneStrahuvannyaDliaBihunivRoute
+  '/sportyvne-strahuvannya-dlia-plavtsiv': typeof SportyvneStrahuvannyaDliaPlavtsivRoute
+  '/sportyvne-strahuvannya-dlia-triatletiv': typeof SportyvneStrahuvannyaDliaTriatletivRoute
+  '/sportyvne-strahuvannya-dlia-velosypedystiv': typeof SportyvneStrahuvannyaDliaVelosypedystivRoute
   '/tsiny': typeof TsinyRoute
   '/turystychne-strahuvannya': typeof TurystychneStrahuvannyaRoute
   '/vidhuky': typeof VidhukyRoute
@@ -249,6 +285,10 @@ export interface FileRoutesById {
   '/pro-mene': typeof ProMeneRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/sportyvne-strahuvannya': typeof SportyvneStrahuvannyaRoute
+  '/sportyvne-strahuvannya-dlia-bihuniv': typeof SportyvneStrahuvannyaDliaBihunivRoute
+  '/sportyvne-strahuvannya-dlia-plavtsiv': typeof SportyvneStrahuvannyaDliaPlavtsivRoute
+  '/sportyvne-strahuvannya-dlia-triatletiv': typeof SportyvneStrahuvannyaDliaTriatletivRoute
+  '/sportyvne-strahuvannya-dlia-velosypedystiv': typeof SportyvneStrahuvannyaDliaVelosypedystivRoute
   '/tsiny': typeof TsinyRoute
   '/turystychne-strahuvannya': typeof TurystychneStrahuvannyaRoute
   '/vidhuky': typeof VidhukyRoute
@@ -280,6 +320,10 @@ export interface FileRouteTypes {
     | '/pro-mene'
     | '/sitemap.xml'
     | '/sportyvne-strahuvannya'
+    | '/sportyvne-strahuvannya-dlia-bihuniv'
+    | '/sportyvne-strahuvannya-dlia-plavtsiv'
+    | '/sportyvne-strahuvannya-dlia-triatletiv'
+    | '/sportyvne-strahuvannya-dlia-velosypedystiv'
     | '/tsiny'
     | '/turystychne-strahuvannya'
     | '/vidhuky'
@@ -309,6 +353,10 @@ export interface FileRouteTypes {
     | '/pro-mene'
     | '/sitemap.xml'
     | '/sportyvne-strahuvannya'
+    | '/sportyvne-strahuvannya-dlia-bihuniv'
+    | '/sportyvne-strahuvannya-dlia-plavtsiv'
+    | '/sportyvne-strahuvannya-dlia-triatletiv'
+    | '/sportyvne-strahuvannya-dlia-velosypedystiv'
     | '/tsiny'
     | '/turystychne-strahuvannya'
     | '/vidhuky'
@@ -339,6 +387,10 @@ export interface FileRouteTypes {
     | '/pro-mene'
     | '/sitemap.xml'
     | '/sportyvne-strahuvannya'
+    | '/sportyvne-strahuvannya-dlia-bihuniv'
+    | '/sportyvne-strahuvannya-dlia-plavtsiv'
+    | '/sportyvne-strahuvannya-dlia-triatletiv'
+    | '/sportyvne-strahuvannya-dlia-velosypedystiv'
     | '/tsiny'
     | '/turystychne-strahuvannya'
     | '/vidhuky'
@@ -370,6 +422,10 @@ export interface RootRouteChildren {
   ProMeneRoute: typeof ProMeneRoute
   SitemapDotxmlRoute: typeof SitemapDotxmlRoute
   SportyvneStrahuvannyaRoute: typeof SportyvneStrahuvannyaRoute
+  SportyvneStrahuvannyaDliaBihunivRoute: typeof SportyvneStrahuvannyaDliaBihunivRoute
+  SportyvneStrahuvannyaDliaPlavtsivRoute: typeof SportyvneStrahuvannyaDliaPlavtsivRoute
+  SportyvneStrahuvannyaDliaTriatletivRoute: typeof SportyvneStrahuvannyaDliaTriatletivRoute
+  SportyvneStrahuvannyaDliaVelosypedystivRoute: typeof SportyvneStrahuvannyaDliaVelosypedystivRoute
   TsinyRoute: typeof TsinyRoute
   TurystychneStrahuvannyaRoute: typeof TurystychneStrahuvannyaRoute
   VidhukyRoute: typeof VidhukyRoute
@@ -465,6 +521,34 @@ declare module '@tanstack/react-router' {
       path: '/sportyvne-strahuvannya'
       fullPath: '/sportyvne-strahuvannya'
       preLoaderRoute: typeof SportyvneStrahuvannyaRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/sportyvne-strahuvannya-dlia-bihuniv': {
+      id: '/sportyvne-strahuvannya-dlia-bihuniv'
+      path: '/sportyvne-strahuvannya-dlia-bihuniv'
+      fullPath: '/sportyvne-strahuvannya-dlia-bihuniv'
+      preLoaderRoute: typeof SportyvneStrahuvannyaDliaBihunivRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/sportyvne-strahuvannya-dlia-plavtsiv': {
+      id: '/sportyvne-strahuvannya-dlia-plavtsiv'
+      path: '/sportyvne-strahuvannya-dlia-plavtsiv'
+      fullPath: '/sportyvne-strahuvannya-dlia-plavtsiv'
+      preLoaderRoute: typeof SportyvneStrahuvannyaDliaPlavtsivRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/sportyvne-strahuvannya-dlia-triatletiv': {
+      id: '/sportyvne-strahuvannya-dlia-triatletiv'
+      path: '/sportyvne-strahuvannya-dlia-triatletiv'
+      fullPath: '/sportyvne-strahuvannya-dlia-triatletiv'
+      preLoaderRoute: typeof SportyvneStrahuvannyaDliaTriatletivRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/sportyvne-strahuvannya-dlia-velosypedystiv': {
+      id: '/sportyvne-strahuvannya-dlia-velosypedystiv'
+      path: '/sportyvne-strahuvannya-dlia-velosypedystiv'
+      fullPath: '/sportyvne-strahuvannya-dlia-velosypedystiv'
+      preLoaderRoute: typeof SportyvneStrahuvannyaDliaVelosypedystivRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/tsiny': {
@@ -612,6 +696,13 @@ const rootRouteChildren: RootRouteChildren = {
   ProMeneRoute: ProMeneRoute,
   SitemapDotxmlRoute: SitemapDotxmlRoute,
   SportyvneStrahuvannyaRoute: SportyvneStrahuvannyaRoute,
+  SportyvneStrahuvannyaDliaBihunivRoute: SportyvneStrahuvannyaDliaBihunivRoute,
+  SportyvneStrahuvannyaDliaPlavtsivRoute:
+    SportyvneStrahuvannyaDliaPlavtsivRoute,
+  SportyvneStrahuvannyaDliaTriatletivRoute:
+    SportyvneStrahuvannyaDliaTriatletivRoute,
+  SportyvneStrahuvannyaDliaVelosypedystivRoute:
+    SportyvneStrahuvannyaDliaVelosypedystivRoute,
   TsinyRoute: TsinyRoute,
   TurystychneStrahuvannyaRoute: TurystychneStrahuvannyaRoute,
   VidhukyRoute: VidhukyRoute,

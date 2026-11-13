@@ -1,6 +1,7 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { ProductPage } from "@/components/templates/product-page";
 import { RaceCalendarSection } from "@/components/sections/race-calendar";
+import { SportAudiencesLinks } from "@/components/templates/sport-audience-page";
 import { products } from "@/content/site";
 import { breadcrumbScript } from "@/lib/jsonld";
 
@@ -45,7 +46,12 @@ export const Route = createFileRoute("/sportyvne-strahuvannya")({
     <ProductPage
       content={products.sport}
       product="sport"
-      extra={<RaceCalendarSection />}
+      extra={
+        <>
+          <SportAudiencesLinks />
+          <RaceCalendarSection />
+        </>
+      }
     />
   ),
 });

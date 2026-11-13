@@ -1,5 +1,6 @@
 import { cities } from "@/content/cities";
 import { greenCardCountries } from "@/content/green-card-countries";
+import { sportAudiences } from "@/content/sport-audiences";
 import { createFileRoute } from "@tanstack/react-router";
 import type {} from "@tanstack/react-start";
 
@@ -35,6 +36,7 @@ export const Route = createFileRoute("/sitemap.xml")({
           { path: "/offer", changefreq: "yearly", priority: "0.3" },
         ];
         for (const g of greenCardCountries) entries.push({ path: g.path, changefreq: "monthly", priority: "0.8" });
+        for (const a of sportAudiences) entries.push({ path: a.path, changefreq: "monthly", priority: "0.8" });
         for (const c of cities) entries.push({ path: `/strahuvannya/${c.slug}`, changefreq: "monthly", priority: "0.7" });
 
         try {
