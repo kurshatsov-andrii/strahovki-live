@@ -75,7 +75,7 @@ export function SportAudiencePage({ audience: a }: { audience: SportAudience }) 
             <h2 className="pt-4 text-2xl font-bold text-foreground">Вартість страхування для {a.gen}</h2>
             <p>
               Ціна залежить від групи ризику виду спорту та строку дії поліса — від 1 місяця до
-              1 року, від 295 грн за місяць. Точну суму покаже калькулятор на сторінці спортивного
+              1 року, від 377 грн за рік. Точну суму покаже калькулятор на сторінці спортивного
               страхування.
             </p>
             <h2 className="pt-4 text-2xl font-bold text-foreground">Як оформити страховку онлайн</h2>

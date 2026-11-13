@@ -8,19 +8,23 @@ import {
   sportMonths,
 } from "./insurance";
 
-// Тариф EUROINS: знахідка за групою ризику та віком = ціна за 1 місяць.
-const coefficients = { group_age: { g1_a2: 295 } };
-const sportParams = (months: string) => ({ sport: "g1:bieg", age: "a2", months });
+// Тариф EUROINS: знахідка за групою ризику та віком = річна ціна; коротший строк — пропорційно місяцям.
+const coefficients = { group_age: { g1_a2: 377, g3_a2: 754 } };
+const sportParams = (months: string, sport = "g1:bieg") => ({ sport, age: "a2", months });
 
 describe("sport insurance term (1 month – 1 year)", () => {
-  it("prices one month at the monthly tariff", () => {
-    expect(computePrice(1, coefficients, false, sportParams("1"), 1)).toBe(295);
+  it("prices one year at the full yearly tariff", () => {
+    expect(computePrice(1, coefficients, false, sportParams("12"), 1)).toBe(377);
   });
 
-  it("multiplies the monthly tariff by the number of months", () => {
-    expect(computePrice(1, coefficients, false, sportParams("3"), 1)).toBe(885);
-    expect(computePrice(1, coefficients, false, sportParams("6"), 1)).toBe(1770);
-    expect(computePrice(1, coefficients, false, sportParams("12"), 1)).toBe(3540);
+  it("restores the old yearly price for athletics at age 30", () => {
+    expect(computePrice(1, coefficients, false, sportParams("12", "g3:lehka-atletyka"), 1)).toBe(754);
+  });
+
+  it("prorates the yearly tariff by the number of months", () => {
+    expect(computePrice(1, coefficients, false, sportParams("1"), 1)).toBe(31.42);
+    expect(computePrice(1, coefficients, false, sportParams("3"), 1)).toBe(94.25);
+    expect(computePrice(1, coefficients, false, sportParams("6"), 1)).toBe(188.5);
   });
 
   it("keeps the term inside 1 month – 1 year", () => {
@@ -28,7 +32,7 @@ describe("sport insurance term (1 month – 1 year)", () => {
     expect(SPORT_MONTH_MAX).toBe(12);
     expect(sportMonths("24")).toBe(12);
     expect(sportMonths("0")).toBe(1);
-    expect(computePrice(1, coefficients, false, sportParams("24"), 1)).toBe(3540);
+    expect(computePrice(1, coefficients, false, sportParams("24"), 1)).toBe(377);
   });
 
   it("offers every month from 1 to 12 in the calculator", () => {

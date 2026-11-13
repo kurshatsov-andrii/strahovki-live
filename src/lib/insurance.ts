@@ -646,7 +646,7 @@ export const productConfigs: Record<ProductKey, ProductConfig> = {
       "Страхова сума: 35 000 грн",
       "Строк дії: від 1 місяця до 1 року",
       "Аматорський спорт",
-      "Ціна = тариф за 1 місяць × кількість місяців",
+      "Ціна = річний тариф, для коротшого строку — пропорційно місяцям",
     ],
     fields: [
       {
@@ -935,7 +935,7 @@ export function computePrice(
     if (typeof factor === "number" && Number.isFinite(factor)) price *= factor;
   }
   if (perDay) price *= Math.max(1, days);
-  else if (params["months"]) price *= sportMonths(params["months"]);
+  else if (params["months"]) price *= sportMonths(params["months"]) / 12;
   return Math.round(price * 100) / 100;
 
 }

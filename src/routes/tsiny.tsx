@@ -73,7 +73,7 @@ const priceCards = [
   {
     icon: "Trophy",
     title: "Спортивне страхування",
-    price: "від 295 грн / місяць",
+    price: "від 377 грн / рік",
     to: "/sportyvne-strahuvannya",
     points: [
       "Страхова сума 35 000 грн",
