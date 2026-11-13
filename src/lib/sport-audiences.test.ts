@@ -36,7 +36,7 @@ describe("sport audience pages SEO requirements", () => {
       const description = sportAudienceDescription(a);
       expect(description.length).toBeLessThanOrEqual(160);
       expect(description).toContain("35 000 грн");
-      expect(description).toContain("377 грн");
+      expect(description).toContain("754 грн");
     }
   });
 

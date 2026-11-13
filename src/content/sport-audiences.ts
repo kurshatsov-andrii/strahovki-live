@@ -46,5 +46,5 @@ export const sportAudiences: SportAudience[] = [
 export const sportAudienceTitle = (a: SportAudience) =>
   `Страхування для ${a.gen} — спортивна страховка онлайн`;
 export const sportAudienceDescription = (a: SportAudience) =>
-  `Спортивне страхування для ${a.gen}: страхова сума 35 000 грн, строк від 1 місяця до року, від 377 грн на рік. Оформіть поліс онлайн.`;
+  `Спортивне страхування для ${a.gen}: страхова сума 35 000 грн, строк від 1 місяця до року, від 754 грн на рік. Оформіть поліс онлайн.`;
 export const sportAudienceH1 = (a: SportAudience) => `Спортивне страхування для ${a.gen}`;
