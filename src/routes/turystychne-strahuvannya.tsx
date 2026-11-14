@@ -2,6 +2,7 @@ import { createFileRoute } from "@tanstack/react-router";
 import { ProductPage } from "@/components/templates/product-page";
 import { products } from "@/content/site";
 import { breadcrumbScript } from "@/lib/jsonld";
+import { TravelCountriesLinks } from "@/components/templates/travel-country-page";
 
 const title = "Туристичне страхування онлайн — страховка за кордон";
 const description =
@@ -40,5 +41,5 @@ export const Route = createFileRoute("/turystychne-strahuvannya")({
       ]),
     ],
   }),
-  component: () => <ProductPage content={products.travel} product="travel" />,
+  component: () => <ProductPage content={products.travel} product="travel" extra={<TravelCountriesLinks />} />,
 });

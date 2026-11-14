@@ -24,6 +24,15 @@ import { Route as SportyvneStrahuvannyaDliaBihunivRouteImport } from './routes/s
 import { Route as SportyvneStrahuvannyaDliaPlavtsivRouteImport } from './routes/sportyvne-strahuvannya-dlia-plavtsiv'
 import { Route as SportyvneStrahuvannyaDliaTriatletivRouteImport } from './routes/sportyvne-strahuvannya-dlia-triatletiv'
 import { Route as SportyvneStrahuvannyaDliaVelosypedystivRouteImport } from './routes/sportyvne-strahuvannya-dlia-velosypedystiv'
+import { Route as StrahovkaVBolhariiuRouteImport } from './routes/strahovka-v-bolhariiu'
+import { Route as StrahovkaVChekhiiuRouteImport } from './routes/strahovka-v-chekhiiu'
+import { Route as StrahovkaVMoldovuRouteImport } from './routes/strahovka-v-moldovu'
+import { Route as StrahovkaVNimechchynuRouteImport } from './routes/strahovka-v-nimechchynu'
+import { Route as StrahovkaVPolshchuRouteImport } from './routes/strahovka-v-polshchu'
+import { Route as StrahovkaVRumuniiuRouteImport } from './routes/strahovka-v-rumuniiu'
+import { Route as StrahovkaVSlovachchynuRouteImport } from './routes/strahovka-v-slovachchynu'
+import { Route as StrahovkaVTurechchynuRouteImport } from './routes/strahovka-v-turechchynu'
+import { Route as StrahovkaVUhorshchynuRouteImport } from './routes/strahovka-v-uhorshchynu'
 import { Route as TsinyRouteImport } from './routes/tsiny'
 import { Route as TurystychneStrahuvannyaRouteImport } from './routes/turystychne-strahuvannya'
 import { Route as VidhukyRouteImport } from './routes/vidhuky'
@@ -120,6 +129,51 @@ const SportyvneStrahuvannyaDliaVelosypedystivRoute =
     path: '/sportyvne-strahuvannya-dlia-velosypedystiv',
     getParentRoute: () => rootRouteImport,
   } as any)
+const StrahovkaVBolhariiuRoute = StrahovkaVBolhariiuRouteImport.update({
+  id: '/strahovka-v-bolhariiu',
+  path: '/strahovka-v-bolhariiu',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const StrahovkaVChekhiiuRoute = StrahovkaVChekhiiuRouteImport.update({
+  id: '/strahovka-v-chekhiiu',
+  path: '/strahovka-v-chekhiiu',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const StrahovkaVMoldovuRoute = StrahovkaVMoldovuRouteImport.update({
+  id: '/strahovka-v-moldovu',
+  path: '/strahovka-v-moldovu',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const StrahovkaVNimechchynuRoute = StrahovkaVNimechchynuRouteImport.update({
+  id: '/strahovka-v-nimechchynu',
+  path: '/strahovka-v-nimechchynu',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const StrahovkaVPolshchuRoute = StrahovkaVPolshchuRouteImport.update({
+  id: '/strahovka-v-polshchu',
+  path: '/strahovka-v-polshchu',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const StrahovkaVRumuniiuRoute = StrahovkaVRumuniiuRouteImport.update({
+  id: '/strahovka-v-rumuniiu',
+  path: '/strahovka-v-rumuniiu',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const StrahovkaVSlovachchynuRoute = StrahovkaVSlovachchynuRouteImport.update({
+  id: '/strahovka-v-slovachchynu',
+  path: '/strahovka-v-slovachchynu',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const StrahovkaVTurechchynuRoute = StrahovkaVTurechchynuRouteImport.update({
+  id: '/strahovka-v-turechchynu',
+  path: '/strahovka-v-turechchynu',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const StrahovkaVUhorshchynuRoute = StrahovkaVUhorshchynuRouteImport.update({
+  id: '/strahovka-v-uhorshchynu',
+  path: '/strahovka-v-uhorshchynu',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const TsinyRoute = TsinyRouteImport.update({
   id: '/tsiny',
   path: '/tsiny',
@@ -221,6 +275,15 @@ export interface FileRoutesByFullPath {
   '/sportyvne-strahuvannya-dlia-plavtsiv': typeof SportyvneStrahuvannyaDliaPlavtsivRoute
   '/sportyvne-strahuvannya-dlia-triatletiv': typeof SportyvneStrahuvannyaDliaTriatletivRoute
   '/sportyvne-strahuvannya-dlia-velosypedystiv': typeof SportyvneStrahuvannyaDliaVelosypedystivRoute
+  '/strahovka-v-bolhariiu': typeof StrahovkaVBolhariiuRoute
+  '/strahovka-v-chekhiiu': typeof StrahovkaVChekhiiuRoute
+  '/strahovka-v-moldovu': typeof StrahovkaVMoldovuRoute
+  '/strahovka-v-nimechchynu': typeof StrahovkaVNimechchynuRoute
+  '/strahovka-v-polshchu': typeof StrahovkaVPolshchuRoute
+  '/strahovka-v-rumuniiu': typeof StrahovkaVRumuniiuRoute
+  '/strahovka-v-slovachchynu': typeof StrahovkaVSlovachchynuRoute
+  '/strahovka-v-turechchynu': typeof StrahovkaVTurechchynuRoute
+  '/strahovka-v-uhorshchynu': typeof StrahovkaVUhorshchynuRoute
   '/tsiny': typeof TsinyRoute
   '/turystychne-strahuvannya': typeof TurystychneStrahuvannyaRoute
   '/vidhuky': typeof VidhukyRoute
@@ -254,6 +317,15 @@ export interface FileRoutesByTo {
   '/sportyvne-strahuvannya-dlia-plavtsiv': typeof SportyvneStrahuvannyaDliaPlavtsivRoute
   '/sportyvne-strahuvannya-dlia-triatletiv': typeof SportyvneStrahuvannyaDliaTriatletivRoute
   '/sportyvne-strahuvannya-dlia-velosypedystiv': typeof SportyvneStrahuvannyaDliaVelosypedystivRoute
+  '/strahovka-v-bolhariiu': typeof StrahovkaVBolhariiuRoute
+  '/strahovka-v-chekhiiu': typeof StrahovkaVChekhiiuRoute
+  '/strahovka-v-moldovu': typeof StrahovkaVMoldovuRoute
+  '/strahovka-v-nimechchynu': typeof StrahovkaVNimechchynuRoute
+  '/strahovka-v-polshchu': typeof StrahovkaVPolshchuRoute
+  '/strahovka-v-rumuniiu': typeof StrahovkaVRumuniiuRoute
+  '/strahovka-v-slovachchynu': typeof StrahovkaVSlovachchynuRoute
+  '/strahovka-v-turechchynu': typeof StrahovkaVTurechchynuRoute
+  '/strahovka-v-uhorshchynu': typeof StrahovkaVUhorshchynuRoute
   '/tsiny': typeof TsinyRoute
   '/turystychne-strahuvannya': typeof TurystychneStrahuvannyaRoute
   '/vidhuky': typeof VidhukyRoute
@@ -289,6 +361,15 @@ export interface FileRoutesById {
   '/sportyvne-strahuvannya-dlia-plavtsiv': typeof SportyvneStrahuvannyaDliaPlavtsivRoute
   '/sportyvne-strahuvannya-dlia-triatletiv': typeof SportyvneStrahuvannyaDliaTriatletivRoute
   '/sportyvne-strahuvannya-dlia-velosypedystiv': typeof SportyvneStrahuvannyaDliaVelosypedystivRoute
+  '/strahovka-v-bolhariiu': typeof StrahovkaVBolhariiuRoute
+  '/strahovka-v-chekhiiu': typeof StrahovkaVChekhiiuRoute
+  '/strahovka-v-moldovu': typeof StrahovkaVMoldovuRoute
+  '/strahovka-v-nimechchynu': typeof StrahovkaVNimechchynuRoute
+  '/strahovka-v-polshchu': typeof StrahovkaVPolshchuRoute
+  '/strahovka-v-rumuniiu': typeof StrahovkaVRumuniiuRoute
+  '/strahovka-v-slovachchynu': typeof StrahovkaVSlovachchynuRoute
+  '/strahovka-v-turechchynu': typeof StrahovkaVTurechchynuRoute
+  '/strahovka-v-uhorshchynu': typeof StrahovkaVUhorshchynuRoute
   '/tsiny': typeof TsinyRoute
   '/turystychne-strahuvannya': typeof TurystychneStrahuvannyaRoute
   '/vidhuky': typeof VidhukyRoute
@@ -324,6 +405,15 @@ export interface FileRouteTypes {
     | '/sportyvne-strahuvannya-dlia-plavtsiv'
     | '/sportyvne-strahuvannya-dlia-triatletiv'
     | '/sportyvne-strahuvannya-dlia-velosypedystiv'
+    | '/strahovka-v-bolhariiu'
+    | '/strahovka-v-chekhiiu'
+    | '/strahovka-v-moldovu'
+    | '/strahovka-v-nimechchynu'
+    | '/strahovka-v-polshchu'
+    | '/strahovka-v-rumuniiu'
+    | '/strahovka-v-slovachchynu'
+    | '/strahovka-v-turechchynu'
+    | '/strahovka-v-uhorshchynu'
     | '/tsiny'
     | '/turystychne-strahuvannya'
     | '/vidhuky'
@@ -357,6 +447,15 @@ export interface FileRouteTypes {
     | '/sportyvne-strahuvannya-dlia-plavtsiv'
     | '/sportyvne-strahuvannya-dlia-triatletiv'
     | '/sportyvne-strahuvannya-dlia-velosypedystiv'
+    | '/strahovka-v-bolhariiu'
+    | '/strahovka-v-chekhiiu'
+    | '/strahovka-v-moldovu'
+    | '/strahovka-v-nimechchynu'
+    | '/strahovka-v-polshchu'
+    | '/strahovka-v-rumuniiu'
+    | '/strahovka-v-slovachchynu'
+    | '/strahovka-v-turechchynu'
+    | '/strahovka-v-uhorshchynu'
     | '/tsiny'
     | '/turystychne-strahuvannya'
     | '/vidhuky'
@@ -391,6 +490,15 @@ export interface FileRouteTypes {
     | '/sportyvne-strahuvannya-dlia-plavtsiv'
     | '/sportyvne-strahuvannya-dlia-triatletiv'
     | '/sportyvne-strahuvannya-dlia-velosypedystiv'
+    | '/strahovka-v-bolhariiu'
+    | '/strahovka-v-chekhiiu'
+    | '/strahovka-v-moldovu'
+    | '/strahovka-v-nimechchynu'
+    | '/strahovka-v-polshchu'
+    | '/strahovka-v-rumuniiu'
+    | '/strahovka-v-slovachchynu'
+    | '/strahovka-v-turechchynu'
+    | '/strahovka-v-uhorshchynu'
     | '/tsiny'
     | '/turystychne-strahuvannya'
     | '/vidhuky'
@@ -426,6 +534,15 @@ export interface RootRouteChildren {
   SportyvneStrahuvannyaDliaPlavtsivRoute: typeof SportyvneStrahuvannyaDliaPlavtsivRoute
   SportyvneStrahuvannyaDliaTriatletivRoute: typeof SportyvneStrahuvannyaDliaTriatletivRoute
   SportyvneStrahuvannyaDliaVelosypedystivRoute: typeof SportyvneStrahuvannyaDliaVelosypedystivRoute
+  StrahovkaVBolhariiuRoute: typeof StrahovkaVBolhariiuRoute
+  StrahovkaVChekhiiuRoute: typeof StrahovkaVChekhiiuRoute
+  StrahovkaVMoldovuRoute: typeof StrahovkaVMoldovuRoute
+  StrahovkaVNimechchynuRoute: typeof StrahovkaVNimechchynuRoute
+  StrahovkaVPolshchuRoute: typeof StrahovkaVPolshchuRoute
+  StrahovkaVRumuniiuRoute: typeof StrahovkaVRumuniiuRoute
+  StrahovkaVSlovachchynuRoute: typeof StrahovkaVSlovachchynuRoute
+  StrahovkaVTurechchynuRoute: typeof StrahovkaVTurechchynuRoute
+  StrahovkaVUhorshchynuRoute: typeof StrahovkaVUhorshchynuRoute
   TsinyRoute: typeof TsinyRoute
   TurystychneStrahuvannyaRoute: typeof TurystychneStrahuvannyaRoute
   VidhukyRoute: typeof VidhukyRoute
@@ -549,6 +666,69 @@ declare module '@tanstack/react-router' {
       path: '/sportyvne-strahuvannya-dlia-velosypedystiv'
       fullPath: '/sportyvne-strahuvannya-dlia-velosypedystiv'
       preLoaderRoute: typeof SportyvneStrahuvannyaDliaVelosypedystivRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/strahovka-v-bolhariiu': {
+      id: '/strahovka-v-bolhariiu'
+      path: '/strahovka-v-bolhariiu'
+      fullPath: '/strahovka-v-bolhariiu'
+      preLoaderRoute: typeof StrahovkaVBolhariiuRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/strahovka-v-chekhiiu': {
+      id: '/strahovka-v-chekhiiu'
+      path: '/strahovka-v-chekhiiu'
+      fullPath: '/strahovka-v-chekhiiu'
+      preLoaderRoute: typeof StrahovkaVChekhiiuRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/strahovka-v-moldovu': {
+      id: '/strahovka-v-moldovu'
+      path: '/strahovka-v-moldovu'
+      fullPath: '/strahovka-v-moldovu'
+      preLoaderRoute: typeof StrahovkaVMoldovuRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/strahovka-v-nimechchynu': {
+      id: '/strahovka-v-nimechchynu'
+      path: '/strahovka-v-nimechchynu'
+      fullPath: '/strahovka-v-nimechchynu'
+      preLoaderRoute: typeof StrahovkaVNimechchynuRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/strahovka-v-polshchu': {
+      id: '/strahovka-v-polshchu'
+      path: '/strahovka-v-polshchu'
+      fullPath: '/strahovka-v-polshchu'
+      preLoaderRoute: typeof StrahovkaVPolshchuRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/strahovka-v-rumuniiu': {
+      id: '/strahovka-v-rumuniiu'
+      path: '/strahovka-v-rumuniiu'
+      fullPath: '/strahovka-v-rumuniiu'
+      preLoaderRoute: typeof StrahovkaVRumuniiuRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/strahovka-v-slovachchynu': {
+      id: '/strahovka-v-slovachchynu'
+      path: '/strahovka-v-slovachchynu'
+      fullPath: '/strahovka-v-slovachchynu'
+      preLoaderRoute: typeof StrahovkaVSlovachchynuRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/strahovka-v-turechchynu': {
+      id: '/strahovka-v-turechchynu'
+      path: '/strahovka-v-turechchynu'
+      fullPath: '/strahovka-v-turechchynu'
+      preLoaderRoute: typeof StrahovkaVTurechchynuRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/strahovka-v-uhorshchynu': {
+      id: '/strahovka-v-uhorshchynu'
+      path: '/strahovka-v-uhorshchynu'
+      fullPath: '/strahovka-v-uhorshchynu'
+      preLoaderRoute: typeof StrahovkaVUhorshchynuRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/tsiny': {
@@ -703,6 +883,15 @@ const rootRouteChildren: RootRouteChildren = {
     SportyvneStrahuvannyaDliaTriatletivRoute,
   SportyvneStrahuvannyaDliaVelosypedystivRoute:
     SportyvneStrahuvannyaDliaVelosypedystivRoute,
+  StrahovkaVBolhariiuRoute: StrahovkaVBolhariiuRoute,
+  StrahovkaVChekhiiuRoute: StrahovkaVChekhiiuRoute,
+  StrahovkaVMoldovuRoute: StrahovkaVMoldovuRoute,
+  StrahovkaVNimechchynuRoute: StrahovkaVNimechchynuRoute,
+  StrahovkaVPolshchuRoute: StrahovkaVPolshchuRoute,
+  StrahovkaVRumuniiuRoute: StrahovkaVRumuniiuRoute,
+  StrahovkaVSlovachchynuRoute: StrahovkaVSlovachchynuRoute,
+  StrahovkaVTurechchynuRoute: StrahovkaVTurechchynuRoute,
+  StrahovkaVUhorshchynuRoute: StrahovkaVUhorshchynuRoute,
   TsinyRoute: TsinyRoute,
   TurystychneStrahuvannyaRoute: TurystychneStrahuvannyaRoute,
   VidhukyRoute: VidhukyRoute,
