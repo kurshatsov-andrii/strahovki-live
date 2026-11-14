@@ -11,7 +11,7 @@ describe("travel country pages", () => {
     ]);
   });
   it("Poland matches the brief", () => {
-    const p = travelCountries[0];
+    const p = travelCountries[0]!;
     expect(travelTitle(p)).toBe("Туристична страховка в Польщу — ціна та оформлення онлайн");
     expect(travelH1(p)).toBe("Туристична страховка в Польщу для українців");
   });
