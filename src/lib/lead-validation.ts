@@ -301,7 +301,7 @@ export const travelLeadSchema = z.object({
     .min(1, "Вкажіть дату народження")
     .refine((v) => isValidDate(v), "Некоректна дата. Формат: дд.мм.рррр"),
   resident: anyText(1, 20, "Оберіть значення"),
-  country: anyText(2, 60, "Вкажіть країну"),
+  citizenship: anyText(2, 60, "Вкажіть країну"),
   tax_id: z.string().trim().regex(/^\d{10}$/, "ІПН має містити 10 цифр"),
   phone: phoneField,
   viber_phone: phoneField,
