@@ -269,7 +269,7 @@ export const travelApplicantFields: ApplicantField[] = [
       { value: "Ні", label: "Ні" },
     ],
   },
-  { name: "citizenship", label: "Країна громадянства", placeholder: "Україна" },
+  { name: "country", label: "Основна країна поїздки", placeholder: "Польща", hint: "Країна, де ви будете найбільше днів. Можна вписати іншу." },
   { name: "tax_id", label: "ІПН", placeholder: "10 цифр" },
   { name: "phone", label: "Мобільний телефон", kind: "tel", placeholder: "+38 (0__) ___-__-__" },
   {

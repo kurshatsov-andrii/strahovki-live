@@ -830,6 +830,7 @@ function LeadDialog({
                           type={field.kind === "tel" ? "tel" : "text"}
                           list={field.kind === "combo" ? `list-${field.name}` : undefined}
                           placeholder={field.placeholder}
+                          defaultValue={field.name === "country" ? (params["country"] ?? "") : undefined}
                         />
                         {field.kind === "combo" && (
                           <datalist id={`list-${field.name}`}>

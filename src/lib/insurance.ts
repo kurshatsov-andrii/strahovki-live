@@ -835,7 +835,6 @@ export const extraParamLabels: Record<string, string> = {
   date_from: "Дата виїзду",
   date_to: "Дата приїзду",
   country: "Країна поїздки",
-  citizenship: "Країна громадянства",
   franchise: "Франшиза",
 };
 
