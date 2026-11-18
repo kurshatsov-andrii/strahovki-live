@@ -4,6 +4,8 @@ import { getBlogPost } from "@/lib/blog.functions";
 import { Button } from "@/components/ui/button";
 import { ContactFormSection } from "@/components/sections/contact";
 import { breadcrumbScript } from "@/lib/jsonld";
+import { useSiteSettings } from "@/hooks/use-site-settings";
+import { Phone, Send } from "lucide-react";
 
 function formatDate(iso: string) {
   const d = new Date(iso);
@@ -99,6 +101,8 @@ export const Route = createFileRoute("/blog/$slug")({
 
 function BlogPostPage() {
   const post = Route.useLoaderData();
+  const site = useSiteSettings();
+  const phoneHref = `tel:${site.phone_primary.replace(/[^+\d]/g, "")}`;
   const paragraphs = post.content.split("\n").filter((line) => line.trim().length > 0);
 
   return (
@@ -139,6 +143,27 @@ function BlogPostPage() {
                 ),
               );
             })()}
+          </div>
+
+          <div className="mt-8 rounded-2xl border border-primary/20 bg-primary/5 p-6">
+            <h2 className="text-lg font-bold">Є запитання щодо страхування?</h2>
+            <p className="mt-2 text-sm leading-relaxed text-muted-foreground">
+              Напишіть мені в Telegram або зателефонуйте — особисто відповім на запитання та допоможу підібрати страховку.
+            </p>
+            <div className="mt-5 flex flex-col gap-3 sm:flex-row">
+              <Button asChild>
+                <a href={site.telegram_url} target="_blank" rel="noreferrer">
+                  <Send className="size-4" />
+                  Написати в Telegram
+                </a>
+              </Button>
+              <Button asChild variant="outline">
+                <a href={phoneHref}>
+                  <Phone className="size-4" />
+                  {site.phone_primary}
+                </a>
+              </Button>
+            </div>
           </div>
 
           <div className="mt-10 rounded-2xl border border-border bg-card p-6 shadow-soft">
