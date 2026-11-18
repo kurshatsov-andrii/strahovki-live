@@ -3,13 +3,12 @@ import { autoAudiences } from "@/content/auto-audiences";
 import { getLegacyRedirect } from "@/lib/legacy-redirects";
 
 describe("auto audience pages", () => {
-  it("has the five requested pages", () => {
+  it("has the four requested pages", () => {
     expect(autoAudiences.map((a) => a.path)).toEqual([
       "/avtotsyvilka-dlia-ubd",
       "/avtotsyvilka-dlia-pensioneriv",
       "/avtotsyvilka-dlia-elektromobilia",
       "/avtotsyvilka-na-inozemni-nomera",
-      "/strahovka-na-yevronomery",
     ]);
   });
 
@@ -20,6 +19,10 @@ describe("auto audience pages", () => {
       expect(audience.title.length).toBeLessThanOrEqual(60);
       expect(audience.description.length).toBeLessThanOrEqual(160);
     }
+  });
+
+  it("redirects the old єврономери URL to the foreign plates page", () => {
+    expect(getLegacyRedirect("/strahovka-na-yevronomery")).toBe("/avtotsyvilka-na-inozemni-nomera");
   });
 
   it("keeps every new page out of legacy redirects", () => {

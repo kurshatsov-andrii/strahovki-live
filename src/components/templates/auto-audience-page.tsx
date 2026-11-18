@@ -105,7 +105,7 @@ export function AutoAudiencePage({ audience: a }: { audience: AutoAudience }) {
                   </Link>
                 ))}
             </div>
-            {(a.slug === "inozemna-reiestratsiia" || a.slug === "yevronomery") && (
+            {(a.slug === "inozemna-reiestratsiia") && (
               <p className="mt-5 text-muted-foreground">
                 Плануєте поїздку за кордон на авто з українською реєстрацією?{" "}
                 <Link to="/zelena-karta" className="font-semibold text-primary hover:underline">

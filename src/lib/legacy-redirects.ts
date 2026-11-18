@@ -8,7 +8,6 @@ const CURRENT_PATHS = new Set([
   "/avtotsyvilka-dlia-pensioneriv",
   "/avtotsyvilka-dlia-elektromobilia",
   "/avtotsyvilka-na-inozemni-nomera",
-  "/strahovka-na-yevronomery",
   "/zelena-karta",
   "/zelena-karta-polshcha",
   "/zelena-karta-moldova",
@@ -50,6 +49,7 @@ const CURRENT_PATHS = new Set([
 
 // Popular old articles migrated to the new blog (same slug where possible).
 const EXACT: Record<string, string> = {
+  "/strahovka-na-yevronomery": "/avtotsyvilka-na-inozemni-nomera",
   "/docs-inozemni-nomera-ukraine": "/blog/docs-inozemni-nomera-ukraine",
   "/dtp-bez-polisa": "/blog/dtp-bez-polisa",
   "/bez-autocivilka-2026": "/blog/bez-autocivilka-2026",
