@@ -1,4 +1,5 @@
 import { cities } from "@/content/cities";
+import { autoAudiences } from "@/content/auto-audiences";
 import { greenCardCountries } from "@/content/green-card-countries";
 import { travelCountries } from "@/content/travel-countries";
 import { sportAudiences } from "@/content/sport-audiences";
@@ -36,6 +37,7 @@ export const Route = createFileRoute("/sitemap.xml")({
           { path: "/privacy", changefreq: "yearly", priority: "0.3" },
           { path: "/offer", changefreq: "yearly", priority: "0.3" },
         ];
+        for (const a of autoAudiences) entries.push({ path: a.path, changefreq: "monthly", priority: "0.8" });
         for (const g of greenCardCountries) entries.push({ path: g.path, changefreq: "monthly", priority: "0.8" });
         for (const t of travelCountries) entries.push({ path: t.path, changefreq: "monthly", priority: "0.8" });
         for (const a of sportAudiences) entries.push({ path: a.path, changefreq: "monthly", priority: "0.8" });

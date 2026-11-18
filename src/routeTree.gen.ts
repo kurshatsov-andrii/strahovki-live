@@ -13,6 +13,10 @@ import { Route as IndexRouteImport } from './routes/index'
 import { Route as AuthenticatedRouteRouteImport } from './routes/_authenticated/route'
 import { Route as AuthRouteImport } from './routes/auth'
 import { Route as AutostrahuvannyaRouteImport } from './routes/autostrahuvannya'
+import { Route as AvtotsyvilkaDliaElektromobiliaRouteImport } from './routes/avtotsyvilka-dlia-elektromobilia'
+import { Route as AvtotsyvilkaDliaPensionerivRouteImport } from './routes/avtotsyvilka-dlia-pensioneriv'
+import { Route as AvtotsyvilkaDliaUbdRouteImport } from './routes/avtotsyvilka-dlia-ubd'
+import { Route as AvtotsyvilkaNaInozemniNomeraRouteImport } from './routes/avtotsyvilka-na-inozemni-nomera'
 import { Route as ContactsRouteImport } from './routes/contacts'
 import { Route as FaqRouteImport } from './routes/faq'
 import { Route as OfferRouteImport } from './routes/offer'
@@ -24,6 +28,7 @@ import { Route as SportyvneStrahuvannyaDliaBihunivRouteImport } from './routes/s
 import { Route as SportyvneStrahuvannyaDliaPlavtsivRouteImport } from './routes/sportyvne-strahuvannya-dlia-plavtsiv'
 import { Route as SportyvneStrahuvannyaDliaTriatletivRouteImport } from './routes/sportyvne-strahuvannya-dlia-triatletiv'
 import { Route as SportyvneStrahuvannyaDliaVelosypedystivRouteImport } from './routes/sportyvne-strahuvannya-dlia-velosypedystiv'
+import { Route as StrahovkaNaYevronomeryRouteImport } from './routes/strahovka-na-yevronomery'
 import { Route as StrahovkaVBolhariiuRouteImport } from './routes/strahovka-v-bolhariiu'
 import { Route as StrahovkaVChekhiiuRouteImport } from './routes/strahovka-v-chekhiiu'
 import { Route as StrahovkaVChornohoriiuRouteImport } from './routes/strahovka-v-chornohoriiu'
@@ -73,6 +78,29 @@ const AutostrahuvannyaRoute = AutostrahuvannyaRouteImport.update({
   path: '/autostrahuvannya',
   getParentRoute: () => rootRouteImport,
 } as any)
+const AvtotsyvilkaDliaElektromobiliaRoute =
+  AvtotsyvilkaDliaElektromobiliaRouteImport.update({
+    id: '/avtotsyvilka-dlia-elektromobilia',
+    path: '/avtotsyvilka-dlia-elektromobilia',
+    getParentRoute: () => rootRouteImport,
+  } as any)
+const AvtotsyvilkaDliaPensionerivRoute =
+  AvtotsyvilkaDliaPensionerivRouteImport.update({
+    id: '/avtotsyvilka-dlia-pensioneriv',
+    path: '/avtotsyvilka-dlia-pensioneriv',
+    getParentRoute: () => rootRouteImport,
+  } as any)
+const AvtotsyvilkaDliaUbdRoute = AvtotsyvilkaDliaUbdRouteImport.update({
+  id: '/avtotsyvilka-dlia-ubd',
+  path: '/avtotsyvilka-dlia-ubd',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AvtotsyvilkaNaInozemniNomeraRoute =
+  AvtotsyvilkaNaInozemniNomeraRouteImport.update({
+    id: '/avtotsyvilka-na-inozemni-nomera',
+    path: '/avtotsyvilka-na-inozemni-nomera',
+    getParentRoute: () => rootRouteImport,
+  } as any)
 const ContactsRoute = ContactsRouteImport.update({
   id: '/contacts',
   path: '/contacts',
@@ -132,6 +160,11 @@ const SportyvneStrahuvannyaDliaVelosypedystivRoute =
     path: '/sportyvne-strahuvannya-dlia-velosypedystiv',
     getParentRoute: () => rootRouteImport,
   } as any)
+const StrahovkaNaYevronomeryRoute = StrahovkaNaYevronomeryRouteImport.update({
+  id: '/strahovka-na-yevronomery',
+  path: '/strahovka-na-yevronomery',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const StrahovkaVBolhariiuRoute = StrahovkaVBolhariiuRouteImport.update({
   id: '/strahovka-v-bolhariiu',
   path: '/strahovka-v-bolhariiu',
@@ -282,6 +315,10 @@ export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/auth': typeof AuthRoute
   '/autostrahuvannya': typeof AutostrahuvannyaRoute
+  '/avtotsyvilka-dlia-elektromobilia': typeof AvtotsyvilkaDliaElektromobiliaRoute
+  '/avtotsyvilka-dlia-pensioneriv': typeof AvtotsyvilkaDliaPensionerivRoute
+  '/avtotsyvilka-dlia-ubd': typeof AvtotsyvilkaDliaUbdRoute
+  '/avtotsyvilka-na-inozemni-nomera': typeof AvtotsyvilkaNaInozemniNomeraRoute
   '/contacts': typeof ContactsRoute
   '/faq': typeof FaqRoute
   '/offer': typeof OfferRoute
@@ -293,6 +330,7 @@ export interface FileRoutesByFullPath {
   '/sportyvne-strahuvannya-dlia-plavtsiv': typeof SportyvneStrahuvannyaDliaPlavtsivRoute
   '/sportyvne-strahuvannya-dlia-triatletiv': typeof SportyvneStrahuvannyaDliaTriatletivRoute
   '/sportyvne-strahuvannya-dlia-velosypedystiv': typeof SportyvneStrahuvannyaDliaVelosypedystivRoute
+  '/strahovka-na-yevronomery': typeof StrahovkaNaYevronomeryRoute
   '/strahovka-v-bolhariiu': typeof StrahovkaVBolhariiuRoute
   '/strahovka-v-chekhiiu': typeof StrahovkaVChekhiiuRoute
   '/strahovka-v-chornohoriiu': typeof StrahovkaVChornohoriiuRoute
@@ -327,6 +365,10 @@ export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/auth': typeof AuthRoute
   '/autostrahuvannya': typeof AutostrahuvannyaRoute
+  '/avtotsyvilka-dlia-elektromobilia': typeof AvtotsyvilkaDliaElektromobiliaRoute
+  '/avtotsyvilka-dlia-pensioneriv': typeof AvtotsyvilkaDliaPensionerivRoute
+  '/avtotsyvilka-dlia-ubd': typeof AvtotsyvilkaDliaUbdRoute
+  '/avtotsyvilka-na-inozemni-nomera': typeof AvtotsyvilkaNaInozemniNomeraRoute
   '/contacts': typeof ContactsRoute
   '/faq': typeof FaqRoute
   '/offer': typeof OfferRoute
@@ -338,6 +380,7 @@ export interface FileRoutesByTo {
   '/sportyvne-strahuvannya-dlia-plavtsiv': typeof SportyvneStrahuvannyaDliaPlavtsivRoute
   '/sportyvne-strahuvannya-dlia-triatletiv': typeof SportyvneStrahuvannyaDliaTriatletivRoute
   '/sportyvne-strahuvannya-dlia-velosypedystiv': typeof SportyvneStrahuvannyaDliaVelosypedystivRoute
+  '/strahovka-na-yevronomery': typeof StrahovkaNaYevronomeryRoute
   '/strahovka-v-bolhariiu': typeof StrahovkaVBolhariiuRoute
   '/strahovka-v-chekhiiu': typeof StrahovkaVChekhiiuRoute
   '/strahovka-v-chornohoriiu': typeof StrahovkaVChornohoriiuRoute
@@ -374,6 +417,10 @@ export interface FileRoutesById {
   '/_authenticated': typeof AuthenticatedRouteRouteWithChildren
   '/auth': typeof AuthRoute
   '/autostrahuvannya': typeof AutostrahuvannyaRoute
+  '/avtotsyvilka-dlia-elektromobilia': typeof AvtotsyvilkaDliaElektromobiliaRoute
+  '/avtotsyvilka-dlia-pensioneriv': typeof AvtotsyvilkaDliaPensionerivRoute
+  '/avtotsyvilka-dlia-ubd': typeof AvtotsyvilkaDliaUbdRoute
+  '/avtotsyvilka-na-inozemni-nomera': typeof AvtotsyvilkaNaInozemniNomeraRoute
   '/contacts': typeof ContactsRoute
   '/faq': typeof FaqRoute
   '/offer': typeof OfferRoute
@@ -385,6 +432,7 @@ export interface FileRoutesById {
   '/sportyvne-strahuvannya-dlia-plavtsiv': typeof SportyvneStrahuvannyaDliaPlavtsivRoute
   '/sportyvne-strahuvannya-dlia-triatletiv': typeof SportyvneStrahuvannyaDliaTriatletivRoute
   '/sportyvne-strahuvannya-dlia-velosypedystiv': typeof SportyvneStrahuvannyaDliaVelosypedystivRoute
+  '/strahovka-na-yevronomery': typeof StrahovkaNaYevronomeryRoute
   '/strahovka-v-bolhariiu': typeof StrahovkaVBolhariiuRoute
   '/strahovka-v-chekhiiu': typeof StrahovkaVChekhiiuRoute
   '/strahovka-v-chornohoriiu': typeof StrahovkaVChornohoriiuRoute
@@ -421,6 +469,10 @@ export interface FileRouteTypes {
     | '/'
     | '/auth'
     | '/autostrahuvannya'
+    | '/avtotsyvilka-dlia-elektromobilia'
+    | '/avtotsyvilka-dlia-pensioneriv'
+    | '/avtotsyvilka-dlia-ubd'
+    | '/avtotsyvilka-na-inozemni-nomera'
     | '/contacts'
     | '/faq'
     | '/offer'
@@ -432,6 +484,7 @@ export interface FileRouteTypes {
     | '/sportyvne-strahuvannya-dlia-plavtsiv'
     | '/sportyvne-strahuvannya-dlia-triatletiv'
     | '/sportyvne-strahuvannya-dlia-velosypedystiv'
+    | '/strahovka-na-yevronomery'
     | '/strahovka-v-bolhariiu'
     | '/strahovka-v-chekhiiu'
     | '/strahovka-v-chornohoriiu'
@@ -466,6 +519,10 @@ export interface FileRouteTypes {
     | '/'
     | '/auth'
     | '/autostrahuvannya'
+    | '/avtotsyvilka-dlia-elektromobilia'
+    | '/avtotsyvilka-dlia-pensioneriv'
+    | '/avtotsyvilka-dlia-ubd'
+    | '/avtotsyvilka-na-inozemni-nomera'
     | '/contacts'
     | '/faq'
     | '/offer'
@@ -477,6 +534,7 @@ export interface FileRouteTypes {
     | '/sportyvne-strahuvannya-dlia-plavtsiv'
     | '/sportyvne-strahuvannya-dlia-triatletiv'
     | '/sportyvne-strahuvannya-dlia-velosypedystiv'
+    | '/strahovka-na-yevronomery'
     | '/strahovka-v-bolhariiu'
     | '/strahovka-v-chekhiiu'
     | '/strahovka-v-chornohoriiu'
@@ -512,6 +570,10 @@ export interface FileRouteTypes {
     | '/_authenticated'
     | '/auth'
     | '/autostrahuvannya'
+    | '/avtotsyvilka-dlia-elektromobilia'
+    | '/avtotsyvilka-dlia-pensioneriv'
+    | '/avtotsyvilka-dlia-ubd'
+    | '/avtotsyvilka-na-inozemni-nomera'
     | '/contacts'
     | '/faq'
     | '/offer'
@@ -523,6 +585,7 @@ export interface FileRouteTypes {
     | '/sportyvne-strahuvannya-dlia-plavtsiv'
     | '/sportyvne-strahuvannya-dlia-triatletiv'
     | '/sportyvne-strahuvannya-dlia-velosypedystiv'
+    | '/strahovka-na-yevronomery'
     | '/strahovka-v-bolhariiu'
     | '/strahovka-v-chekhiiu'
     | '/strahovka-v-chornohoriiu'
@@ -559,6 +622,10 @@ export interface RootRouteChildren {
   AuthenticatedRouteRoute: typeof AuthenticatedRouteRouteWithChildren
   AuthRoute: typeof AuthRoute
   AutostrahuvannyaRoute: typeof AutostrahuvannyaRoute
+  AvtotsyvilkaDliaElektromobiliaRoute: typeof AvtotsyvilkaDliaElektromobiliaRoute
+  AvtotsyvilkaDliaPensionerivRoute: typeof AvtotsyvilkaDliaPensionerivRoute
+  AvtotsyvilkaDliaUbdRoute: typeof AvtotsyvilkaDliaUbdRoute
+  AvtotsyvilkaNaInozemniNomeraRoute: typeof AvtotsyvilkaNaInozemniNomeraRoute
   ContactsRoute: typeof ContactsRoute
   FaqRoute: typeof FaqRoute
   OfferRoute: typeof OfferRoute
@@ -570,6 +637,7 @@ export interface RootRouteChildren {
   SportyvneStrahuvannyaDliaPlavtsivRoute: typeof SportyvneStrahuvannyaDliaPlavtsivRoute
   SportyvneStrahuvannyaDliaTriatletivRoute: typeof SportyvneStrahuvannyaDliaTriatletivRoute
   SportyvneStrahuvannyaDliaVelosypedystivRoute: typeof SportyvneStrahuvannyaDliaVelosypedystivRoute
+  StrahovkaNaYevronomeryRoute: typeof StrahovkaNaYevronomeryRoute
   StrahovkaVBolhariiuRoute: typeof StrahovkaVBolhariiuRoute
   StrahovkaVChekhiiuRoute: typeof StrahovkaVChekhiiuRoute
   StrahovkaVChornohoriiuRoute: typeof StrahovkaVChornohoriiuRoute
@@ -628,6 +696,34 @@ declare module '@tanstack/react-router' {
       path: '/autostrahuvannya'
       fullPath: '/autostrahuvannya'
       preLoaderRoute: typeof AutostrahuvannyaRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/avtotsyvilka-dlia-elektromobilia': {
+      id: '/avtotsyvilka-dlia-elektromobilia'
+      path: '/avtotsyvilka-dlia-elektromobilia'
+      fullPath: '/avtotsyvilka-dlia-elektromobilia'
+      preLoaderRoute: typeof AvtotsyvilkaDliaElektromobiliaRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/avtotsyvilka-dlia-pensioneriv': {
+      id: '/avtotsyvilka-dlia-pensioneriv'
+      path: '/avtotsyvilka-dlia-pensioneriv'
+      fullPath: '/avtotsyvilka-dlia-pensioneriv'
+      preLoaderRoute: typeof AvtotsyvilkaDliaPensionerivRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/avtotsyvilka-dlia-ubd': {
+      id: '/avtotsyvilka-dlia-ubd'
+      path: '/avtotsyvilka-dlia-ubd'
+      fullPath: '/avtotsyvilka-dlia-ubd'
+      preLoaderRoute: typeof AvtotsyvilkaDliaUbdRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/avtotsyvilka-na-inozemni-nomera': {
+      id: '/avtotsyvilka-na-inozemni-nomera'
+      path: '/avtotsyvilka-na-inozemni-nomera'
+      fullPath: '/avtotsyvilka-na-inozemni-nomera'
+      preLoaderRoute: typeof AvtotsyvilkaNaInozemniNomeraRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/contacts': {
@@ -705,6 +801,13 @@ declare module '@tanstack/react-router' {
       path: '/sportyvne-strahuvannya-dlia-velosypedystiv'
       fullPath: '/sportyvne-strahuvannya-dlia-velosypedystiv'
       preLoaderRoute: typeof SportyvneStrahuvannyaDliaVelosypedystivRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/strahovka-na-yevronomery': {
+      id: '/strahovka-na-yevronomery'
+      path: '/strahovka-na-yevronomery'
+      fullPath: '/strahovka-na-yevronomery'
+      preLoaderRoute: typeof StrahovkaNaYevronomeryRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/strahovka-v-bolhariiu': {
@@ -929,6 +1032,10 @@ const rootRouteChildren: RootRouteChildren = {
   AuthenticatedRouteRoute: AuthenticatedRouteRouteWithChildren,
   AuthRoute: AuthRoute,
   AutostrahuvannyaRoute: AutostrahuvannyaRoute,
+  AvtotsyvilkaDliaElektromobiliaRoute: AvtotsyvilkaDliaElektromobiliaRoute,
+  AvtotsyvilkaDliaPensionerivRoute: AvtotsyvilkaDliaPensionerivRoute,
+  AvtotsyvilkaDliaUbdRoute: AvtotsyvilkaDliaUbdRoute,
+  AvtotsyvilkaNaInozemniNomeraRoute: AvtotsyvilkaNaInozemniNomeraRoute,
   ContactsRoute: ContactsRoute,
   FaqRoute: FaqRoute,
   OfferRoute: OfferRoute,
@@ -943,6 +1050,7 @@ const rootRouteChildren: RootRouteChildren = {
     SportyvneStrahuvannyaDliaTriatletivRoute,
   SportyvneStrahuvannyaDliaVelosypedystivRoute:
     SportyvneStrahuvannyaDliaVelosypedystivRoute,
+  StrahovkaNaYevronomeryRoute: StrahovkaNaYevronomeryRoute,
   StrahovkaVBolhariiuRoute: StrahovkaVBolhariiuRoute,
   StrahovkaVChekhiiuRoute: StrahovkaVChekhiiuRoute,
   StrahovkaVChornohoriiuRoute: StrahovkaVChornohoriiuRoute,

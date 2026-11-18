@@ -4,6 +4,11 @@
 const CURRENT_PATHS = new Set([
   "/",
   "/autostrahuvannya",
+  "/avtotsyvilka-dlia-ubd",
+  "/avtotsyvilka-dlia-pensioneriv",
+  "/avtotsyvilka-dlia-elektromobilia",
+  "/avtotsyvilka-na-inozemni-nomera",
+  "/strahovka-na-yevronomery",
   "/zelena-karta",
   "/zelena-karta-polshcha",
   "/zelena-karta-moldova",

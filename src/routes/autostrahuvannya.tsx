@@ -1,5 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { ProductPage } from "@/components/templates/product-page";
+import { AutoAudiencesLinks } from "@/components/templates/auto-audience-page";
 import { products } from "@/content/site";
 import { breadcrumbScript } from "@/lib/jsonld";
 
@@ -40,5 +41,7 @@ export const Route = createFileRoute("/autostrahuvannya")({
       ]),
     ],
   }),
-  component: () => <ProductPage content={products.auto} product="auto" />,
+  component: () => (
+    <ProductPage content={products.auto} product="auto" extra={<AutoAudiencesLinks />} />
+  ),
 });
