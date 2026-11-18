@@ -19,7 +19,39 @@ const PRODUCT_LINKS: { pattern: RegExp; to: string }[] = [
   { pattern: /спортивн[аеомуі]+\s+страхуванн[яюі]/i, to: "/sportyvne-strahuvannya" },
 ];
 
-function linkifyParagraph(text: string, linked: Set<string>) {
+type ContactLinks = { telegramUrl: string; phoneHref: string };
+
+function linkifyContacts(text: string, links: ContactLinks) {
+  return text.split(/(@Andres_K|\+380664688151)/g).map((part, index) => {
+    if (part === "@Andres_K") {
+      return (
+        <a
+          key={`telegram-${index}`}
+          href={links.telegramUrl}
+          target="_blank"
+          rel="noreferrer"
+          className="font-medium text-primary underline underline-offset-2 hover:text-primary/80"
+        >
+          {part}
+        </a>
+      );
+    }
+    if (part === "+380664688151") {
+      return (
+        <a
+          key={`phone-${index}`}
+          href={links.phoneHref}
+          className="font-medium text-primary underline underline-offset-2 hover:text-primary/80"
+        >
+          {part}
+        </a>
+      );
+    }
+    return part;
+  });
+}
+
+function linkifyParagraph(text: string, linked: Set<string>, contactLinks: ContactLinks) {
   for (const { pattern, to } of PRODUCT_LINKS) {
     if (linked.has(to)) continue;
     const match = text.match(pattern);
@@ -27,15 +59,15 @@ function linkifyParagraph(text: string, linked: Set<string>) {
     linked.add(to);
     return (
       <>
-        {text.slice(0, match.index)}
+        {linkifyContacts(text.slice(0, match.index), contactLinks)}
         <Link to={to} className="font-medium text-primary underline underline-offset-2 hover:text-primary/80">
           {match[0]}
         </Link>
-        {text.slice(match.index + match[0].length)}
+        {linkifyContacts(text.slice(match.index + match[0].length), contactLinks)}
       </>
     );
   }
-  return text;
+  return linkifyContacts(text, contactLinks);
 }
 
 export const Route = createFileRoute("/blog/$slug")({
@@ -103,6 +135,7 @@ function BlogPostPage() {
   const post = Route.useLoaderData();
   const site = useSiteSettings();
   const phoneHref = `tel:${site.phone_primary.replace(/[^+\d]/g, "")}`;
+  const contactLinks = { telegramUrl: site.telegram_url, phoneHref };
   const paragraphs = post.content.split("\n").filter((line) => line.trim().length > 0);
 
   return (
@@ -139,7 +172,7 @@ function BlogPostPage() {
                     {line.slice(3)}
                   </h2>
                 ) : (
-                  <p key={i}>{linkifyParagraph(line, linked)}</p>
+                  <p key={i}>{linkifyParagraph(line, linked, contactLinks)}</p>
                 ),
               );
             })()}
