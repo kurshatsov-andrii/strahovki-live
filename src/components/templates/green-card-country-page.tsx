@@ -3,6 +3,7 @@ import { PageHero } from "@/components/sections/hero";
 import { ContactFormSection } from "@/components/sections/contact";
 import { ConsultantSection } from "@/components/sections/consultant";
 import { CtaCallSection } from "@/components/sections/cta-call";
+import { GreenCardRestrictions } from "@/components/sections/green-card-restrictions";
 import { breadcrumbScript } from "@/lib/jsonld";
 import {
   greenCardCountries,
@@ -101,6 +102,7 @@ export function GreenCardCountryPage({ country: c }: { country: GreenCardCountry
           </div>
         </div>
       </section>
+      <GreenCardRestrictions />
       <ConsultantSection />
       <CtaCallSection />
       <ContactFormSection title={`Зелена карта для ${c.gen}`} subtitle="Залиште заявку — розрахую вартість і особисто оформлю ваш поліс." />

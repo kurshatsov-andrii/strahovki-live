@@ -1,4 +1,8 @@
 import { z } from "zod";
+import {
+  GREEN_CARD_RESTRICTED_VEHICLE_MESSAGE,
+  isGreenCardRestrictedVehicle,
+} from "@/lib/green-card-restrictions";
 
 const phoneRegex = /^\+?[0-9\s()\-]{10,20}$/;
 const nameRegex = /^[А-ЯҐЄІЇа-яґєіїA-Za-z'’\- ]+$/;
@@ -209,7 +213,11 @@ export const greenCardLeadSchema = z
     (data) =>
       data.doc_type.toLowerCase().includes("id") || Boolean(data.doc_series?.trim()),
     { message: "Вкажіть серію документа", path: ["doc_series"] },
-  );
+  )
+  .refine((data) => !isGreenCardRestrictedVehicle(data.car_brand, data.car_model), {
+    message: GREEN_CARD_RESTRICTED_VEHICLE_MESSAGE,
+    path: ["car_model"],
+  });
 
 const anyText = (min: number, max: number, label = "Заповніть поле") =>
   z.string().trim().min(min, min <= 1 ? label : `Мінімум ${min} символи`).max(max, `Максимум ${max} символів`);

@@ -11,6 +11,7 @@ import { ConsultantSection } from "@/components/sections/consultant";
 import { PolicyCheckSection } from "@/components/sections/policy-check";
 import { CoverageSection } from "@/components/sections/coverage-section";
 import { CtaCallSection } from "@/components/sections/cta-call";
+import { GreenCardRestrictions } from "@/components/sections/green-card-restrictions";
 import type { ProductPageContent } from "@/content/site";
 import type { ProductKey } from "@/lib/insurance";
 
@@ -32,6 +33,8 @@ export function ProductPage({
       />
 
       <InsuranceCalculator product={product} />
+
+      {product === "green_card" && <GreenCardRestrictions />}
 
       <ConsultantSection variant="compact" />
 

@@ -5,6 +5,10 @@ import type { Database } from "@/integrations/supabase/types";
 import { computePrice, type Coefficients, type ProductKey } from "@/lib/insurance";
 import { autoPolicyPrice } from "@/lib/auto-tariffs";
 import { travelPolicyPrice } from "@/lib/travel-tariffs";
+import {
+  GREEN_CARD_RESTRICTED_VEHICLE_MESSAGE,
+  isGreenCardRestrictedVehicle,
+} from "@/lib/green-card-restrictions";
 
 function createPublicClient() {
   const key = process.env["SUPABASE_PUBLISHABLE_KEY"]!;
@@ -72,16 +76,23 @@ export const getQuotes = createServerFn({ method: "POST" })
       .sort((a, b) => a.price - b.price);
   });
 
-const leadSchema = z.object({
-  name: z.string().trim().min(2, "Вкажіть ім'я").max(100),
-  phone: z.string().trim().min(6, "Вкажіть телефон").max(30),
-  email: z.string().trim().email("Некоректний email").max(255),
-  product: productEnum.optional(),
-  params: z.record(z.string(), z.string().max(300)).default({}),
-  company: z.string().trim().max(100).optional(),
-  price: z.number().nonnegative().max(10_000_000).optional(),
-  message: z.string().trim().max(1000).optional(),
-});
+const leadSchema = z
+  .object({
+    name: z.string().trim().min(2, "Вкажіть ім'я").max(100),
+    phone: z.string().trim().min(6, "Вкажіть телефон").max(30),
+    email: z.string().trim().email("Некоректний email").max(255),
+    product: productEnum.optional(),
+    params: z.record(z.string(), z.string().max(300)).default({}),
+    company: z.string().trim().max(100).optional(),
+    price: z.number().nonnegative().max(10_000_000).optional(),
+    message: z.string().trim().max(1000).optional(),
+  })
+  .refine(
+    (data) =>
+      data.product !== "green_card" ||
+      !isGreenCardRestrictedVehicle(data.params["car_brand"], data.params["car_model"]),
+    { message: GREEN_CARD_RESTRICTED_VEHICLE_MESSAGE, path: ["params", "car_model"] },
+  );
 
 export const submitLead = createServerFn({ method: "POST" })
   .inputValidator((input: unknown) => leadSchema.parse(input))

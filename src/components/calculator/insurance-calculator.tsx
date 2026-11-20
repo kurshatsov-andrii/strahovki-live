@@ -46,6 +46,10 @@ import {
 } from "@/lib/insurance";
 import { citiesForRegion, defaultCityForRegion, ukraineRegionOptions } from "@/lib/ukraine-regions";
 import { autoPrivilegeOptions } from "@/lib/auto-tariffs";
+import {
+  GREEN_CARD_RESTRICTED_VEHICLE_MESSAGE,
+  isGreenCardRestrictedVehicle,
+} from "@/lib/green-card-restrictions";
 
 import { FieldError } from "@/components/ui/field-error";
 import { DateField } from "@/components/ui/date-field";
@@ -667,10 +671,20 @@ function LeadDialog({
   );
   const [errors, setErrors] = useState<Record<string, string>>({});
   const [dateValues, setDateValues] = useState<Record<string, string>>({});
+  const [greenCardVehicle, setGreenCardVehicle] = useState({
+    car_brand: "",
+    car_model: "",
+  });
+  const restrictedGreenCardVehicle =
+    isGreenCard &&
+    isGreenCardRestrictedVehicle(greenCardVehicle.car_brand, greenCardVehicle.car_model);
   const submitFn = useServerFn(submitLead);
 
   useEffect(() => {
-    if (quote) setDateValues({});
+    if (quote) {
+      setDateValues({});
+      setGreenCardVehicle({ car_brand: "", car_model: "" });
+    }
   }, [quote]);
 
   const mutation = useMutation({
@@ -786,6 +800,10 @@ function LeadDialog({
               )}
               {visibleFields.map((field) => {
                 const isDate = field.kind === "date";
+                const greenCardVehicleField =
+                  isGreenCard && (field.name === "car_brand" || field.name === "car_model")
+                    ? field.name
+                    : null;
                 return (
                   <div key={field.name} className="space-y-2">
                     <Label htmlFor={`lead-${field.name}`}>{field.label}</Label>
@@ -826,11 +844,37 @@ function LeadDialog({
                           id={`lead-${field.name}`}
                           name={field.name}
                           maxLength={200}
-                          aria-invalid={Boolean(errors[field.name])}
+                          aria-invalid={
+                            Boolean(errors[field.name]) ||
+                            (field.name === "car_model" && restrictedGreenCardVehicle)
+                          }
+                          aria-describedby={
+                            field.name === "car_model" && restrictedGreenCardVehicle
+                              ? "green-card-vehicle-restriction"
+                              : undefined
+                          }
                           type={field.kind === "tel" ? "tel" : "text"}
                           list={field.kind === "combo" ? `list-${field.name}` : undefined}
                           placeholder={field.placeholder}
-                          defaultValue={field.name === "country" ? (params["country"] ?? "") : undefined}
+                          value={
+                            greenCardVehicleField
+                              ? greenCardVehicle[greenCardVehicleField]
+                              : undefined
+                          }
+                          defaultValue={
+                            !greenCardVehicleField && field.name === "country"
+                              ? (params["country"] ?? "")
+                              : undefined
+                          }
+                          onChange={
+                            greenCardVehicleField
+                              ? (event) =>
+                                  setGreenCardVehicle((prev) => ({
+                                    ...prev,
+                                    [greenCardVehicleField]: event.target.value,
+                                  }))
+                              : undefined
+                          }
                         />
                         {field.kind === "combo" && (
                           <datalist id={`list-${field.name}`}>
@@ -845,6 +889,15 @@ function LeadDialog({
                       <p className="text-xs text-muted-foreground">{field.hint}</p>
                     )}
                     <FieldError message={errors[field.name]} />
+                    {field.name === "car_model" && restrictedGreenCardVehicle && (
+                      <p
+                        id="green-card-vehicle-restriction"
+                        role="alert"
+                        className="rounded-lg border border-destructive/30 bg-destructive/5 p-3 text-sm font-semibold text-destructive"
+                      >
+                        {GREEN_CARD_RESTRICTED_VEHICLE_MESSAGE}
+                      </p>
+                    )}
                   </div>
                 );
               })}
@@ -899,7 +952,11 @@ function LeadDialog({
             />
             <FieldError message={errors["message"]} />
           </div>
-          <Button type="submit" className="w-full" disabled={mutation.isPending}>
+          <Button
+            type="submit"
+            className="w-full"
+            disabled={mutation.isPending || restrictedGreenCardVehicle}
+          >
             {mutation.isPending && <Loader2 className="mr-2 size-4 animate-spin" />}
             {isDetailed ? "Оформити поліс" : "Надіслати заявку"}
           </Button>
