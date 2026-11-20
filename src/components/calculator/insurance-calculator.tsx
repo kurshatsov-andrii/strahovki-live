@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from "react";
+import { Fragment, useEffect, useMemo, useState } from "react";
 import { useMutation } from "@tanstack/react-query";
 import { useServerFn } from "@tanstack/react-start";
 import { Link } from "@tanstack/react-router";
@@ -65,6 +65,7 @@ import {
   autoApplicantFields,
   greenCardApplicantFields,
   sportApplicantFields,
+  sportChildApplicantFields,
   travelApplicantFields,
   type ApplicantField,
 } from "@/lib/applicant-fields";
@@ -655,8 +656,13 @@ function LeadDialog({
   const isGreenCard = product === "green_card";
   const isAutoLead = product === "auto";
   const isTravelLead = product === "travel";
+  const [isChildPolicy, setIsChildPolicy] = useState(false);
   const detailedFields: ApplicantField[] = isSport
-    ? sportApplicantFields
+    ? [
+        ...sportApplicantFields.slice(0, 5),
+        ...(isChildPolicy ? sportChildApplicantFields : []),
+        ...sportApplicantFields.slice(5),
+      ]
     : isGreenCard
       ? greenCardApplicantFields
       : isAutoLead
@@ -678,12 +684,21 @@ function LeadDialog({
   const restrictedGreenCardVehicle =
     isGreenCard &&
     isGreenCardRestrictedVehicle(greenCardVehicle.car_brand, greenCardVehicle.car_model);
+  const clearFieldError = (fieldName: string) => {
+    setErrors((prev) => {
+      if (!prev[fieldName]) return prev;
+      const next = { ...prev };
+      delete next[fieldName];
+      return next;
+    });
+  };
   const submitFn = useServerFn(submitLead);
 
   useEffect(() => {
     if (quote) {
       setDateValues({});
       setGreenCardVehicle({ car_brand: "", car_model: "" });
+      setIsChildPolicy(false);
     }
   }, [quote]);
 
@@ -769,6 +784,7 @@ function LeadDialog({
               const value = String(raw[field.name] ?? "").trim();
               if (value) extra[field.name] = value;
             }
+            if (isSport && isChildPolicy) extra["is_child"] = "true";
 
             mutation.mutate({
               name: isDetailed
@@ -792,6 +808,28 @@ function LeadDialog({
                       ? "Для оформлення туристичного полісу заповніть дані застрахованого. Посилання на оплату надішлемо у Viber."
                       : "Для оформлення зеленої карти заповніть дані страхувальника, документа та транспортного засобу."}
               </p>
+              {isSport && (
+                <div className="rounded-xl border border-border bg-card p-4">
+                  <label className="flex cursor-pointer items-center gap-3 font-semibold">
+                    <input
+                      type="checkbox"
+                      name="is_child"
+                      value="true"
+                      checked={isChildPolicy}
+                      onChange={(event) => {
+                        setIsChildPolicy(event.target.checked);
+                        setErrors({});
+                      }}
+                      className="size-4 shrink-0 accent-primary"
+                    />
+                    <span>Оформлюється на дитину</span>
+                  </label>
+                  <p className="mt-2 text-xs text-muted-foreground">
+                    Після вибору з’являться поля для дитини. ІПН дитини та дорослого —
+                    необов’язковий.
+                  </p>
+                </div>
+              )}
               {isGreenCard && (
                 <p className="rounded-xl border border-primary/30 bg-primary/5 p-3 text-sm font-semibold text-primary">
                   Увага: всі дані вписуйте ТІЛЬКИ англійськими літерами (латиницею) — так вони
@@ -805,8 +843,22 @@ function LeadDialog({
                     ? field.name
                     : null;
                 return (
-                  <div key={field.name} className="space-y-2">
-                    <Label htmlFor={`lead-${field.name}`}>{field.label}</Label>
+                  <Fragment key={field.name}>
+                    {isSport && isChildPolicy && field.name === "last_name" && (
+                      <h3 className="pt-2 text-lg font-bold">Дані дорослого страхувальника</h3>
+                    )}
+                    {isSport && isChildPolicy && field.name === "child_last_name" && (
+                      <h3 className="pt-4 text-lg font-bold">Дані дитини</h3>
+                    )}
+                    {isSport && isChildPolicy && field.name === "passport_number" && (
+                      <h3 className="pt-4 text-lg font-bold">Документи та контакти дорослого</h3>
+                    )}
+                    <div className="space-y-2">
+                    <Label htmlFor={`lead-${field.name}`}>
+                      {isSport && isChildPolicy && field.name === "tax_id"
+                        ? "ІПН дорослого страхувальника (необов'язково)"
+                        : field.label}
+                    </Label>
                     {field.kind === "select" ? (
                       <select
                         id={`lead-${field.name}`}
@@ -834,9 +886,10 @@ function LeadDialog({
                         invalid={Boolean(errors[field.name])}
                         placeholder={field.placeholder ?? "дд.мм.рррр"}
                         value={dateValues[field.name] ?? ""}
-                        onChange={(value: string) =>
-                          setDateValues((prev) => ({ ...prev, [field.name]: value }))
-                        }
+                        onChange={(value: string) => {
+                          setDateValues((prev) => ({ ...prev, [field.name]: value }));
+                          clearFieldError(field.name);
+                        }}
                       />
                     ) : (
                       <>
@@ -866,15 +919,15 @@ function LeadDialog({
                               ? (params["country"] ?? "")
                               : undefined
                           }
-                          onChange={
-                            greenCardVehicleField
-                              ? (event) =>
-                                  setGreenCardVehicle((prev) => ({
-                                    ...prev,
-                                    [greenCardVehicleField]: event.target.value,
-                                  }))
-                              : undefined
-                          }
+                          onChange={(event) => {
+                            if (greenCardVehicleField) {
+                              setGreenCardVehicle((prev) => ({
+                                ...prev,
+                                [greenCardVehicleField]: event.target.value,
+                              }));
+                            }
+                            clearFieldError(field.name);
+                          }}
                         />
                         {field.kind === "combo" && (
                           <datalist id={`list-${field.name}`}>
@@ -898,7 +951,8 @@ function LeadDialog({
                         {GREEN_CARD_RESTRICTED_VEHICLE_MESSAGE}
                       </p>
                     )}
-                  </div>
+                    </div>
+                  </Fragment>
                 );
               })}
             </>

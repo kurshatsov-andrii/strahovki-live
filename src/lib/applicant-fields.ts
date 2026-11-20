@@ -27,6 +27,24 @@ export const sportApplicantFields: ApplicantField[] = [
   },
 ];
 
+export const sportChildApplicantFields: ApplicantField[] = [
+  { name: "child_last_name", label: "Прізвище дитини", placeholder: "Куршацов" },
+  { name: "child_first_name", label: "Ім'я дитини", placeholder: "Андрій" },
+  { name: "child_middle_name", label: "По батькові дитини", placeholder: "Іванович" },
+  {
+    name: "child_birth_date",
+    label: "Повна дата народження дитини",
+    kind: "date",
+    dateMode: "past",
+    placeholder: "дд.мм.рррр",
+  },
+  {
+    name: "child_tax_id",
+    label: "ІПН дитини (необов'язково)",
+    placeholder: "10 цифр, якщо є",
+  },
+];
+
 export const carBrands = [
   "AUDI",
   "BMW",

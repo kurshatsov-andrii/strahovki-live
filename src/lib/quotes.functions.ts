@@ -92,7 +92,41 @@ const leadSchema = z
       data.product !== "green_card" ||
       !isGreenCardRestrictedVehicle(data.params["car_brand"], data.params["car_model"]),
     { message: GREEN_CARD_RESTRICTED_VEHICLE_MESSAGE, path: ["params", "car_model"] },
-  );
+  )
+  .superRefine((data, context) => {
+    if (data.product !== "sport" || data.params["is_child"] !== "true") return;
+
+    const requiredChildFields = [
+      ["child_last_name", "Вкажіть прізвище дитини"],
+      ["child_first_name", "Вкажіть ім'я дитини"],
+      ["child_middle_name", "Вкажіть по батькові дитини"],
+      ["child_birth_date", "Вкажіть повну дату народження дитини"],
+    ] as const;
+    for (const [field, message] of requiredChildFields) {
+      if (!data.params[field]?.trim()) {
+        context.addIssue({ code: z.ZodIssueCode.custom, message, path: ["params", field] });
+      }
+    }
+
+    const childBirthDate = data.params["child_birth_date"];
+    if (childBirthDate && !/^\d{2}\.\d{2}\.\d{4}$/.test(childBirthDate)) {
+      context.addIssue({
+        code: z.ZodIssueCode.custom,
+        message: "Дата народження дитини має бути у форматі дд.мм.рррр",
+        path: ["params", "child_birth_date"],
+      });
+    }
+    for (const field of ["tax_id", "child_tax_id"] as const) {
+      const value = data.params[field]?.trim();
+      if (value && !/^\d{10}$/.test(value)) {
+        context.addIssue({
+          code: z.ZodIssueCode.custom,
+          message: "ІПН має містити 10 цифр",
+          path: ["params", field],
+        });
+      }
+    }
+  });
 
 export const submitLead = createServerFn({ method: "POST" })
   .inputValidator((input: unknown) => leadSchema.parse(input))

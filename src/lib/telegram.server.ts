@@ -43,8 +43,9 @@ export function buildLeadMessage(lead: LeadNotification) {
       `⚙️ <b>Параметри:</b>\n${params
         .map(([k, v]) => {
           const label = extraParamLabels[k] ?? k;
-          const display =
-            (k === "birth_date" || k === "passport_date")
+          const display = k === "is_child"
+            ? v === "true" ? "Так" : "Ні"
+            : (k === "birth_date" || k === "child_birth_date" || k === "passport_date")
               ? formatDisplayDate(String(v)) ?? String(v)
               : String(v);
           return escapeHtml(`• ${label}: ${display}`);

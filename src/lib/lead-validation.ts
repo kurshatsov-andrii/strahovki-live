@@ -71,41 +71,79 @@ function isValidDate(value: string, { maxToday = true, minYear = 1900 } = {}) {
   return true;
 }
 
-export const sportLeadSchema = z.object({
-  last_name: personNameField,
-  first_name: personNameField,
-  middle_name: personNameField,
-  birth_date: z
-    .string()
-    .trim()
-    .min(1, "Вкажіть дату народження")
-    .refine((v) => isValidDate(v), "Некоректна дата. Формат: дд.мм.рррр")
-    .refine((v) => {
-      const d = parseDMY(v);
-      if (!d) return false;
-      const age = (Date.now() - d.getTime()) / (365.25 * 24 * 3600 * 1000);
-      return age >= 1 && age <= 100;
-    }, "Вік має бути від 1 до 100 років"),
-  tax_id: z
-    .string()
-    .trim()
-    .regex(/^\d{10}$/, "ІПН має містити 10 цифр"),
-  passport_number: z
-    .string()
-    .trim()
-    .min(6, "Мінімум 6 символів")
-    .max(30, "Максимум 30 символів"),
-  passport_issuer: z.string().trim().min(3, "Мінімум 3 символи").max(200, "Максимум 200 символів"),
-  passport_date: z
-    .string()
-    .trim()
-    .min(1, "Вкажіть дату видачі")
-    .refine((v) => isValidDate(v), "Некоректна дата. Формат: дд.мм.рррр"),
-  address: z.string().trim().min(5, "Вкажіть повну адресу").max(200, "Максимум 200 символів"),
-  viber_phone: phoneField,
-  email: emailField,
-  message: messageField,
-});
+const optionalTaxId = z
+  .string()
+  .trim()
+  .refine((value) => value === "" || /^\d{10}$/.test(value), "ІПН має містити 10 цифр")
+  .optional();
+
+const optionalChildName = personNameField.optional();
+const optionalChildBirthDate = z
+  .string()
+  .trim()
+  .refine((value) => value === "" || isValidDate(value), "Некоректна дата. Формат: дд.мм.рррр")
+  .optional();
+
+export const sportLeadSchema = z
+  .object({
+    is_child: z.string().optional(),
+    last_name: personNameField,
+    first_name: personNameField,
+    middle_name: personNameField,
+    birth_date: z
+      .string()
+      .trim()
+      .min(1, "Вкажіть дату народження")
+      .refine((v) => isValidDate(v), "Некоректна дата. Формат: дд.мм.рррр")
+      .refine((v) => {
+        const d = parseDMY(v);
+        if (!d) return false;
+        const age = (Date.now() - d.getTime()) / (365.25 * 24 * 3600 * 1000);
+        return age >= 1 && age <= 100;
+      }, "Вік має бути від 1 до 100 років"),
+    tax_id: optionalTaxId,
+    child_last_name: optionalChildName,
+    child_first_name: optionalChildName,
+    child_middle_name: optionalChildName,
+    child_birth_date: optionalChildBirthDate,
+    child_tax_id: optionalTaxId,
+    passport_number: z
+      .string()
+      .trim()
+      .min(6, "Мінімум 6 символів")
+      .max(30, "Максимум 30 символів"),
+    passport_issuer: z.string().trim().min(3, "Мінімум 3 символи").max(200, "Максимум 200 символів"),
+    passport_date: z
+      .string()
+      .trim()
+      .min(1, "Вкажіть дату видачі")
+      .refine((v) => isValidDate(v), "Некоректна дата. Формат: дд.мм.рррр"),
+    address: z.string().trim().min(5, "Вкажіть повну адресу").max(200, "Максимум 200 символів"),
+    viber_phone: phoneField,
+    email: emailField,
+    message: messageField,
+  })
+  .superRefine((data, context) => {
+    const isChild = data.is_child === "true";
+    if (!isChild && !data.tax_id) {
+      context.addIssue({
+        code: z.ZodIssueCode.custom,
+        message: "Вкажіть ІПН",
+        path: ["tax_id"],
+      });
+    }
+    if (!isChild) return;
+
+    const requiredChildFields = [
+      ["child_last_name", data.child_last_name, "Вкажіть прізвище дитини"],
+      ["child_first_name", data.child_first_name, "Вкажіть ім'я дитини"],
+      ["child_middle_name", data.child_middle_name, "Вкажіть по батькові дитини"],
+      ["child_birth_date", data.child_birth_date, "Вкажіть повну дату народження дитини"],
+    ] as const;
+    for (const [field, value, message] of requiredChildFields) {
+      if (!value) context.addIssue({ code: z.ZodIssueCode.custom, message, path: [field] });
+    }
+  });
 
 export function fieldErrors(error: z.ZodError): Record<string, string> {
   const result: Record<string, string> = {};

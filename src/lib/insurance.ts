@@ -802,6 +802,12 @@ export const extraParamLabels: Record<string, string> = {
   middle_name: "По батькові",
   birth_date: "Дата народження",
   tax_id: "Ідентифікаційний код",
+  is_child: "Оформлення на дитину",
+  child_last_name: "Прізвище дитини",
+  child_first_name: "Ім'я дитини",
+  child_middle_name: "По батькові дитини",
+  child_birth_date: "Дата народження дитини",
+  child_tax_id: "ІПН дитини",
   passport_number: "Номер паспорта",
   passport_issuer: "Ким виданий паспорт",
   passport_date: "Коли виданий паспорт",
@@ -840,6 +846,7 @@ export const extraParamLabels: Record<string, string> = {
 
 const dateKeys = new Set([
   "birth_date",
+  "child_birth_date",
   "passport_date",
   "doc_date",
   "start_date",
@@ -899,8 +906,11 @@ export function describeAllParams(
     .map(([key, value]) => {
       const label = extraParamLabels[key] ?? key;
       const raw = String(value);
-      const display =
-        dateKeys.has(key) || isoDateRegex.test(raw) ? formatDisplayDate(raw) ?? raw : raw;
+      const display = key === "is_child"
+        ? raw === "true" ? "Так" : "Ні"
+        : dateKeys.has(key) || isoDateRegex.test(raw)
+          ? formatDisplayDate(raw) ?? raw
+          : raw;
       return `${label}: ${display}`;
     });
   return [...base, ...rest];
