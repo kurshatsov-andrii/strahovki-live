@@ -825,8 +825,8 @@ function LeadDialog({
                     <span>Оформлюється на дитину</span>
                   </label>
                   <p className="mt-2 text-xs text-muted-foreground">
-                    Після вибору з’являться поля для дитини. ІПН дитини та дорослого —
-                    необов’язковий.
+                    Після вибору з’являться поля для дитини. ІПН дитини — необов’язковий,
+                    ІПН дорослого страхувальника заповнюється обов’язково.
                   </p>
                 </div>
               )}
@@ -856,7 +856,7 @@ function LeadDialog({
                     <div className="space-y-2">
                     <Label htmlFor={`lead-${field.name}`}>
                       {isSport && isChildPolicy && field.name === "tax_id"
-                        ? "ІПН дорослого страхувальника (необов'язково)"
+                        ? "ІПН дорослого страхувальника"
                         : field.label}
                     </Label>
                     {field.kind === "select" ? (

@@ -77,6 +77,12 @@ const optionalTaxId = z
   .refine((value) => value === "" || /^\d{10}$/.test(value), "ІПН має містити 10 цифр")
   .optional();
 
+const requiredTaxId = z
+  .string()
+  .trim()
+  .min(1, "Вкажіть ІПН")
+  .regex(/^\d{10}$/, "ІПН має містити 10 цифр");
+
 const optionalChildName = personNameField.optional();
 const optionalChildBirthDate = z
   .string()
@@ -101,7 +107,7 @@ export const sportLeadSchema = z
         const age = (Date.now() - d.getTime()) / (365.25 * 24 * 3600 * 1000);
         return age >= 1 && age <= 100;
       }, "Вік має бути від 1 до 100 років"),
-    tax_id: optionalTaxId,
+    tax_id: requiredTaxId,
     child_last_name: optionalChildName,
     child_first_name: optionalChildName,
     child_middle_name: optionalChildName,
@@ -125,13 +131,6 @@ export const sportLeadSchema = z
   })
   .superRefine((data, context) => {
     const isChild = data.is_child === "true";
-    if (!isChild && !data.tax_id) {
-      context.addIssue({
-        code: z.ZodIssueCode.custom,
-        message: "Вкажіть ІПН",
-        path: ["tax_id"],
-      });
-    }
     if (!isChild) return;
 
     const requiredChildFields = [

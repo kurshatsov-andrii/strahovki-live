@@ -34,11 +34,20 @@ describe("sport insurance for a child", () => {
     expect(!result.success && result.error.issues.some((issue) => issue.path[0] === "tax_id")).toBe(true);
   });
 
-  it("accepts a child application with both tax IDs left empty", () => {
+  it("requires the adult tax ID even when the application is for a child", () => {
     const result = sportLeadSchema.safeParse({
       ...validAdult,
       ...validChild,
       tax_id: "",
+    });
+    expect(result.success).toBe(false);
+    expect(!result.success && result.error.issues.some((issue) => issue.path[0] === "tax_id")).toBe(true);
+  });
+
+  it("accepts a child application with the child tax ID left empty", () => {
+    const result = sportLeadSchema.safeParse({
+      ...validAdult,
+      ...validChild,
     });
     expect(result.success).toBe(true);
   });
