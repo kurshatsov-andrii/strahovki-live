@@ -44,6 +44,10 @@ import { Route as TsinyRouteImport } from './routes/tsiny'
 import { Route as TurystychneStrahuvannyaRouteImport } from './routes/turystychne-strahuvannya'
 import { Route as VidhukyRouteImport } from './routes/vidhuky'
 import { Route as ZelenaKartaRouteImport } from './routes/zelena-karta'
+import { Route as ZelenaKartaBolhariiaRouteImport } from './routes/zelena-karta-bolhariia'
+import { Route as ZelenaKartaFrantsiiaRouteImport } from './routes/zelena-karta-frantsiia'
+import { Route as ZelenaKartaIspaniiaRouteImport } from './routes/zelena-karta-ispaniia'
+import { Route as ZelenaKartaItaliiaRouteImport } from './routes/zelena-karta-italiia'
 import { Route as ZelenaKartaMoldovaRouteImport } from './routes/zelena-karta-moldova'
 import { Route as ZelenaKartaNimechchynaRouteImport } from './routes/zelena-karta-nimechchyna'
 import { Route as ZelenaKartaPolshchaRouteImport } from './routes/zelena-karta-polshcha'
@@ -239,6 +243,26 @@ const ZelenaKartaRoute = ZelenaKartaRouteImport.update({
   path: '/zelena-karta',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ZelenaKartaBolhariiaRoute = ZelenaKartaBolhariiaRouteImport.update({
+  id: '/zelena-karta-bolhariia',
+  path: '/zelena-karta-bolhariia',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ZelenaKartaFrantsiiaRoute = ZelenaKartaFrantsiiaRouteImport.update({
+  id: '/zelena-karta-frantsiia',
+  path: '/zelena-karta-frantsiia',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ZelenaKartaIspaniiaRoute = ZelenaKartaIspaniiaRouteImport.update({
+  id: '/zelena-karta-ispaniia',
+  path: '/zelena-karta-ispaniia',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ZelenaKartaItaliiaRoute = ZelenaKartaItaliiaRouteImport.update({
+  id: '/zelena-karta-italiia',
+  path: '/zelena-karta-italiia',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const ZelenaKartaMoldovaRoute = ZelenaKartaMoldovaRouteImport.update({
   id: '/zelena-karta-moldova',
   path: '/zelena-karta-moldova',
@@ -340,6 +364,10 @@ export interface FileRoutesByFullPath {
   '/turystychne-strahuvannya': typeof TurystychneStrahuvannyaRoute
   '/vidhuky': typeof VidhukyRoute
   '/zelena-karta': typeof ZelenaKartaRoute
+  '/zelena-karta-bolhariia': typeof ZelenaKartaBolhariiaRoute
+  '/zelena-karta-frantsiia': typeof ZelenaKartaFrantsiiaRoute
+  '/zelena-karta-ispaniia': typeof ZelenaKartaIspaniiaRoute
+  '/zelena-karta-italiia': typeof ZelenaKartaItaliiaRoute
   '/zelena-karta-moldova': typeof ZelenaKartaMoldovaRoute
   '/zelena-karta-nimechchyna': typeof ZelenaKartaNimechchynaRoute
   '/zelena-karta-polshcha': typeof ZelenaKartaPolshchaRoute
@@ -389,6 +417,10 @@ export interface FileRoutesByTo {
   '/turystychne-strahuvannya': typeof TurystychneStrahuvannyaRoute
   '/vidhuky': typeof VidhukyRoute
   '/zelena-karta': typeof ZelenaKartaRoute
+  '/zelena-karta-bolhariia': typeof ZelenaKartaBolhariiaRoute
+  '/zelena-karta-frantsiia': typeof ZelenaKartaFrantsiiaRoute
+  '/zelena-karta-ispaniia': typeof ZelenaKartaIspaniiaRoute
+  '/zelena-karta-italiia': typeof ZelenaKartaItaliiaRoute
   '/zelena-karta-moldova': typeof ZelenaKartaMoldovaRoute
   '/zelena-karta-nimechchyna': typeof ZelenaKartaNimechchynaRoute
   '/zelena-karta-polshcha': typeof ZelenaKartaPolshchaRoute
@@ -440,6 +472,10 @@ export interface FileRoutesById {
   '/turystychne-strahuvannya': typeof TurystychneStrahuvannyaRoute
   '/vidhuky': typeof VidhukyRoute
   '/zelena-karta': typeof ZelenaKartaRoute
+  '/zelena-karta-bolhariia': typeof ZelenaKartaBolhariiaRoute
+  '/zelena-karta-frantsiia': typeof ZelenaKartaFrantsiiaRoute
+  '/zelena-karta-ispaniia': typeof ZelenaKartaIspaniiaRoute
+  '/zelena-karta-italiia': typeof ZelenaKartaItaliiaRoute
   '/zelena-karta-moldova': typeof ZelenaKartaMoldovaRoute
   '/zelena-karta-nimechchyna': typeof ZelenaKartaNimechchynaRoute
   '/zelena-karta-polshcha': typeof ZelenaKartaPolshchaRoute
@@ -491,6 +527,10 @@ export interface FileRouteTypes {
     | '/turystychne-strahuvannya'
     | '/vidhuky'
     | '/zelena-karta'
+    | '/zelena-karta-bolhariia'
+    | '/zelena-karta-frantsiia'
+    | '/zelena-karta-ispaniia'
+    | '/zelena-karta-italiia'
     | '/zelena-karta-moldova'
     | '/zelena-karta-nimechchyna'
     | '/zelena-karta-polshcha'
@@ -540,6 +580,10 @@ export interface FileRouteTypes {
     | '/turystychne-strahuvannya'
     | '/vidhuky'
     | '/zelena-karta'
+    | '/zelena-karta-bolhariia'
+    | '/zelena-karta-frantsiia'
+    | '/zelena-karta-ispaniia'
+    | '/zelena-karta-italiia'
     | '/zelena-karta-moldova'
     | '/zelena-karta-nimechchyna'
     | '/zelena-karta-polshcha'
@@ -590,6 +634,10 @@ export interface FileRouteTypes {
     | '/turystychne-strahuvannya'
     | '/vidhuky'
     | '/zelena-karta'
+    | '/zelena-karta-bolhariia'
+    | '/zelena-karta-frantsiia'
+    | '/zelena-karta-ispaniia'
+    | '/zelena-karta-italiia'
     | '/zelena-karta-moldova'
     | '/zelena-karta-nimechchyna'
     | '/zelena-karta-polshcha'
@@ -641,6 +689,10 @@ export interface RootRouteChildren {
   TurystychneStrahuvannyaRoute: typeof TurystychneStrahuvannyaRoute
   VidhukyRoute: typeof VidhukyRoute
   ZelenaKartaRoute: typeof ZelenaKartaRoute
+  ZelenaKartaBolhariiaRoute: typeof ZelenaKartaBolhariiaRoute
+  ZelenaKartaFrantsiiaRoute: typeof ZelenaKartaFrantsiiaRoute
+  ZelenaKartaIspaniiaRoute: typeof ZelenaKartaIspaniiaRoute
+  ZelenaKartaItaliiaRoute: typeof ZelenaKartaItaliiaRoute
   ZelenaKartaMoldovaRoute: typeof ZelenaKartaMoldovaRoute
   ZelenaKartaNimechchynaRoute: typeof ZelenaKartaNimechchynaRoute
   ZelenaKartaPolshchaRoute: typeof ZelenaKartaPolshchaRoute
@@ -902,6 +954,34 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ZelenaKartaRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/zelena-karta-bolhariia': {
+      id: '/zelena-karta-bolhariia'
+      path: '/zelena-karta-bolhariia'
+      fullPath: '/zelena-karta-bolhariia'
+      preLoaderRoute: typeof ZelenaKartaBolhariiaRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/zelena-karta-frantsiia': {
+      id: '/zelena-karta-frantsiia'
+      path: '/zelena-karta-frantsiia'
+      fullPath: '/zelena-karta-frantsiia'
+      preLoaderRoute: typeof ZelenaKartaFrantsiiaRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/zelena-karta-ispaniia': {
+      id: '/zelena-karta-ispaniia'
+      path: '/zelena-karta-ispaniia'
+      fullPath: '/zelena-karta-ispaniia'
+      preLoaderRoute: typeof ZelenaKartaIspaniiaRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/zelena-karta-italiia': {
+      id: '/zelena-karta-italiia'
+      path: '/zelena-karta-italiia'
+      fullPath: '/zelena-karta-italiia'
+      preLoaderRoute: typeof ZelenaKartaItaliiaRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/zelena-karta-moldova': {
       id: '/zelena-karta-moldova'
       path: '/zelena-karta-moldova'
@@ -1046,6 +1126,10 @@ const rootRouteChildren: RootRouteChildren = {
   TurystychneStrahuvannyaRoute: TurystychneStrahuvannyaRoute,
   VidhukyRoute: VidhukyRoute,
   ZelenaKartaRoute: ZelenaKartaRoute,
+  ZelenaKartaBolhariiaRoute: ZelenaKartaBolhariiaRoute,
+  ZelenaKartaFrantsiiaRoute: ZelenaKartaFrantsiiaRoute,
+  ZelenaKartaIspaniiaRoute: ZelenaKartaIspaniiaRoute,
+  ZelenaKartaItaliiaRoute: ZelenaKartaItaliiaRoute,
   ZelenaKartaMoldovaRoute: ZelenaKartaMoldovaRoute,
   ZelenaKartaNimechchynaRoute: ZelenaKartaNimechchynaRoute,
   ZelenaKartaPolshchaRoute: ZelenaKartaPolshchaRoute,
