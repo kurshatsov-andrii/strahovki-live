@@ -19,19 +19,19 @@ export function GreenCardRestrictions() {
             </div>
           </div>
 
-          <div className="mt-6 overflow-x-auto rounded-xl border border-border bg-card">
-            <table className="w-full min-w-[420px] border-collapse text-left text-sm sm:text-base">
+          <div className="mt-6 rounded-xl border border-border bg-card">
+            <table className="w-full table-fixed border-collapse text-left text-sm sm:table-auto sm:text-base">
               <thead className="bg-secondary/70">
                 <tr>
-                  <th scope="col" className="px-4 py-3 font-semibold">Марка авто</th>
-                  <th scope="col" className="px-4 py-3 font-semibold">Модель авто</th>
+                  <th scope="col" className="break-words px-2 py-3 font-semibold sm:px-4">Марка авто</th>
+                  <th scope="col" className="break-words px-2 py-3 font-semibold sm:px-4">Модель авто</th>
                 </tr>
               </thead>
               <tbody>
                 {greenCardRestrictions.map((restriction) => (
                   <tr key={restriction.brand} className="border-t border-border">
-                    <td className="px-4 py-3 font-medium">{restriction.brand}</td>
-                    <td className="px-4 py-3">{restriction.models.join(", ")}</td>
+                    <td className="break-words px-2 py-3 align-top font-medium sm:px-4">{restriction.brand}</td>
+                    <td className="break-words px-2 py-3 align-top sm:px-4">{restriction.models.join(", ")}</td>
                   </tr>
                 ))}
               </tbody>
