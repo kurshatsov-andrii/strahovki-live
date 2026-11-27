@@ -3,12 +3,13 @@ import { travelCountries, travelDescription, travelTitle, travelH1 } from "@/con
 import { getLegacyRedirect } from "@/lib/legacy-redirects";
 
 describe("travel country pages", () => {
-  it("has the 12 requested countries", () => {
+  it("has the 15 requested countries", () => {
     expect(travelCountries.map((c) => c.path)).toEqual([
       "/strahovka-v-polshchu", "/strahovka-v-bolhariiu", "/strahovka-v-moldovu", "/strahovka-v-rumuniiu",
       "/strahovka-v-nimechchynu", "/strahovka-v-turechchynu", "/strahovka-v-uhorshchynu",
       "/strahovka-v-slovachchynu", "/strahovka-v-chekhiiu",
       "/strahovka-v-ispaniiu", "/strahovka-v-hretsiiu", "/strahovka-v-chornohoriiu",
+      "/strahovka-v-hruziiu", "/strahovka-v-yehypet", "/strahovka-v-kipr",
     ]);
   });
   it("Poland matches the brief", () => {

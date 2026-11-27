@@ -3,6 +3,7 @@ import { ProductPage } from "@/components/templates/product-page";
 import { products } from "@/content/site";
 import { breadcrumbScript } from "@/lib/jsonld";
 import { TravelCountriesLinks } from "@/components/templates/travel-country-page";
+import { TravelAudiencesLinks } from "@/components/templates/travel-audience-page";
 
 const title = "Туристичне страхування онлайн — страховка за кордон";
 const description =
@@ -41,5 +42,5 @@ export const Route = createFileRoute("/turystychne-strahuvannya")({
       ]),
     ],
   }),
-  component: () => <ProductPage content={products.travel} product="travel" extra={<TravelCountriesLinks />} />,
+  component: () => <ProductPage content={products.travel} product="travel" extra={<><TravelAudiencesLinks /><TravelCountriesLinks /></>} />,
 });
